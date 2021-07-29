@@ -97,9 +97,10 @@
       </div>
     </div>
     <div class="container">
-      <el-carousel :interval="5000">
+      <el-carousel :height="cHeight">
         <el-carousel-item>
           <img src="../assets/image/adimg.png" class="rwdimg">
+          <div class="cover-img" />
         </el-carousel-item>
         <el-carousel-item>
           <img src="../assets/image/adimg.png" class="rwdimg">
@@ -139,24 +140,13 @@ export default {
     const request = {
       User_Code: 'qnWcdVmhuDtFPtZtczybJQ%3d%3d'
     };
-    // 用then的作法
-    // axios.post('http://54.150.124.230:38086/api/Home', { Data: JSON.stringify(request) }, { headers }).then((res) => {
-    //   const resData = JSON.parse(res.data.Data);
-    //   // eslint-disable-next-line no-console
-    //   console.log(resData);
-    //   // eslint-disable-next-line no-console
-    //   console.log(1111);
-    //   return { testData: resData.List_NewFunction };
-    // });
     const apiData = await axios.post('http://54.150.124.230:38086/api/Home', { Data: JSON.stringify(request) }, { headers });
-    // eslint-disable-next-line no-console
     const resData = JSON.parse(apiData.data.Data);
-    // eslint-disable-next-line no-console
-    // console.log(resData);
     return { testData: resData };
   },
   data () {
     return {
+      cHeight: 0,
       banners: ['coffee.svg', 'feet.svg', 'femalebag.svg', 'health.png', 'nightlife.svg', 'shopping.svg', 'tea.svg', 'tour.svg', 'transport.svg'],
       swiperOption: {
         slidesPerView: 9,
@@ -179,6 +169,12 @@ export default {
           }
         }
       }
+    };
+  },
+  mounted () {
+    this.cHeight = window.innerWidth > 767 ? '490px' : '200px';
+    window.onresize = () => {
+      this.cHeight = window.innerWidth > 767 ? '490px' : '168px';
     };
   }
 };

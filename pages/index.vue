@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home">{{ env }}
     <div class="default-banner container">
       <img src="../assets/image/default-banner.png" class="rwdimgmax">
     </div>
@@ -127,7 +127,7 @@ export default {
   directives: {
     swiper: directive
   },
-  async asyncData () {
+  async asyncData (context) {
     const headers = {
       'Content-Type': 'application/json',
       xEyes_Command: '1110',
@@ -142,7 +142,10 @@ export default {
     };
     const apiData = await axios.post('http://54.150.124.230:38086/api/Home', { Data: JSON.stringify(request) }, { headers });
     const resData = JSON.parse(apiData.data.Data);
-    return { testData: resData };
+    return {
+      testData: resData,
+      env: context.env.SIDE_ENV
+    };
   },
   data () {
     return {

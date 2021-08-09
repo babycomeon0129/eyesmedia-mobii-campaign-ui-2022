@@ -21,9 +21,6 @@ const envObj = {
   }
 };
 
-// console.log(`環境：${process.env.NODE_ENV}`);
-// console.log(`配置API位置：${process.env.BASE}`);
-
 export default {
   mode: 'universal', // spa or universal
 
@@ -68,7 +65,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/element-ui',
-    { src: '@/plugins/vue-awesome-swiper', mode: 'client' }
+    { src: '@/plugins/vue-awesome-swiper', mode: 'client' },
+    '~/plugins/gtm'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -85,8 +83,23 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
-    ['cookie-universal-nuxt', { parseJSON: false }]
+    ['cookie-universal-nuxt', { parseJSON: false }],
+    '@nuxtjs/gtm'
   ],
+  gtm: {
+    id: 'GTM-MQX7SSB',
+    enabled: true,
+    pageTracking: true,
+    autoInit: true
+  },
+  publicRuntimeConfig: {
+    gtm: {
+      id: 'GTM-MQX7SSB',
+      enabled: true,
+      pageTracking: true,
+      autoInit: true
+    }
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},

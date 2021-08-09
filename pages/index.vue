@@ -1,5 +1,7 @@
 <template>
-  <div class="home">{{ env }}
+  <div class="home">
+    <nuxt-link :to="'/gui'" no-prefetch>前往gui頁</nuxt-link>
+    <button type="button" class="submit-button icon-ic_send">測試GTM</button>
     <div class="default-banner container">
       <img src="../assets/image/default-banner.png" class="rwdimgmax">
     </div>
@@ -119,7 +121,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { directive } from 'vue-awesome-swiper';
 
 export default {
@@ -127,7 +128,11 @@ export default {
   directives: {
     swiper: directive
   },
+  middleware (context) {
+    context.$gtm.push({ event: 'sit網站瀏覽' });
+  },
   async asyncData (context) {
+    // console.log('context', context);
     const headers = {
       'Content-Type': 'application/json',
       xEyes_Command: '1110',
@@ -140,7 +145,7 @@ export default {
     const request = {
       User_Code: 'qnWcdVmhuDtFPtZtczybJQ%3d%3d'
     };
-    const apiData = await axios.post('http://54.150.124.230:38086/api/Home', { Data: JSON.stringify(request) }, { headers });
+    const apiData = await context.$axios.post('http://54.150.124.230:38086/api/Home', { Data: JSON.stringify(request) }, { headers });
     const resData = JSON.parse(apiData.data.Data);
     return {
       testData: resData,
@@ -149,7 +154,7 @@ export default {
   },
   data () {
     return {
-      cHeight: 0,
+      cHeight: '0px',
       banners: ['coffee.svg', 'feet.svg', 'femalebag.svg', 'health.png', 'nightlife.svg', 'shopping.svg', 'tea.svg', 'tour.svg', 'transport.svg'],
       swiperOption: {
         slidesPerView: 9,
@@ -173,6 +178,9 @@ export default {
         }
       }
     };
+  },
+  created () {
+    console.log('language >>>> ', this.$cookies.get('language'));
   },
   mounted () {
     this.cHeight = window.innerWidth > 767 ? '490px' : '200px';

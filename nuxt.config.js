@@ -6,17 +6,20 @@ const envObj = {
     dev: {
       apiPath: 'sit.lucas.com/api/v1',
       GA: '',
-      host: '0.0.0.0'
+      host: '0.0.0.0',
+      port: 8083
     },
     sit: {
       apiPath: 'sit1.lucas.com/api/v1',
       GA: 'UA-145003593-1',
-      host: '0.0.0.0'
+      host: '0.0.0.0',
+      port: 80
     },
     biz: {
       apiPath: 'biz.lucas.com/api/v1',
       GA: 'UA-145003593-6',
-      host: '210.65.10.85'
+      host: '210.65.10.85',
+      port: 80
     }
   }
 };
@@ -150,7 +153,8 @@ export default {
   },
 
   server: {
-    port: 8083, // default: 3000
+    // port: 8083, // default: 3000
+    port: envObj.get(process.env.SIDE_ENV).port,
     // host: '0.0.0.0' // default: localhost  // 210.65.10.85
     host: envObj.get(process.env.SIDE_ENV).host
   }

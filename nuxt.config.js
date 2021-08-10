@@ -12,7 +12,7 @@ const envObj = {
     sit: {
       apiPath: 'sit1.lucas.com/api/v1',
       GA: 'UA-145003593-1',
-      host: '0.0.0.0',
+      host: '210.65.10.85',
       port: 80
     },
     biz: {

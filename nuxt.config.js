@@ -13,13 +13,13 @@ const envObj = {
       apiPath: 'sit1.lucas.com/api/v1',
       GA: 'UA-145003593-1',
       host: '210.65.10.85',
-      port: 80
+      port: 8080
     },
     biz: {
       apiPath: 'biz.lucas.com/api/v1',
       GA: 'UA-145003593-6',
       host: '210.65.10.85',
-      port: 80
+      port: 8080
     }
   }
 };

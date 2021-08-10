@@ -131,6 +131,11 @@ export default {
   middleware (context) {
     context.$gtm.push({ event: 'sit網站瀏覽' });
   },
+  head () {
+    return {
+      title: 'mobii 活動模組 測試頁'
+    };
+  },
   async asyncData (context) {
     // console.log('context', context);
     const headers = {

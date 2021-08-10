@@ -5,7 +5,7 @@ const envObj = {
   defind: {
     dev: {
       apiPath: 'sit.lucas.com/api/v1',
-      GA: '',
+      GA: 'UA-145003593-1',
       host: '0.0.0.0',
       port: 8083
     },
@@ -17,7 +17,7 @@ const envObj = {
     },
     biz: {
       apiPath: 'biz.lucas.com/api/v1',
-      GA: 'UA-145003593-6',
+      GA: 'UA-145003593-8',
       host: '210.65.10.85',
       port: 80
     }
@@ -78,7 +78,8 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/google-analytics'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -87,7 +88,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     ['cookie-universal-nuxt', { parseJSON: false }],
-    '@nuxtjs/gtm'
+    '@nuxtjs/gtm',
+    '@nuxtjs/google-gtag'
   ],
   gtm: {
     id: 'GTM-MQX7SSB',
@@ -95,12 +97,33 @@ export default {
     pageTracking: true,
     autoInit: true
   },
+  'google-gtag': {
+    id: envObj.get(process.env.SIDE_ENV).GA,
+    debug: true,
+    disableAutoPageTrack: false,
+    config: {
+      anonymize_ip: true,
+      send_page_view: false // 避免頁面刷新時後的重複追蹤
+    }
+  },
+
+  googleAnalytics: {
+    id: envObj.get(process.env.SIDE_ENV).GA,
+    debug: {
+      enabled: true,
+      sendHitTask: true
+    }
+  },
+
   publicRuntimeConfig: {
     gtm: {
       id: 'GTM-MQX7SSB',
       enabled: true,
       pageTracking: true,
       autoInit: true
+    },
+    googleAnalytics: {
+      id: envObj.get(process.env.SIDE_ENV).GA
     }
   },
 

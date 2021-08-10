@@ -10,8 +10,11 @@
 <script>
 export default {
   name: 'gui',
-  middleware (context) {
-    // context.$gtm.push({ event: 'sit網站瀏覽' });
+  middleware (context) {},
+  head () {
+    return {
+      title: 'GUI'
+    };
   },
   components: {},
   data () {

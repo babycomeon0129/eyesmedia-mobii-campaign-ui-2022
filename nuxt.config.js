@@ -1,3 +1,6 @@
+import path from 'path';
+import fs from 'fs';
+
 const envObj = {
   get (envName) {
     return envObj.defind[envName];
@@ -176,6 +179,14 @@ export default {
   },
 
   server: {
+    /** https憑證設定
+     * 注意: server_mobii_202101.key 與 mobii_20210112.pem 有時效性,
+     * 當過期之後需找網管人員提供.
+    */
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'server_mobii_202101.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'mobii_20210112.pem'))
+    },
     // port: 8083, // default: 3000
     port: envObj.get(process.env.SIDE_ENV).port,
     // host: '0.0.0.0' // default: localhost  // 210.65.10.85

@@ -150,7 +150,7 @@ export default {
     const request = {
       User_Code: 'qnWcdVmhuDtFPtZtczybJQ%3d%3d'
     };
-    const apiData = await context.$axios.post('http://54.150.124.230:38086/api/Home', { Data: JSON.stringify(request) }, { headers });
+    const apiData = await context.$axios.post('https://sit-afpapi.mobii.ai/api/Home', { Data: JSON.stringify(request) }, { headers });
     const resData = JSON.parse(apiData.data.Data);
     return {
       testData: resData,

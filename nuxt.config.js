@@ -133,12 +133,12 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
   proxy: {
-    api: {
+    /* api: {
       target: 'http://54.150.124.230:38086/api/Home',
       pathRewrite: {
         '^/api': '/'
       }
-    }
+    } */
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

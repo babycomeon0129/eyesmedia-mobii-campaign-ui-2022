@@ -92,7 +92,8 @@ export default {
     '@nuxtjs/proxy',
     ['cookie-universal-nuxt', { parseJSON: false }],
     '@nuxtjs/gtm',
-    '@nuxtjs/google-gtag'
+    '@nuxtjs/google-gtag',
+    '@nuxtjs/robots'
   ],
   gtm: {
     id: 'GTM-MQX7SSB',
@@ -102,7 +103,7 @@ export default {
   },
   'google-gtag': {
     id: envObj.get(process.env.SIDE_ENV).GA,
-    debug: true,
+    debug: process.env.NODE_ENV !== 'production',
     disableAutoPageTrack: false,
     config: {
       anonymize_ip: true,
@@ -113,10 +114,22 @@ export default {
   googleAnalytics: {
     id: envObj.get(process.env.SIDE_ENV).GA,
     debug: {
-      enabled: true,
+      enabled: process.env.NODE_ENV !== 'production',
       sendHitTask: true
     }
   },
+
+  /** robots
+   * UserAgent  搜尋引擎類型
+   * Disallow   設定不能被讀取的路徑, 如登入後的使用者相關資料頁面路徑不可被爬 /user
+  */
+  robots: [{
+    UserAgent: '*', // any robot
+    Disallow: ['/gui']
+  }, {
+    UserAgent: 'Googlebot', // all Google services
+    Disallow: ['/gui']
+  }],
 
   publicRuntimeConfig: {
     gtm: {
@@ -130,16 +143,6 @@ export default {
     }
   },
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
-  proxy: {
-    /* api: {
-      target: 'http://54.150.124.230:38086/api/Home',
-      pathRewrite: {
-        '^/api': '/'
-      }
-    } */
-  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: [/^element-ui/],

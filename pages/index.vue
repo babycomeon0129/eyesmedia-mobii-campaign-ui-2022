@@ -1,7 +1,11 @@
 <template>
   <div class="home">
-    <nuxt-link :to="'/gui'" no-prefetch>前往gui頁</nuxt-link>
-    <button type="button" class="submit-button icon-ic_send">測試GTM</button>
+    <nuxt-link :to="'/gui'" no-prefetch>
+      前往gui頁
+    </nuxt-link>
+    <button type="button" class="submit-button icon-ic_send">
+      測試GTM
+    </button>
     <div class="default-banner container">
       <img src="../assets/image/default-banner.png" class="rwdimgmax">
     </div>
@@ -131,11 +135,6 @@ export default {
   middleware (context) {
     context.$gtm.push({ event: 'sit網站瀏覽' });
   },
-  head () {
-    return {
-      title: 'mobii 活動模組 測試頁'
-    };
-  },
   async asyncData (context) {
     // console.log('context', context);
     const headers = {
@@ -182,6 +181,11 @@ export default {
           }
         }
       }
+    };
+  },
+  head () {
+    return {
+      title: 'mobii 活動模組 測試頁'
     };
   },
   created () {

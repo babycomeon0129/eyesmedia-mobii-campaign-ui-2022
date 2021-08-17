@@ -1,7 +1,11 @@
 <template>
   <div class="home">
-    <nuxt-link :to="'/gui'" no-prefetch>前往gui頁</nuxt-link>
-    <button type="button" class="submit-button icon-ic_send">測試GTM</button>
+    <nuxt-link :to="'/gui'" no-prefetch>
+      前往gui頁
+    </nuxt-link>
+    <button type="button" class="submit-button icon-ic_send">
+      測試GTM
+    </button>
     <div class="default-banner container">
       <img src="../assets/image/default-banner.png" class="rwdimgmax">
     </div>
@@ -99,15 +103,16 @@
       </div>
     </div>
     <div class="container">
-      <el-carousel :height="cHeight">
-        <el-carousel-item>
-          <img src="../assets/image/adimg.png" class="rwdimg">
-          <div class="cover-img" />
-        </el-carousel-item>
-        <el-carousel-item>
-          <img src="../assets/image/adimg.png" class="rwdimg">
-        </el-carousel-item>
-      </el-carousel>
+      <div v-swiper:mySwiper="Banner2swiperOption">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="../assets/image/adimg.png" class="rwdimg">
+          </div>
+          <div class="swiper-slide">
+            <img src="../assets/image/adimg.png" class="rwdimg">
+          </div>
+        </div>
+      </div>
     </div>
     <div class="block">
       <span class="demonstration">來Call SIT API 看看吧</span>
@@ -130,11 +135,6 @@ export default {
   },
   middleware (context) {
     context.$gtm.push({ event: 'sit網站瀏覽' });
-  },
-  head () {
-    return {
-      title: 'mobii 活動模組 測試頁'
-    };
   },
   async asyncData (context) {
     // console.log('context', context);
@@ -181,7 +181,27 @@ export default {
             spaceBetween: 0
           }
         }
+      },
+      Banner2swiperOption: {
+        slidesPerView: 1.1,
+        spaceBetween: 10,
+        slidesPerGroup: 1,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false
+        }
       }
+    };
+  },
+  head () {
+    return {
+      title: 'mobii 活動模組 測試頁'
     };
   },
   created () {

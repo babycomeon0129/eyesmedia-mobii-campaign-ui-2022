@@ -103,15 +103,16 @@
       </div>
     </div>
     <div class="container">
-      <el-carousel :height="cHeight">
-        <el-carousel-item>
-          <img src="../assets/image/adimg.png" class="rwdimg">
-          <div class="cover-img" />
-        </el-carousel-item>
-        <el-carousel-item>
-          <img src="../assets/image/adimg.png" class="rwdimg">
-        </el-carousel-item>
-      </el-carousel>
+      <div v-swiper:mySwiper="Banner2swiperOption">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="../assets/image/adimg.png" class="rwdimg">
+          </div>
+          <div class="swiper-slide">
+            <img src="../assets/image/adimg.png" class="rwdimg">
+          </div>
+        </div>
+      </div>
     </div>
     <div class="block">
       <span class="demonstration">來Call SIT API 看看吧</span>
@@ -179,6 +180,21 @@ export default {
             slidesPerView: 9,
             spaceBetween: 0
           }
+        }
+      },
+      Banner2swiperOption: {
+        slidesPerView: 1.1,
+        spaceBetween: 10,
+        slidesPerGroup: 1,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false
         }
       }
     };

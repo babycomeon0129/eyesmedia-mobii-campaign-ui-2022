@@ -6,9 +6,8 @@
     <button type="button" class="submit-button icon-ic_send">
       測試GTM
     </button>
-    <div class="default-banner container">
-      <img src="../assets/image/default-banner.png" class="rwdimgmax">
-    </div>
+    <ActivityHeader />
+    <DefualeBanner :slides-per-view="1" />
     <!-- 電腦版ICON -->
     <div v-swiper="swiperOption" class="w-5/6 ml-auto relative index-icon hide-m hide-p container" :loadtheme="false">
       <div class="swiper-wrapper">
@@ -240,11 +239,6 @@ export default {
   }
 }
 
-.default-banner {
-  &.container{
-    padding: 0;
-  }
-}
 .index-icon {
   background: #fff;
   box-shadow: 0px 2px 7px -1px rgba(147, 137, 117, 0.2);

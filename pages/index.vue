@@ -1,131 +1,128 @@
 <template>
-  <div class="home">
-    <nuxt-link :to="'/gui'" no-prefetch>
-      前往gui頁
-    </nuxt-link>
-    <button type="button" class="submit-button icon-ic_send">
-      測試GTM
-    </button>
+  <div class="channel-wrap">
     <ActivityHeader />
-    <DefualeBanner :slides-per-view="1" />
-    <!-- 電腦版ICON -->
-    <div v-swiper="swiperOption" class="w-5/6 ml-auto relative index-icon hide-m hide-p container" :loadtheme="false">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide index-icon-item">
-          <!-- Render original HTML in server, render Swiper in browser (client) -->
-          <img src="../assets/image/coffee.svg">
-          <p>健康</p>
-        </div>
-        <div class="swiper-slide index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-        <div class="swiper-slide index-icon-item">
-          <img src="../assets/image/femalebag.svg">
-          <p>品酒去</p>
-        </div>
-        <div class="swiper-slide index-icon-item">
-          <img src="../assets/image/health.png">
-          <p>跨境購物</p>
-        </div>
-        <div class="swiper-slide index-icon-item">
-          <img src="../assets/image/nightlife.svg">
-          <p>品茗城</p>
-        </div>
-        <div class="swiper-slide index-icon-item">
-          <img src="../assets/image/shopping.svg">
-          <p>旅遊</p>
-        </div>
-        <div class="swiper-slide index-icon-item">
-          <img src="../assets/image/tea.svg">
-          <p>品咖啡</p>
-        </div>
-        <div class="swiper-slide index-icon-item">
-          <img src="../assets/image/tour.svg">
-          <p>限時特賣</p>
-        </div>
-        <div class="swiper-slide index-icon-item">
-          <img src="../assets/image/transport.svg">
-          <p>交通</p>
-        </div>
+    <main>
+      <div class="top-banner">
+        <SwiperBanner :slides-per-view="1" :banner-img="topBanner" />
       </div>
-      <div id="swiper-button-prev" slot="button-prev" class="ctrl-btn prev">
-        <img src="../assets/image/btn-prev.png">
-      </div>
-      <div id="swiper-button-next" slot="button-next" class="ctrl-btn next">
-        <img src="../assets/image/btn-next.png">
-      </div>
-    </div>
-    <!-- 手機、IPAD版ICON -->
-    <div class="container mobile-icon">
-      <div class="index-icon hide-ds hide-d">
-        <div class="index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-        <div class="index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-        <div class="index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-        <div class="index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-        <div class="index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-        <div class="index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-        <div class="index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-        <div class="index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-        <div class="index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-        <div class="index-icon-item">
-          <img src="../assets/image/feet.svg">
-          <p>健康</p>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div v-swiper:mySwiper="Banner2swiperOption">
+      <!-- 電腦版ICON -->
+      <div v-swiper="swiperOption" class="w-5/6 ml-auto relative index-icon hide-m hide-p container" :navigation="true">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img src="../assets/image/adimg.png" class="rwdimg">
+          <div class="swiper-slide index-icon-item">
+            <!-- Render original HTML in server, render Swiper in browser (client) -->
+            <img src="~assets/image/coffee.svg">
+            <p>健康</p>
           </div>
-          <div class="swiper-slide">
-            <img src="../assets/image/adimg.png" class="rwdimg">
+          <div class="swiper-slide index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </div>
+          <div class="swiper-slide index-icon-item">
+            <img src="~assets/image/femalebag.svg">
+            <p>品酒去</p>
+          </div>
+          <div class="swiper-slide index-icon-item">
+            <img src="~assets/image/health.png">
+            <p>跨境購物</p>
+          </div>
+          <div class="swiper-slide index-icon-item">
+            <img src="~assets/image/nightlife.svg">
+            <p>品茗城</p>
+          </div>
+          <div class="swiper-slide index-icon-item">
+            <img src="~assets/image/shopping.svg">
+            <p>旅遊</p>
+          </div>
+          <div class="swiper-slide index-icon-item">
+            <img src="~assets/image/tea.svg">
+            <p>品咖啡</p>
+          </div>
+          <div class="swiper-slide index-icon-item">
+            <img src="~assets/image/tour.svg">
+            <p>限時特賣</p>
+          </div>
+          <div class="swiper-slide index-icon-item">
+            <img src="~assets/image/transport.svg">
+            <p>交通</p>
           </div>
         </div>
+        <div id="swiper-button-prev" slot="button-prev" class="ctrl-btn prev">
+          <img src="~assets/image/btn-prev.png">
+        </div>
+        <div id="swiper-button-next" slot="button-next" class="ctrl-btn next">
+          <img src="~assets/image/btn-next.png">
+        </div>
       </div>
-    </div>
-    <div class="block">
-      <span class="demonstration">來Call SIT API 看看吧</span>
-      <ul>
-        <li v-for="item in testData.List_NewFunction" :key="item.CategaryCode">
-          {{ item.CategaryName }}
-        </li>
-      </ul>
-    </div>
+      <!-- 手機、IPAD版ICON -->
+      <div class="mobile-icon">
+        <div class="index-icon hide-ds hide-d">
+          <a class="index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </a>
+          <a class="index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </a>
+          <a class="index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </a>
+          <a class="index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </a>
+          <a class="index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </a>
+          <a class="index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </a>
+          <a class="index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </a>
+          <a class="index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </a>
+          <a class="index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </a>
+          <a class="index-icon-item">
+            <img src="~assets/image/feet.svg">
+            <p>健康</p>
+          </a>
+        </div>
+      </div>
+      <!--SwiperBanner /-->
+      <h3>專屬新聞</h3>
+      <ActivityNews />
+      <div class="block">
+        <span class="demonstration">來Call SIT API 看看吧</span>
+        <ul>
+          <li v-for="item in testData.List_NewFunction" :key="item.CategaryCode">
+            {{ item.CategaryName }}
+          </li>
+        </ul>
+        <nuxt-link :to="'/gui'" no-prefetch>
+          前往gui頁
+        </nuxt-link>
+        <button type="button" class="submit-button icon-ic_send">
+          測試GTM
+        </button>
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
 import { directive } from 'vue-awesome-swiper';
+// 測試資料區
+import topBanner from '@/assets/image/default-banner.png';
 
 export default {
   name: 'Index',
@@ -195,7 +192,8 @@ export default {
           delay: 3000,
           disableOnInteraction: false
         }
-      }
+      },
+      topBanner
     };
   },
   head () {
@@ -217,26 +215,35 @@ export default {
 
 <style lang="scss" scoped>
 
-.home {
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
+/* 一頁式活動共用參數 */
+$header-height: 56px;
+$channel-color: #FF9D42;
+
+.channel-wrap {
+  width: 100%;
+  height: 100%;
+  min-width: 320px;
+  max-width: 1140px;
+  position: relative;
+  margin: 0 auto;
   text-align: center;
-  ::v-deep .el-carousel__button {
-    // 修改element ui css
-    height: 4px;
-    border-radius: 99px;
-    background-color:#DADADA;
-  }
-  ::v-deep .is-active {
-    .el-carousel__button {
-    // 修改element ui css
-     background-color:#FFB26B;
-    }
-  }
-  &.container{
-    padding: 0;
-  }
+}
+
+/** main */
+main {
+  margin-top: $header-height;
+  height: calc(100vh - $header-height);
+  width: 100%;
+}
+
+/** banner */
+.top-banner {
+  position: relative;
+  z-index: 1;
+}
+
+.rwdimg-cover.h55 {
+    padding-bottom: 55%;
 }
 
 .index-icon {
@@ -245,8 +252,12 @@ export default {
   border-radius: 50px;
   padding: 2em 0;
   margin-top: -50px;
+  @media (max-width: 767px) {
+    margin-top: -20px;
+    border-radius: 30px;
+  }
   .ctrl-btn {
-    position:  absolute;
+    position: absolute;
     top: 45%;
     &.prev {
       left: 0;
@@ -258,13 +269,13 @@ export default {
 }
 
 .mobile-icon {
-  margin-top: -20px;
+  z-index: 1;
   .index-icon {
     display: flex;
     justify-content: center;
     width: 100%;
     flex-wrap: wrap;
-    padding: 2em 1em;
+    padding: 1em;
     .index-icon-item{
       width: 20%;
     }
@@ -282,7 +293,8 @@ export default {
     p {
     color: #13334C;
     margin: 0;
-    line-height: 200%;
+    line-height: 150%;
+    font-size: small;
   }
   }
 
@@ -306,6 +318,12 @@ export default {
 
 .links {
   padding-top: 15px;
+}
+
+h3 {
+  text-align: left;
+  color: #13334C;
+
 }
 
 </style>

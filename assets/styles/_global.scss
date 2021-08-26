@@ -6,6 +6,8 @@
 @import "./column.scss";
 @import "./table.scss";
 @import "./media.scss";
+@import "./styles";
+
 
 /** 全域 */
 html,
@@ -64,7 +66,9 @@ a {
     margin       : 0 auto;
     padding: 14px 30px;
     position     : relative;
-
+    @media (max-width: 767px) {
+      padding: 10px 20px;
+    }
 }
 
 /*defaultimg*/
@@ -188,7 +192,6 @@ input {
 
 .btn {
     display            : inline-block;
-    width              : 100%;
     font-weight        : 400;
     color              : #212529;
     text-align         : center;
@@ -204,6 +207,7 @@ input {
     line-height        : 1.5;
     border-radius      : .25rem;
     transition         : color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    white-space: nowrap;
 }
 
 .btn:focus {
@@ -218,4 +222,16 @@ input {
 
 .d-block {
     display: block;
+}
+
+.rwdimg-cover {
+  display: flex;
+  width: 100%;
+  min-height: 60px;
+  height: auto;
+  padding-bottom: 100%;
+  overflow: hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

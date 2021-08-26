@@ -34,7 +34,7 @@ export default {
   head: {
     title: 'eyesmedia-activity-module',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'zh-Hant-TW'
     },
     meta: [
       { charset: 'utf-8' },

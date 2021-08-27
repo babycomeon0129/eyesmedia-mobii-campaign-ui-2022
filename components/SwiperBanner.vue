@@ -1,21 +1,25 @@
 <template>
-  <div v-swiper:mySwiper="BannerOption">
+  <div v-swiper:mySwiper="swiperOption">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <a>
+      <div v-for="banner in bannerImg" :key="banner.id" class="swiper-slide" :class="slideClass">
+        <a :class="aClass">
           <div
-            class="rwdimg-cover"
-            :style="{ backgroundImage: `url(${bannerImg})` }"
+            :class="contBackground"
+            :style="{ backgroundImage: `url(${banner.img})` }"
           />
         </a>
       </div>
     </div>
+    <!-- Add Pagination -->
+    <div v-if="pagination" class="swiper-pagination" />
+    <!-- Add Arrows -->
+    <div v-if="arrows" class="swiper-button-next" />
+    <div v-if="arrows" class="swiper-button-prev" />
   </div>
 </template>
 
 <script>
 import { directive } from 'vue-awesome-swiper';
-import backgroundUrl from '@/assets/image/default-banner.png';
 
 export default {
   name: 'SwiperBanner',
@@ -31,11 +35,11 @@ export default {
     },
     /** 圖片 */
     bannerImg: {
-      type: String,
+      type: Array,
       required: true
     },
     /** swiper <swiper-slide> class設定 */
-    swiperClass: {
+    slideClass: {
       type: String,
       default: '',
       required: false
@@ -48,34 +52,54 @@ export default {
     },
     /** swiper初始選項 */
     swiperOption: {
+      type: Object,
+      required: true
+    },
+    /** swiper是否顯示左右分頁(true顯示,false隱藏)  */
+    arrows: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    /** swiper是否顯示點點分頁(true顯示,false隱藏) */
+    pagination: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    /** swiper顯示圖片還是顯示背景圖片(true顯示圖片,false隱藏而顯示背景圖片,與contImg擇一使用) */
+    contImg: {
+      type: Boolean,
+      required: true
+    },
+    /** 圖片為背景圖片時，<div> 所需的class */
+    contBackground: {
       type: String,
       default: '',
       required: false
     }
-  },
-  data () {
-    return {
-      backgroundUrl,
-      BannerOption: {
-        slidesPerView: this.slidesPerView,
-        spaceBetween: 10,
-        slidesPerGroup: 1,
-        loop: true,
-        loopFillGroupWithBlank: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        }
-        // ,
-        // autoplay: {
-        //   delay: 3000,
-        //   disableOnInteraction: false
-        // }
-      }
-    };
   }
 };
 </script>
 
 <style lang="scss" scoped>
+::v-deep .big-banner{
+  .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+    bottom: 2px
+  }
+  .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0 2px;
+  }
+  .swiper-pagination-bullet {
+    width: 26px;
+    height: 3px;
+    border-radius: 8px;
+    opacity: 1;
+    background: #DADADA;
+    &-active {
+      background-color: #FFB26B;
+    }
+  }
+}
+
 </style>

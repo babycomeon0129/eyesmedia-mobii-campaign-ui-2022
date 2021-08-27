@@ -2,8 +2,17 @@
   <div class="channel-wrap">
     <ActivityHeader />
     <main>
+      <!-- 首頁大圖輪播 -->
       <div class="top-banner">
-        <SwiperBanner :slides-per-view="1" :banner-img="topBanner" />
+        <SwiperBanner
+          :slides-per-view="1"
+          :banner-img="topBannerArr"
+          :swiper-option="topBannerOption"
+          :pagination="false"
+          :arrows="false"
+          :cont-img="false"
+          :cont-background="'rwdimg-cover h55'"
+        />
       </div>
       <!-- 電腦版ICON -->
       <div v-swiper="swiperOption" class="w-5/6 ml-auto relative index-icon hide-m hide-p container" :navigation="true">
@@ -98,7 +107,18 @@
           </a>
         </div>
       </div>
-      <!--SwiperBanner /-->
+      <!-- 中間大廣告 -->
+      <div class="big-banner">
+        <SwiperBanner
+          :slides-per-view="1"
+          :banner-img="topBannerArr"
+          :swiper-option="bigBannerOption"
+          :pagination="true"
+          :arrows="false"
+          :cont-img="false"
+          :cont-background="'rwdimg-cover h37 border-radius5'"
+        />
+      </div>
       <h3>專屬新聞</h3>
       <ActivityNews />
       <div class="block">
@@ -122,7 +142,8 @@
 <script>
 import { directive } from 'vue-awesome-swiper';
 // 測試資料區
-import topBanner from '@/assets/image/default-banner.png';
+import banner1 from '@/assets/image/default-banner.png';
+import banner2 from '@/assets/image/banner1.png';
 
 export default {
   name: 'Index',
@@ -178,22 +199,41 @@ export default {
           }
         }
       },
-      Banner2swiperOption: {
-        slidesPerView: 1.1,
-        spaceBetween: 10,
-        slidesPerGroup: 1,
-        loop: true,
-        loopFillGroupWithBlank: true,
+      /** 首頁Banner設定 */
+      topBannerOption: {
         pagination: {
           el: '.swiper-pagination',
           clickable: true
         },
+        slidesPerView: 1,
+        spaceBetween: 0,
         autoplay: {
           delay: 3000,
           disableOnInteraction: false
         }
       },
-      topBanner
+      bigBannerOption: {
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        slidesPerView: 1.2,
+        spaceBetween: 10,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false
+        }
+      },
+      topBannerArr: [{
+        img: banner1,
+        id: 1
+      }, {
+        img: banner2,
+        id: 2
+      }, {
+        img: banner1,
+        id: 3
+      }]
     };
   },
   head () {
@@ -242,8 +282,12 @@ main {
   z-index: 1;
 }
 
-.rwdimg-cover.h55 {
-    padding-bottom: 55%;
+.big-banner {
+  position: relative;
+  padding: 0;
+  @media (max-width: 1139px) {
+    padding: 0 1em;
+  }
 }
 
 .index-icon {
@@ -326,4 +370,22 @@ h3 {
 
 }
 
+::v-deep .big-banner{
+  .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+    bottom: 2px
+  }
+  .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0 2px;
+  }
+  .swiper-pagination-bullet {
+    width: 26px;
+    height: 3px;
+    border-radius: 8px;
+    opacity: 1;
+    background: #DADADA;
+    &-active {
+      background-color: #FFB26B;
+    }
+  }
+}
 </style>

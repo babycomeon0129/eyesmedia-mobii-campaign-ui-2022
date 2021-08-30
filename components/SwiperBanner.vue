@@ -27,11 +27,10 @@ export default {
     swiper: directive
   },
   props: {
-    /** 一次輪播機張 */
-    slidesPerView: {
-      type: Number,
-      default: 1,
-      required: false
+    /** swiper初始選項 */
+    swiperOption: {
+      type: Object,
+      required: true
     },
     /** 圖片 */
     bannerImg: {
@@ -49,11 +48,6 @@ export default {
       type: String,
       default: '',
       required: false
-    },
-    /** swiper初始選項 */
-    swiperOption: {
-      type: Object,
-      required: true
     },
     /** swiper是否顯示左右分頁(true顯示,false隱藏)  */
     arrows: {
@@ -83,23 +77,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .big-banner{
-  .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
-    bottom: 2px
-  }
-  .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
-    margin: 0 2px;
-  }
-  .swiper-pagination-bullet {
-    width: 26px;
-    height: 3px;
-    border-radius: 8px;
-    opacity: 1;
-    background: #DADADA;
-    &-active {
-      background-color: #FFB26B;
-    }
-  }
-}
 
 </style>

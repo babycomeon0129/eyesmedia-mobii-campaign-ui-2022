@@ -5,126 +5,58 @@
       <!-- 首頁大圖輪播 -->
       <div class="top-banner">
         <SwiperBanner
-          :slides-per-view="1"
-          :banner-img="topBannerArr"
           :swiper-option="topBannerOption"
+          :banner-img="topBannerArr"
           :pagination="false"
           :arrows="false"
           :cont-img="false"
           :cont-background="'rwdimg-cover h55'"
         />
       </div>
-      <!-- 電腦版ICON -->
-      <div v-swiper="swiperOption" class="w-5/6 ml-auto relative index-icon hide-m hide-p container" :navigation="true">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide index-icon-item">
-            <!-- Render original HTML in server, render Swiper in browser (client) -->
-            <img src="~assets/image/coffee.svg">
-            <p>健康</p>
+      <!-- 服務icon -->
+      <div>
+        <div class="channel-icon">
+          <div class="for-pc">
+            <SwiperIcon :icon-option="boxIconPC" :icons="icons" />
           </div>
-          <div class="swiper-slide index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
+          <div class="for-mobile">
+            <SwiperIcon
+              :icon-option="boxIcon"
+              :icons="icons"
+              :icon-arrows="false"
+            />
           </div>
-          <div class="swiper-slide index-icon-item">
-            <img src="~assets/image/femalebag.svg">
-            <p>品酒去</p>
-          </div>
-          <div class="swiper-slide index-icon-item">
-            <img src="~assets/image/health.png">
-            <p>跨境購物</p>
-          </div>
-          <div class="swiper-slide index-icon-item">
-            <img src="~assets/image/nightlife.svg">
-            <p>品茗城</p>
-          </div>
-          <div class="swiper-slide index-icon-item">
-            <img src="~assets/image/shopping.svg">
-            <p>旅遊</p>
-          </div>
-          <div class="swiper-slide index-icon-item">
-            <img src="~assets/image/tea.svg">
-            <p>品咖啡</p>
-          </div>
-          <div class="swiper-slide index-icon-item">
-            <img src="~assets/image/tour.svg">
-            <p>限時特賣</p>
-          </div>
-          <div class="swiper-slide index-icon-item">
-            <img src="~assets/image/transport.svg">
-            <p>交通</p>
-          </div>
-        </div>
-        <div id="swiper-button-prev" slot="button-prev" class="ctrl-btn prev">
-          <img src="~assets/image/btn-prev.png">
-        </div>
-        <div id="swiper-button-next" slot="button-next" class="ctrl-btn next">
-          <img src="~assets/image/btn-next.png">
-        </div>
-      </div>
-      <!-- 手機、IPAD版ICON -->
-      <div class="mobile-icon">
-        <div class="index-icon hide-ds hide-d">
-          <a class="index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
-          </a>
-          <a class="index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
-          </a>
-          <a class="index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
-          </a>
-          <a class="index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
-          </a>
-          <a class="index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
-          </a>
-          <a class="index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
-          </a>
-          <a class="index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
-          </a>
-          <a class="index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
-          </a>
-          <a class="index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
-          </a>
-          <a class="index-icon-item">
-            <img src="~assets/image/feet.svg">
-            <p>健康</p>
-          </a>
         </div>
       </div>
       <!-- 中間大廣告 -->
       <div class="big-banner">
         <SwiperBanner
-          :slides-per-view="1"
-          :banner-img="topBannerArr"
           :swiper-option="bigBannerOption"
+          :banner-img="topBannerArr"
           :pagination="true"
           :arrows="false"
           :cont-img="false"
           :cont-background="'rwdimg-cover h37 border-radius5'"
         />
       </div>
-      <h3>專屬新聞</h3>
-      <ActivityNews />
+      <!-- 專屬新聞 -->
+      <section class="channel-section">
+        <h6>專屬新聞</h6>
+        <div class="channel-swiper-box">
+          <SwiperNav
+            :swiper-nav-option="boxTabs"
+            :nav-data="channel1"
+            :template="'channel-template1'"
+          />
+        </div>
+      </section>
       <div class="block">
         <span class="demonstration">來Call SIT API 看看吧</span>
         <ul>
-          <li v-for="item in testData.List_NewFunction" :key="item.CategaryCode">
+          <li
+            v-for="item in testData.List_NewFunction"
+            :key="item.CategaryCode"
+          >
             {{ item.CategaryName }}
           </li>
         </ul>
@@ -212,6 +144,7 @@ export default {
           disableOnInteraction: false
         }
       },
+      /** 中間輪播Banner */
       bigBannerOption: {
         pagination: {
           el: '.swiper-pagination',
@@ -224,6 +157,57 @@ export default {
           disableOnInteraction: false
         }
       },
+      /** 服務Icon（電腦版） */
+      boxIconPC: {
+        slidesPerView: 5,
+        breakpoints: {
+          768: {
+            slidesPerView: 7
+          },
+          1024: {
+            slidesPerView: 9
+          }
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        loop: false
+      },
+      /** 服務Icon（手機版） */
+      boxIcon: {
+        spaceBetween: 0,
+        slidesPerView: 5,
+        slidesPerColumn: 2,
+        slidesPerColumnFill: 'row',
+        slidesPerGroup: 5,
+        loop: false
+      },
+      /** 專屬新聞 tab swiper */
+      boxTabs: {
+        slidesPerView: 4.3,
+        spaceBetween: 10,
+        breakpoints: {
+          570: {
+            slidesPerView: 5.3,
+            spaceBetween: 10
+          },
+          768: {
+            slidesPerView: 6.3,
+            spaceBetween: 10
+          },
+          1024: {
+            slidesPerView: 8.3,
+            spaceBetween: 10
+          }
+        },
+        on: {
+          click () {
+            this.slideTo(this.clickedIndex);
+          }
+        }
+      },
+      /** 測試資料區 */
       topBannerArr: [{
         img: banner1,
         id: 1
@@ -233,7 +217,335 @@ export default {
       }, {
         img: banner1,
         id: 3
-      }]
+      }],
+      icons: [
+        {
+          Function_ID: 85,
+          Function_Code: 1006,
+          Function_CategaryCode: 10015,
+          Function_Name: '彩蛋',
+          Function_URL: '/Notification/NotificationDetail/380061081528577',
+          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200825/ec6c3f93-e394-4aac-8018-b5964ec75313.png',
+          Function_IsTop: 0,
+          Function_IsOther: 0,
+          Function_Sort: 0,
+          Function_URLTarget: '_self',
+          Function_IsActive: 0
+        },
+        {
+          Function_ID: 44,
+          Function_Code: 10014,
+          Function_CategaryCode: 10011,
+          Function_Name: '一元搶購',
+          Function_URL: '/Voucher/Event',
+          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200519/30874134-3c8a-45ca-bb05-141b95436060.jpg',
+          Function_IsTop: 0,
+          Function_IsOther: 0,
+          Function_Sort: 0,
+          Function_URLTarget: '_blank',
+          Function_IsActive: 1
+        },
+        {
+          Function_ID: 9,
+          Function_Code: 10009,
+          Function_CategaryCode: 10015,
+          Function_Name: '遊戲',
+          Function_URL: '/GameCenter',
+          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200519/f8d07653-40aa-4bb8-93d4-56a5b075a556.png',
+          Function_IsTop: 0,
+          Function_IsOther: 0,
+          Function_Sort: 0,
+          Function_URLTarget: '_self',
+          Function_IsActive: 1
+        },
+        {
+          Function_ID: 42,
+          Function_Code: 10016,
+          Function_CategaryCode: 10013,
+          Function_Name: '交通訂票',
+          Function_URL: '/Shopping/ProductList/210058666369001',
+          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200409/e8bbd771-1f48-4ee5-8dd1-4e7e563c4ea9.png',
+          Function_IsTop: 0,
+          Function_IsOther: 0,
+          Function_Sort: 0,
+          Function_URLTarget: '_blank',
+          Function_IsActive: 1
+        },
+        {
+          Function_ID: 49,
+          Function_Code: 10010,
+          Function_CategaryCode: 10014,
+          Function_Name: '新聞',
+          Function_URL: 'https://www.ettoday.net/',
+          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200810/d8091f44-5707-4b9d-8677-27c8b942e6fa.png',
+          Function_IsTop: 0,
+          Function_IsOther: 0,
+          Function_Sort: 0,
+          Function_URLTarget: '_blank',
+          Function_IsActive: 1
+        },
+        {
+          Function_ID: 25,
+          Function_Code: 20010,
+          Function_CategaryCode: 10011,
+          Function_Name: '自動測試用',
+          Function_URL: '/Shopping/ProductList/210064605585471',
+          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20210610/bfb8b863-4573-4dc3-9685-fb4232d10a7c.png',
+          Function_IsTop: 0,
+          Function_IsOther: 0,
+          Function_Sort: 0,
+          Function_URLTarget: '_self',
+          Function_IsActive: 1
+        },
+        {
+          Function_ID: 3,
+          Function_Code: 10003,
+          Function_CategaryCode: 10016,
+          Function_Name: '線上商城',
+          Function_URL: '/Shopping',
+          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200409/2d0b4c02-9b8b-4ccb-a69f-ca2865dd6929.png',
+          Function_IsTop: 0,
+          Function_IsOther: 0,
+          Function_Sort: 0,
+          Function_URLTarget: '_self',
+          Function_IsActive: 1
+        },
+        {
+          Function_ID: 4,
+          Function_Code: 10004,
+          Function_CategaryCode: 10016,
+          Function_Name: '找優惠',
+          Function_URL: '/Voucher/Offers',
+          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200519/7167852c-e161-4262-aa48-42a2feae14a1.jpg',
+          Function_IsTop: 0,
+          Function_IsOther: 0,
+          Function_Sort: 0,
+          Function_URLTarget: '_self',
+          Function_IsActive: 1
+        },
+        {
+          Function_ID: 46,
+          Function_Code: 10017,
+          Function_CategaryCode: 10013,
+          Function_Name: '道路救援',
+          Function_URL: 'http://www.24tms.com.tw/ugC_Home.asp?hidStyle=_Roads&hidURL=ugC_RoadRescue',
+          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200810/1fc00f21-55ee-4717-b68b-94619dd1b031.png',
+          Function_IsTop: 0,
+          Function_IsOther: 0,
+          Function_Sort: 0,
+          Function_URLTarget: '_blank',
+          Function_IsActive: 1
+        }
+      ],
+      channel1: [
+        {
+          UserDefine_ChannelID: 1111115,
+          UserDefine_Code: 210062803930555,
+          UserDefine_Name: '天母美食',
+          VoucherData: [
+            {
+              Voucher_ID: 556,
+              Voucher_Code: 460085958801227,
+              Voucher_UserVoucherCode: null,
+              Voucher_CountryCode: 886,
+              Discount_Amount: 0,
+              Voucher_UsedType: 3,
+              Voucher_UsedTypeName: null,
+              Voucher_ShowType: 2200,
+              Voucher_ShowTypeName: null,
+              Voucher_Title: '山水屋民宿',
+              Voucher_URLTarget: null,
+              Voucher_URL: null,
+              Voucher_IsFreq: 1,
+              Voucher_FreqName: '兌換',
+              Voucher_Type: 11,
+              Voucher_CompanyCode: 110042239332031,
+              Voucher_ECStoreCode: 290057515001814,
+              Voucher_ExtName: '早餐兌換券',
+              Voucher_DedPoint: 0,
+              Voucher_SpecialPoint: 0,
+              Voucher_Image: 'http://54.150.124.230:38085//Upload/Images/20210623/a198158b-02de-4050-aeac-e99b4811d139.png',
+              Voucher_ReleasedCount: 0,
+              Voucher_IssuanceLimit: 0,
+              Voucher_ReceiveLimit: 0,
+              Voucher_UsedLimitType: 0,
+              Voucher_UsedLimit: 0,
+              Voucher_CheckLimit: null,
+              Voucher_FeeType: null,
+              Voucher_UsedOnDate: '2021-06-23T15:17:00',
+              Voucher_UsedOffDate: '2022-06-23T15:17:00',
+              Voucher_OnlineDate: '2021-06-23T15:17:00',
+              Voucher_OfflineDate: '2022-06-23T15:17:00',
+              Voucher_State: 0,
+              Voucher_Content: null,
+              Voucher_Note: null,
+              VoucherRange_Prod: [],
+              List_VoucherLimit: [],
+              VoucherUseCount: null,
+              Voucher_ReceiveDate: null,
+              Voucher_IsScan: 0,
+              Voucher_SpecialPrice: 1500,
+              Voucher_SellPrice: 1200
+            },
+            {
+              Voucher_ID: 554,
+              Voucher_Code: 460083631238457,
+              Voucher_UserVoucherCode: null,
+              Voucher_CountryCode: 886,
+              Discount_Amount: 0,
+              Voucher_UsedType: 3,
+              Voucher_UsedTypeName: null,
+              Voucher_ShowType: 2000,
+              Voucher_ShowTypeName: null,
+              Voucher_Title: 'MOB-2625',
+              Voucher_URLTarget: null,
+              Voucher_URL: null,
+              Voucher_IsFreq: 1,
+              Voucher_FreqName: '兌換',
+              Voucher_Type: 1,
+              Voucher_CompanyCode: 110042239332031,
+              Voucher_ECStoreCode: 290057515001814,
+              Voucher_ExtName: 'MOB-2625 測試推播',
+              Voucher_DedPoint: 0,
+              Voucher_SpecialPoint: 0,
+              Voucher_Image: 'http://54.150.124.230:38085//Upload/Images/20210527/505061b2-ddc7-4f61-beeb-83536e8c660e.png',
+              Voucher_ReleasedCount: 0,
+              Voucher_IssuanceLimit: 0,
+              Voucher_ReceiveLimit: 0,
+              Voucher_UsedLimitType: 0,
+              Voucher_UsedLimit: 0,
+              Voucher_CheckLimit: null,
+              Voucher_FeeType: null,
+              Voucher_UsedOnDate: '2021-05-27T16:46:00',
+              Voucher_UsedOffDate: '2022-05-27T16:46:00',
+              Voucher_OnlineDate: '2021-05-27T16:46:00',
+              Voucher_OfflineDate: '2022-05-27T16:46:00',
+              Voucher_State: 0,
+              Voucher_Content: null,
+              Voucher_Note: null,
+              VoucherRange_Prod: [],
+              List_VoucherLimit: [],
+              VoucherUseCount: null,
+              Voucher_ReceiveDate: null,
+              Voucher_IsScan: 0,
+              Voucher_SpecialPrice: 0,
+              Voucher_SellPrice: 590
+            },
+            {
+              Voucher_ID: 461,
+              Voucher_Code: 460064343500681,
+              Voucher_UserVoucherCode: null,
+              Voucher_CountryCode: 886,
+              Discount_Amount: 0,
+              Voucher_UsedType: 3,
+              Voucher_UsedTypeName: null,
+              Voucher_ShowType: 2200,
+              Voucher_ShowTypeName: null,
+              Voucher_Title: '三明堂',
+              Voucher_URLTarget: null,
+              Voucher_URL: null,
+              Voucher_IsFreq: 1,
+              Voucher_FreqName: '兌換',
+              Voucher_Type: 11,
+              Voucher_CompanyCode: 110064340449969,
+              Voucher_ECStoreCode: 290064341918799,
+              Voucher_ExtName: '消費定食滿250元贈小點乙份',
+              Voucher_DedPoint: 0,
+              Voucher_SpecialPoint: 0,
+              Voucher_Image: 'http://54.150.124.230:38085//Upload/Images/20201016/c2a503cc-fb1d-42f8-b56d-cafc7dc5330f.jpg',
+              Voucher_ReleasedCount: 0,
+              Voucher_IssuanceLimit: 0,
+              Voucher_ReceiveLimit: 0,
+              Voucher_UsedLimitType: 0,
+              Voucher_UsedLimit: 0,
+              Voucher_CheckLimit: null,
+              Voucher_FeeType: null,
+              Voucher_UsedOnDate: '2020-10-16T10:53:48',
+              Voucher_UsedOffDate: '2021-11-30T23:59:59',
+              Voucher_OnlineDate: '2020-10-16T10:53:48',
+              Voucher_OfflineDate: '2021-11-30T23:59:59',
+              Voucher_State: 0,
+              Voucher_Content: null,
+              Voucher_Note: null,
+              VoucherRange_Prod: [],
+              List_VoucherLimit: [],
+              VoucherUseCount: null,
+              Voucher_ReceiveDate: null,
+              Voucher_IsScan: 0,
+              Voucher_SpecialPrice: 2300,
+              Voucher_SellPrice: 2300
+            },
+            {
+              Voucher_ID: 461,
+              Voucher_Code: 460064343500682,
+              Voucher_UserVoucherCode: null,
+              Voucher_CountryCode: 886,
+              Discount_Amount: 0,
+              Voucher_UsedType: 3,
+              Voucher_UsedTypeName: null,
+              Voucher_ShowType: 2200,
+              Voucher_ShowTypeName: null,
+              Voucher_Title: '三明堂三明堂三明堂',
+              Voucher_URLTarget: null,
+              Voucher_URL: null,
+              Voucher_IsFreq: 1,
+              Voucher_FreqName: '兌換',
+              Voucher_Type: 11,
+              Voucher_CompanyCode: 110064340449969,
+              Voucher_ECStoreCode: 290064341918799,
+              Voucher_ExtName: '消費定食滿250元贈小點乙份 消費定食滿250元贈小點乙份',
+              Voucher_DedPoint: 0,
+              Voucher_SpecialPoint: 0,
+              Voucher_Image: 'http://54.150.124.230:38085//Upload/Images/20201016/c2a503cc-fb1d-42f8-b56d-cafc7dc5330f.jpg',
+              Voucher_ReleasedCount: 0,
+              Voucher_IssuanceLimit: 0,
+              Voucher_ReceiveLimit: 0,
+              Voucher_UsedLimitType: 0,
+              Voucher_UsedLimit: 0,
+              Voucher_CheckLimit: null,
+              Voucher_FeeType: null,
+              Voucher_UsedOnDate: '2020-10-16T10:53:48',
+              Voucher_UsedOffDate: '2021-11-30T23:59:59',
+              Voucher_OnlineDate: '2020-10-16T10:53:48',
+              Voucher_OfflineDate: '2021-11-30T23:59:59',
+              Voucher_State: 0,
+              Voucher_Content: null,
+              Voucher_Note: null,
+              VoucherRange_Prod: [],
+              List_VoucherLimit: [],
+              VoucherUseCount: null,
+              Voucher_ReceiveDate: null,
+              Voucher_IsScan: 0,
+              Voucher_SpecialPrice: 11800,
+              Voucher_SellPrice: 11500
+            }
+          ]
+        },
+        {
+          UserDefine_ChannelID: 1111115,
+          UserDefine_Code: 210062803993187,
+          UserDefine_Name: '永康美食',
+          VoucherData: []
+        },
+        {
+          UserDefine_ChannelID: 1111115,
+          UserDefine_Code: 210062804019069,
+          UserDefine_Name: '永康飲品',
+          VoucherData: []
+        },
+        {
+          UserDefine_ChannelID: 1111115,
+          UserDefine_Code: 210062804193575,
+          UserDefine_Name: '永康生活',
+          VoucherData: []
+        },
+        {
+          UserDefine_ChannelID: 1111115,
+          UserDefine_Code: 210062804281370,
+          UserDefine_Name: '強打推薦',
+          VoucherData: []
+        }
+      ]
     };
   },
   head () {
@@ -254,11 +566,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-/* 一頁式活動共用參數 */
-$header-height: 56px;
-$channel-color: #FF9D42;
-
 .channel-wrap {
   width: 100%;
   height: 100%;
@@ -267,13 +574,6 @@ $channel-color: #FF9D42;
   position: relative;
   margin: 0 auto;
   text-align: center;
-}
-
-/** main */
-main {
-  margin-top: $header-height;
-  height: calc(100vh - $header-height);
-  width: 100%;
 }
 
 /** banner */
@@ -290,91 +590,54 @@ main {
   }
 }
 
-.index-icon {
-  background: #fff;
-  box-shadow: 0px 2px 7px -1px rgba(147, 137, 117, 0.2);
-  border-radius: 50px;
-  padding: 2em 0;
-  margin-top: -50px;
+/** service icon */
+.channel-icon {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  transform: translateY(-2em);
   @media (max-width: 767px) {
-    margin-top: -20px;
-    border-radius: 30px;
-  }
-  .ctrl-btn {
-    position: absolute;
-    top: 45%;
-    &.prev {
-      left: 0;
-    }
-    &.next {
-      right: 0;
-    }
+    transform: translateY(-1em);
   }
 }
 
-.mobile-icon {
-  z-index: 1;
-  .index-icon {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    flex-wrap: wrap;
-    padding: 1em;
-    .index-icon-item{
-      width: 20%;
-    }
-  }
-}
-
-.index-icon-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    img {
-      max-width: 100%;
-    }
-    p {
-    color: #13334C;
-    margin: 0;
-    line-height: 150%;
-    font-size: small;
-  }
-  }
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+/** channel-section */
+.channel-section {
+  position: relative;
   display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-
-h3 {
-  text-align: left;
-  color: #13334C;
-
-}
-
-::v-deep .big-banner{
-  .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
-    bottom: 2px
+  width: 100%;
+  padding: 1em;
+  h6 {
+    width: 100%;
+    text-align: left;
+    padding-bottom: 0.5em;
+    color: #13334c;
+    font-size: 1.2rem;
   }
-  .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
+  .channel-swiper-box {
+    overflow: hidden;
+    border-top-left-radius: 0.75em;
+    border-top-right-radius: 0.75em;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    &.shadow {
+      border-bottom-left-radius: 0.75em;
+      border-bottom-right-radius: 0.75em;
+      box-shadow: 0px 2px 7px -1px rgba(147, 137, 117, 0.2);
+    }
+  }
+}
+
+/** 輪播banner的點點 **/
+::v-deep .big-banner {
+  .swiper-container-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-custom,
+  .swiper-pagination-fraction {
+    bottom: 2px;
+  }
+  .swiper-container-horizontal
+    > .swiper-pagination-bullets
+    .swiper-pagination-bullet {
     margin: 0 2px;
   }
   .swiper-pagination-bullet {
@@ -382,10 +645,29 @@ h3 {
     height: 3px;
     border-radius: 8px;
     opacity: 1;
-    background: #DADADA;
+    background: #dadada;
     &-active {
-      background-color: #FFB26B;
+      background-color: #ffb26b;
     }
   }
+}
+
+/** 頻道樣式 */
+.channel-template1 {
+  background: #FFBE5B;
+  overflow: hidden;
+  padding: 0 0.5em;
+}
+.channel-template2 {
+  background-image: url("/img/channel/channel-template2-nav.png");
+  background-size: cover;
+  overflow: hidden;
+  padding: 0 0.5em;
+}
+.channel-template3 {
+  background-image: url("/img/channel/channel-template3-nav.png");
+  background-size: cover;
+  overflow: hidden;
+  padding: 0 0.5em;
 }
 </style>

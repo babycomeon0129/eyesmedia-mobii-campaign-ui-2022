@@ -130,35 +130,6 @@ ul.nav {
   background: #333;
 }
 
-/* all tablist-link */
-a.tablist-link{
-  display: inline-table;
-  width: 100%;
-  height: 100%;
-  color: #fff;
-  background-color: transparent;
-  &:hover{
-    text-decoration: none;
-  }
-  &.active{
-    font-weight: 700;
-    color: #fff;
-    border-bottom: solid 3px #fff;
-    animation-name:tabline;
-    animation-duration:0.7s;
-    animation-fill-mode: forwards;
-  }
-}
-
-@keyframes tabline{
-  from{
-    width: 0;
-  }
-  to{
-    width: 100%;
-  }
-}
-
 /* channel nav-link */
 .channel-section {
   ul.nav-swiper {
@@ -173,12 +144,13 @@ a.tablist-link{
       white-space: nowrap;
       text-overflow: ellipsis;
       a {
-        opacity: 0.9;
+        opacity: .9;
         display: inline-table;
         width: 100%;
         height: 100%;
         color: white;
         background-color: transparent;
+        border-bottom: solid 3px rgba(0,0,0,0);
         &.active {
           font-weight: 700;
           color: white;
@@ -190,4 +162,17 @@ a.tablist-link{
       }
     }
   }
+}
+
+@keyframes tabline{
+  from{
+    width: 0;
+  }
+  to{
+    width: 100%;
+  }
+}
+
+.nav-tabs-box {
+  margin-bottom: .25em;
 }

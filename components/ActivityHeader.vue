@@ -2,7 +2,7 @@
   <div class="channel-header">
     <div class="channel-container">
       <div class="channel-header-box">
-        <div class="channel-header-item">
+        <div class="channel-header-item" @click="openInfoModal">
           <span>活動資訊</span>
         </div>
         <div class="channel-header-title">
@@ -19,73 +19,33 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-$header-height: 56px;
-$channel-color: #FF9D42;
+<script>
+export default {
+  name: 'ActivityHeader',
+  methods: {
+    openInfoModal () {
+      const msg = `注意事項：
 
-/** header */
-.channel-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  width: 100%;
-  height: $header-height;
-  flex-direction: row;
-  .channel-header-box {
-    position: relative;
-    display: flex;
-    align-items: baseline;
-    .channel-header-title {
-      img {
-        height: 100%;
-        width: 100%;
-        max-height: $header-height;
-        max-width: 220px;
-      }
-    }
-    .channel-header-item {
-      white-space: nowrap;
-      width: calc((100% - 220px) / 2);
-      &:first-child {
-        color: $channel-color;
-        text-align: left;
-        padding-left: 1em;
-      }
-      &:last-child {
-        display: block;
-        text-align: right;
-        padding-right: 1em;
-      }
-      .hi-user {
-        width: 150px;
-        display: inline-block;
-        overflow:hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        vertical-align: middle;
-        @media (min-width: 768px) and (max-width: 991px) {
-          width: 100px;
-        }
-      }
-    }
-    @media (max-width: 767px) {
-      flex-direction: row-reverse;
-      .channel-header-item:first-child {
-        text-align: right;
-        padding-right: 1em;
-      }
-      .channel-header-item:last-child {
-        display: none;
-      }
+媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小清。
+媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小清。
+小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小清。
+
+小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小清。小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小清。`;
+      this.$alert(msg, '活動資訊', {
+        showConfirmButton: false,
+        customClass: 'modal-style'
+      });
     }
   }
-}
+};
+</script>
+
+<style lang="scss" scoped>
 
 /** button */
 .channel-btn {
+  background: #FF8C05;
   color: white;
-  background: $channel-color;
   border-radius: 30px;
   padding: .25em 1em;
   box-shadow: 0px 2.75px 9.625px -1.375px rgba(147, 137, 117, 0.2);

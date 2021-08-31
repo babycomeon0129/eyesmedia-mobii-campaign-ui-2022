@@ -1,8 +1,13 @@
 <template>
   <div v-swiper:mySwiper="swiperNavOption" class="nav-tabs-box" :class="template">
     <ul class="swiper-wrapper nav nav-tabs nav-swiper">
-      <li v-for="nav in navData" :key="nav.UserDefine_Code" class="swiper-slide">
-        <a :class="{'active':nav.UserDefine_Code === tabCheck }" class="tablist-link">{{ nav.UserDefine_Name }}</a>
+      <li
+        v-for="nav in navData"
+        :key="nav.UserDefine_Code"
+        class="swiper-slide"
+        @click="tabClick(nav.UserDefine_Code)"
+      >
+        <a :class="{'active':nav.UserDefine_Code === tabCheckNum }" class="tablist-link">{{ nav.UserDefine_Name }}</a>
       </li>
     </ul>
   </div>
@@ -37,8 +42,15 @@ export default {
   data () {
     return {
       /** 點選Tab狀態 */
-      tabCheck: this.navData[0].UserDefine_Code
+      tabCheckNum: this.navData[0].UserDefine_Code
     };
+  },
+  methods: {
+    /** 點擊tab時 */
+    tabClick (userDefineCode) {
+      this.tabCheckNum = userDefineCode;
+      this.$nuxt.$emit('tabCheck', userDefineCode);
+    }
   }
 };
 </script>

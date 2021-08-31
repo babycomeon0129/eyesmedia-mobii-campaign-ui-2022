@@ -24,6 +24,7 @@
               :icon-option="boxIcon"
               :icons="icons"
               :icon-arrows="false"
+              @tabCheck="channelNewsTab()"
             />
           </div>
         </div>
@@ -48,6 +49,49 @@
             :nav-data="channel1"
             :template="'channel-template1'"
           />
+          <SwiperPanes
+            :swiper-panes-option="boxChannel1"
+            :panes-mode="1"
+            :panes-data="channel1[0].VoucherData"
+            :panes-template="'channel-template1-panes'"
+            :panes-arrows="false"
+          />
+        </div>
+      </section>
+      <!-- 專屬優惠券 -->
+      <section class="channel-section">
+        <h6>專屬優惠券</h6>
+        <div class="channel-swiper-box shadow">
+          <SwiperNav
+            :swiper-nav-option="boxTabs"
+            :nav-data="channel1"
+            :template="'channel-template2'"
+          />
+          <SwiperPanes
+            :swiper-panes-option="boxChannel2"
+            :panes-mode="2"
+            :panes-data="channel1[0].VoucherData"
+            :panes-template="'channel-template2-panes'"
+            :panes-arrows="true"
+          />
+        </div>
+      </section>
+      <!-- 專屬優惠商品 -->
+      <section class="channel-section">
+        <h6>專屬優惠商品</h6>
+        <div class="channel-swiper-box shadow">
+          <SwiperNav
+            :swiper-nav-option="boxTabs"
+            :nav-data="channel1"
+            :template="'channel-template3'"
+          />
+          <SwiperPanes
+            :swiper-panes-option="boxChannel2"
+            :panes-mode="3"
+            :panes-data="channel1[0].VoucherData"
+            :panes-template="'channel-template3-panes'"
+            :panes-arrows="true"
+          />
         </div>
       </section>
       <div class="block">
@@ -60,9 +104,7 @@
             {{ item.CategaryName }}
           </li>
         </ul>
-        <nuxt-link :to="'/gui'" no-prefetch>
-          前往gui頁
-        </nuxt-link>
+        <nuxt-link :to="'/gui'" no-prefetch> 前往gui頁 </nuxt-link>
         <button type="button" class="submit-button icon-ic_send">
           測試GTM
         </button>
@@ -201,6 +243,72 @@ export default {
             spaceBetween: 10
           }
         },
+        on: {
+          click () {
+            this.slideTo(this.clickedIndex);
+          }
+        }
+      },
+      /** 專屬新聞 panes swiper */
+      boxChannel1: {
+        slidesPerView: 2.5,
+        spaceBetween: 10,
+        breakpoints: {
+          570: {
+            slidesPerView: 3,
+            spaceBetween: 10
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 10
+          },
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 10
+          }
+        },
+        loop: false,
+        observer: true,
+        observeParents: true,
+        preloadImages: true,
+        updateOnImagesReady: true,
+        on: {
+          click () {
+            this.slideTo(this.clickedIndex);
+          }
+        }
+      },
+      /** 專屬優惠券、商品 panes swiper */
+      boxChannel2: {
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        slidesPerView: 3,
+        spaceBetween: 10,
+        breakpoints: {
+          570: {
+            slidesPerView: 3,
+            spaceBetween: 10
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 10
+          },
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 10
+          }
+        },
+        loop: false,
+        observer: true,
+        observeParents: true,
+        preloadImages: true,
+        updateOnImagesReady: true,
         on: {
           click () {
             this.slideTo(this.clickedIndex);
@@ -364,7 +472,7 @@ export default {
               Voucher_ExtName: '早餐兌換券',
               Voucher_DedPoint: 0,
               Voucher_SpecialPoint: 0,
-              Voucher_Image: 'http://54.150.124.230:38085//Upload/Images/20210623/a198158b-02de-4050-aeac-e99b4811d139.png',
+              Voucher_Image: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20210623/a198158b-02de-4050-aeac-e99b4811d139.png',
               Voucher_ReleasedCount: 0,
               Voucher_IssuanceLimit: 0,
               Voucher_ReceiveLimit: 0,
@@ -408,7 +516,7 @@ export default {
               Voucher_ExtName: 'MOB-2625 測試推播',
               Voucher_DedPoint: 0,
               Voucher_SpecialPoint: 0,
-              Voucher_Image: 'http://54.150.124.230:38085//Upload/Images/20210527/505061b2-ddc7-4f61-beeb-83536e8c660e.png',
+              Voucher_Image: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20210527/505061b2-ddc7-4f61-beeb-83536e8c660e.png',
               Voucher_ReleasedCount: 0,
               Voucher_IssuanceLimit: 0,
               Voucher_ReceiveLimit: 0,
@@ -452,7 +560,7 @@ export default {
               Voucher_ExtName: '消費定食滿250元贈小點乙份',
               Voucher_DedPoint: 0,
               Voucher_SpecialPoint: 0,
-              Voucher_Image: 'http://54.150.124.230:38085//Upload/Images/20201016/c2a503cc-fb1d-42f8-b56d-cafc7dc5330f.jpg',
+              Voucher_Image: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20201016/c2a503cc-fb1d-42f8-b56d-cafc7dc5330f.jpg',
               Voucher_ReleasedCount: 0,
               Voucher_IssuanceLimit: 0,
               Voucher_ReceiveLimit: 0,
@@ -496,7 +604,7 @@ export default {
               Voucher_ExtName: '消費定食滿250元贈小點乙份 消費定食滿250元贈小點乙份',
               Voucher_DedPoint: 0,
               Voucher_SpecialPoint: 0,
-              Voucher_Image: 'http://54.150.124.230:38085//Upload/Images/20201016/c2a503cc-fb1d-42f8-b56d-cafc7dc5330f.jpg',
+              Voucher_Image: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20201016/c2a503cc-fb1d-42f8-b56d-cafc7dc5330f.jpg',
               Voucher_ReleasedCount: 0,
               Voucher_IssuanceLimit: 0,
               Voucher_ReceiveLimit: 0,
@@ -555,12 +663,22 @@ export default {
   },
   created () {
     console.log('language >>>> ', this.$cookies.get('language'));
+    this.$nuxt.$on('tabCheck', this.channelNewsTab);
   },
   mounted () {
     this.cHeight = window.innerWidth > 767 ? '490px' : '200px';
     window.onresize = () => {
       this.cHeight = window.innerWidth > 767 ? '490px' : '168px';
     };
+  },
+  beforeDestroy () {
+    // 要記得取消觀察
+    this.$nuxt.$off('tabCheck');
+  },
+  methods: {
+    channelNewsTab (e) {
+      console.log(e);
+    }
   }
 };
 </script>
@@ -654,20 +772,56 @@ export default {
 
 /** 頻道樣式 */
 .channel-template1 {
-  background: #FFBE5B;
+  background: #ffbe5b;
   overflow: hidden;
   padding: 0 0.5em;
 }
 .channel-template2 {
-  background-image: url("/img/channel/channel-template2-nav.png");
-  background-size: cover;
+  background: #ffb26b;
   overflow: hidden;
   padding: 0 0.5em;
 }
 .channel-template3 {
-  background-image: url("/img/channel/channel-template3-nav.png");
+  background: #ff9d42;
   background-size: cover;
   overflow: hidden;
   padding: 0 0.5em;
+}
+</style>
+
+<!-- element UI modal style -->
+<style lang="scss">
+.modal-style {
+  border-radius: 20px;
+  width: 500 px;
+  @media (max-width: 767px) {
+    width: 95%;
+  }
+  .el-message-box__title {
+    text-align: center;
+    color: #13334c;
+    font-weight: 700;
+    font-size: x-large;
+    line-height: 180%;
+  }
+  .el-message-box__message {
+    padding: 1em;
+    font-size: medium;
+    color: #717171;
+    line-height: 170%;
+  }
+  .el-message-box__content {
+    background: #F9F9F9;
+  }
+  .el-message-box__headerbtn {
+    i {
+      font-size: x-large;
+      color: #13334C;
+      &::before {
+        border: 1px solid #13334C;
+        border-radius: 99em;
+      }
+    }
+  }
 }
 </style>

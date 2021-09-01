@@ -47,6 +47,7 @@ body {
 a {
   text-decoration: none;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 #header,
@@ -70,7 +71,7 @@ a {
   }
 }
 
-/*defaultimg*/
+/** defaultimg */
 #defaultimg {
   line-height: 0;
 }

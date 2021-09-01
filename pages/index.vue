@@ -104,12 +104,47 @@
             {{ item.CategaryName }}
           </li>
         </ul>
-        <nuxt-link :to="'/gui'" no-prefetch> 前往gui頁 </nuxt-link>
+        <nuxt-link :to="'/gui'" no-prefetch>
+          前往gui頁
+        </nuxt-link>
         <button type="button" class="submit-button icon-ic_send">
           測試GTM
         </button>
       </div>
     </main>
+    <!-- 更多服務icon(滑頁) -->
+    <el-drawer
+      :visible.sync="isOpenService"
+      :direction="'rtl'"
+      :size="'100%'"
+      :with-header="false"
+    >
+      <div class="more-icon-box">
+        <div class="container">
+          <div>
+            <div class="head-top">
+              <!-- 點擊帶queryParams控制父層class -->
+              <button class="btn" @click="isOpenService = false">
+                <i class="el-icon-arrow-left" /><span>返回</span>
+              </button>
+            </div>
+            <div class="row">
+              <a
+                v-for="icon in icons"
+                :key="icon.Function_Code"
+                :target="icon.Function_URLTarget"
+                :href="icon.Function_URL"
+                :class="{'disable': icon.Function_IsActive === 0}"
+                class="col"
+              >
+                <img :src="icon.Function_Icon">
+                <p class="txt-line-clamp1">{{ icon.Function_Name }}</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </el-drawer>
   </div>
 </template>
 
@@ -150,29 +185,6 @@ export default {
   },
   data () {
     return {
-      cHeight: '0px',
-      banners: ['coffee.svg', 'feet.svg', 'femalebag.svg', 'health.png', 'nightlife.svg', 'shopping.svg', 'tea.svg', 'tour.svg', 'transport.svg'],
-      swiperOption: {
-        slidesPerView: 9,
-        spaceBetween: 0,
-        slidesPerGroup: 3,
-        loop: true,
-        loopFillGroupWithBlank: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
-        navigation: {
-          nextEl: '#swiper-button-next',
-          prevEl: '#swiper-button-prev'
-        },
-        breakpoints: {
-          1024: {
-            slidesPerView: 9,
-            spaceBetween: 0
-          }
-        }
-      },
       /** 首頁Banner設定 */
       topBannerOption: {
         pagination: {
@@ -263,7 +275,7 @@ export default {
             spaceBetween: 10
           },
           1024: {
-            slidesPerView: 5,
+            slidesPerView: 5.5,
             spaceBetween: 10
           }
         },
@@ -315,6 +327,8 @@ export default {
           }
         }
       },
+      /** 是否打開我的服務 */
+      isOpenService: false,
       /** 測試資料區 */
       topBannerArr: [{
         img: banner1,
@@ -626,6 +640,138 @@ export default {
               Voucher_IsScan: 0,
               Voucher_SpecialPrice: 11800,
               Voucher_SellPrice: 11500
+            },
+            {
+              Voucher_ID: 461,
+              Voucher_Code: 460064343500682,
+              Voucher_UserVoucherCode: null,
+              Voucher_CountryCode: 886,
+              Discount_Amount: 0,
+              Voucher_UsedType: 3,
+              Voucher_UsedTypeName: null,
+              Voucher_ShowType: 2200,
+              Voucher_ShowTypeName: null,
+              Voucher_Title: '三明堂三明堂三明堂',
+              Voucher_URLTarget: null,
+              Voucher_URL: null,
+              Voucher_IsFreq: 1,
+              Voucher_FreqName: '兌換',
+              Voucher_Type: 11,
+              Voucher_CompanyCode: 110064340449969,
+              Voucher_ECStoreCode: 290064341918799,
+              Voucher_ExtName: '消費定食滿250元贈小點乙份 消費定食滿250元贈小點乙份',
+              Voucher_DedPoint: 0,
+              Voucher_SpecialPoint: 0,
+              Voucher_Image: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20201016/c2a503cc-fb1d-42f8-b56d-cafc7dc5330f.jpg',
+              Voucher_ReleasedCount: 0,
+              Voucher_IssuanceLimit: 0,
+              Voucher_ReceiveLimit: 0,
+              Voucher_UsedLimitType: 0,
+              Voucher_UsedLimit: 0,
+              Voucher_CheckLimit: null,
+              Voucher_FeeType: null,
+              Voucher_UsedOnDate: '2020-10-16T10:53:48',
+              Voucher_UsedOffDate: '2021-11-30T23:59:59',
+              Voucher_OnlineDate: '2020-10-16T10:53:48',
+              Voucher_OfflineDate: '2021-11-30T23:59:59',
+              Voucher_State: 0,
+              Voucher_Content: null,
+              Voucher_Note: null,
+              VoucherRange_Prod: [],
+              List_VoucherLimit: [],
+              VoucherUseCount: null,
+              Voucher_ReceiveDate: null,
+              Voucher_IsScan: 0,
+              Voucher_SpecialPrice: 11800,
+              Voucher_SellPrice: 11500
+            },
+            {
+              Voucher_ID: 461,
+              Voucher_Code: 460064343500682,
+              Voucher_UserVoucherCode: null,
+              Voucher_CountryCode: 886,
+              Discount_Amount: 0,
+              Voucher_UsedType: 3,
+              Voucher_UsedTypeName: null,
+              Voucher_ShowType: 2200,
+              Voucher_ShowTypeName: null,
+              Voucher_Title: '三明堂三明堂三明堂',
+              Voucher_URLTarget: null,
+              Voucher_URL: null,
+              Voucher_IsFreq: 1,
+              Voucher_FreqName: '兌換',
+              Voucher_Type: 11,
+              Voucher_CompanyCode: 110064340449969,
+              Voucher_ECStoreCode: 290064341918799,
+              Voucher_ExtName: '消費定食滿250元贈小點乙份 消費定食滿250元贈小點乙份',
+              Voucher_DedPoint: 0,
+              Voucher_SpecialPoint: 0,
+              Voucher_Image: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20201016/c2a503cc-fb1d-42f8-b56d-cafc7dc5330f.jpg',
+              Voucher_ReleasedCount: 0,
+              Voucher_IssuanceLimit: 0,
+              Voucher_ReceiveLimit: 0,
+              Voucher_UsedLimitType: 0,
+              Voucher_UsedLimit: 0,
+              Voucher_CheckLimit: null,
+              Voucher_FeeType: null,
+              Voucher_UsedOnDate: '2020-10-16T10:53:48',
+              Voucher_UsedOffDate: '2021-11-30T23:59:59',
+              Voucher_OnlineDate: '2020-10-16T10:53:48',
+              Voucher_OfflineDate: '2021-11-30T23:59:59',
+              Voucher_State: 0,
+              Voucher_Content: null,
+              Voucher_Note: null,
+              VoucherRange_Prod: [],
+              List_VoucherLimit: [],
+              VoucherUseCount: null,
+              Voucher_ReceiveDate: null,
+              Voucher_IsScan: 0,
+              Voucher_SpecialPrice: 11800,
+              Voucher_SellPrice: 11500
+            },
+            {
+              Voucher_ID: 461,
+              Voucher_Code: 460064343500682,
+              Voucher_UserVoucherCode: null,
+              Voucher_CountryCode: 886,
+              Discount_Amount: 0,
+              Voucher_UsedType: 3,
+              Voucher_UsedTypeName: null,
+              Voucher_ShowType: 2200,
+              Voucher_ShowTypeName: null,
+              Voucher_Title: '三明堂三明堂三明堂',
+              Voucher_URLTarget: null,
+              Voucher_URL: null,
+              Voucher_IsFreq: 1,
+              Voucher_FreqName: '兌換',
+              Voucher_Type: 11,
+              Voucher_CompanyCode: 110064340449969,
+              Voucher_ECStoreCode: 290064341918799,
+              Voucher_ExtName: '消費定食滿250元贈小點乙份 消費定食滿250元贈小點乙份',
+              Voucher_DedPoint: 0,
+              Voucher_SpecialPoint: 0,
+              Voucher_Image: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20201016/c2a503cc-fb1d-42f8-b56d-cafc7dc5330f.jpg',
+              Voucher_ReleasedCount: 0,
+              Voucher_IssuanceLimit: 0,
+              Voucher_ReceiveLimit: 0,
+              Voucher_UsedLimitType: 0,
+              Voucher_UsedLimit: 0,
+              Voucher_CheckLimit: null,
+              Voucher_FeeType: null,
+              Voucher_UsedOnDate: '2020-10-16T10:53:48',
+              Voucher_UsedOffDate: '2021-11-30T23:59:59',
+              Voucher_OnlineDate: '2020-10-16T10:53:48',
+              Voucher_OfflineDate: '2021-11-30T23:59:59',
+              Voucher_State: 0,
+              Voucher_Content: null,
+              Voucher_Note: null,
+              VoucherRange_Prod: [],
+              List_VoucherLimit: [],
+              VoucherUseCount: null,
+              Voucher_ReceiveDate: null,
+              Voucher_IsScan: 0,
+              Voucher_SpecialPrice: 11800,
+              Voucher_SellPrice: 11500
             }
           ]
         },
@@ -664,16 +810,14 @@ export default {
   created () {
     console.log('language >>>> ', this.$cookies.get('language'));
     this.$nuxt.$on('tabCheck', this.channelNewsTab);
-  },
-  mounted () {
-    this.cHeight = window.innerWidth > 767 ? '490px' : '200px';
-    window.onresize = () => {
-      this.cHeight = window.innerWidth > 767 ? '490px' : '168px';
-    };
+    this.$nuxt.$on('openMyService', (e) => {
+      this.isOpenService = e;
+    });
   },
   beforeDestroy () {
     // 要記得取消觀察
     this.$nuxt.$off('tabCheck');
+    this.$nuxt.$off('openMyService');
   },
   methods: {
     channelNewsTab (e) {
@@ -787,6 +931,66 @@ export default {
   overflow: hidden;
   padding: 0 0.5em;
 }
+
+/** 我的服務 */
+/** more service icon */
+.more-icon-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background: transparent;
+  &.open {
+    background: white;
+    width: 100vw;
+    height: 100vh;
+    display: inline-flex;
+    justify-content: center;
+  }
+  .head-top {
+    text-align: left;
+  }
+  .title {
+    font-size: small;
+    font-weight: 500;
+    padding: 1em 1em .5em 1em;
+  }
+  .row {
+    padding: 0 1em 1em 1em;
+    text-align: center;
+    .col {
+      flex-grow: 1;
+      padding: .5em .15em;
+      min-width: 10%;
+      color: #818181;
+      @media (max-width: 767px) {
+        min-width: 20%;
+        flex-grow: inherit;
+      }
+      p {
+        white-space: nowrap;
+        font-size: smaller;
+        padding-top: 6px;
+      }
+      img {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+      }
+    }
+  }
+  a {
+      color: #182b56;
+      &.disable {
+        color: gray;
+        img {
+          filter: grayscale(100%);
+          opacity: 0.4;
+        }
+      }
+    }
+}
+
 </style>
 
 <!-- element UI modal style -->
@@ -824,4 +1028,5 @@ export default {
     }
   }
 }
+
 </style>

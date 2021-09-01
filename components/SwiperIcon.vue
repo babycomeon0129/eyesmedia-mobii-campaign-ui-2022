@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="swiper-slide for-mobile">
-          <a>
+          <a @click="$nuxt.$emit('openMyService', true);">
             <div class="img-box">
               <img
                 src="@/assets/image/activity/icon/category3_more.png"

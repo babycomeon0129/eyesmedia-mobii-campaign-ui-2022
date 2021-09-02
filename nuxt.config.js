@@ -172,7 +172,8 @@ export default {
         trimCustomFragments: true,
         useShortDoctype: true
       }
-    }
+    },
+    publicPath: 'lynn/'
   },
 
   dev: process.env.NODE_ENV !== 'production',

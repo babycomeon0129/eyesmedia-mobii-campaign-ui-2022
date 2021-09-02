@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=developer SIDE_ENV=dev nuxt",
+    "build-dev": "cross-env NODE_ENV=developer SIDE_ENV=dev nuxt build",
     "build-sit": "cross-env NODE_ENV=developer SIDE_ENV=sit nuxt build",
     "build-biz": "cross-env NODE_ENV=production SIDE_ENV=biz nuxt build",
     "build": "nuxt build",
+    "start-dev": "cross-env SIDE_ENV=dev nuxt start",
     "start-sit": "cross-env SIDE_ENV=sit nuxt start",
     "start-biz": "cross-env SIDE_ENV=biz nuxt start",
     "start": "nuxt start",

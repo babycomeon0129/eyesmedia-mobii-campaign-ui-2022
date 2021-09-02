@@ -94,15 +94,15 @@
           />
         </div>
       </section>
-      <footer class="channel-footer" :class="{'active': isOpenRead}">
+      <footer class="channel-footer">
         <h6>注意事項</h6>
-        <div class="content">
+        <div class="content" :class="{'active': isOpenRead}">
           媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小清創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門創選告類，早的樣式自演學起作變老要足開民門
         </div>
         <a v-if="!isOpenRead" @click="isOpenRead = true">〈繼續閱讀〉</a>
       </footer>
       <br>
-      <div class="block">
+      <!--div class="block">
         <span class="demonstration">來Call SIT API 看看吧</span>
         <ul>
           <li
@@ -118,7 +118,7 @@
         <button type="button" class="submit-button icon-ic_send">
           測試GTM
         </button>
-      </div>
+      </div-->
     </main>
     <!-- 更多服務icon(滑頁) -->
     <el-drawer
@@ -1003,7 +1003,6 @@ export default {
 
 /** footer */
 .channel-footer {
-  height: 4.5em;
   padding: 1em 2em;
   margin-bottom: 2em;
   font-size: small;
@@ -1013,6 +1012,7 @@ export default {
     color: #FF9D42;
   }
   .content{
+    height: 4.5em;
     overflow:hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -1020,12 +1020,10 @@ export default {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     white-space: normal;
-  }
-  &.active {
+    &.active {
     height: auto;
-    .content {
-      -webkit-line-clamp:unset;
-    }
+    -webkit-line-clamp:unset;
+  }
   }
 }
 

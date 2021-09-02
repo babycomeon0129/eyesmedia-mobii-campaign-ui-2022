@@ -94,6 +94,14 @@
           />
         </div>
       </section>
+      <footer class="channel-footer" :class="{'active': isOpenRead}">
+        <h6>注意事項</h6>
+        <div class="content">
+          媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小清創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門創選告類，早的樣式自演學起作變老要足開民門
+        </div>
+        <a v-if="!isOpenRead" @click="isOpenRead = true">〈繼續閱讀〉</a>
+      </footer>
+      <br>
       <div class="block">
         <span class="demonstration">來Call SIT API 看看吧</span>
         <ul>
@@ -329,6 +337,8 @@ export default {
       },
       /** 是否打開我的服務 */
       isOpenService: false,
+      /** 是否打開繼續閱讀 */
+      isOpenRead: false,
       /** 測試資料區 */
       topBannerArr: [{
         img: banner1,
@@ -989,6 +999,34 @@ export default {
         }
       }
     }
+}
+
+/** footer */
+.channel-footer {
+  height: 4.5em;
+  padding: 1em 2em;
+  margin-bottom: 2em;
+  font-size: small;
+  color: #717171;
+  text-align: left;
+  a {
+    color: #FF9D42;
+  }
+  .content{
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+  &.active {
+    height: auto;
+    .content {
+      -webkit-line-clamp:unset;
+    }
+  }
 }
 
 </style>

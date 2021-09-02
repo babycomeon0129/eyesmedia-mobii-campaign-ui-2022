@@ -173,6 +173,8 @@ export default {
         useShortDoctype: true
       }
     },
+    // 修改公用路徑，默認值'/_nuxt/'
+    // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-build#publicpath
     publicPath: 'lynn/'
   },
 

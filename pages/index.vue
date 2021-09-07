@@ -819,20 +819,16 @@ export default {
   },
   created () {
     console.log('language >>>> ', this.$cookies.get('language'));
-    this.$nuxt.$on('tabCheck', this.channelNewsTab);
     this.$nuxt.$on('openMyService', (e) => {
       this.isOpenService = e;
     });
   },
   beforeDestroy () {
     // 要記得取消觀察
-    this.$nuxt.$off('tabCheck');
     this.$nuxt.$off('openMyService');
   },
   methods: {
-    channelNewsTab (e) {
-      console.log(e);
-    }
+    // ...
   }
 };
 </script>

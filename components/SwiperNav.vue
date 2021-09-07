@@ -15,6 +15,7 @@
 
 <script>
 import { directive } from 'vue-awesome-swiper';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'SwiperNav',
@@ -45,11 +46,14 @@ export default {
       tabCheckNum: this.navData[0].UserDefine_Code
     };
   },
+  actions: {
+    ...mapActions('activity', ['setNewsTab'])
+  },
   methods: {
     /** 點擊tab時 */
     tabClick (userDefineCode) {
       this.tabCheckNum = userDefineCode;
-      this.$nuxt.$emit('tabCheck', userDefineCode);
+      this.$store.commit('activity/SET_NEWS_TAB', userDefineCode);
     }
   }
 };

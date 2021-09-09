@@ -48,6 +48,7 @@
             :swiper-nav-option="boxTabs"
             :nav-data="channel1"
             :template="'channel-template1'"
+            :data-type="1"
           />
           <SwiperPanes
             :swiper-panes-option="boxChannel1"
@@ -66,6 +67,7 @@
             :swiper-nav-option="boxTabs"
             :nav-data="channel1"
             :template="'channel-template2'"
+            :data-type="2"
           />
           <SwiperPanes
             :swiper-panes-option="boxChannel2"
@@ -84,6 +86,7 @@
             :swiper-nav-option="boxTabs"
             :nav-data="channel1"
             :template="'channel-template3'"
+            :data-type="3"
           />
           <SwiperPanes
             :swiper-panes-option="boxChannel2"
@@ -153,6 +156,8 @@
         </div>
       </div>
     </el-drawer>
+    <GotopIcon />
+    <JustkaIcon />
   </div>
 </template>
 

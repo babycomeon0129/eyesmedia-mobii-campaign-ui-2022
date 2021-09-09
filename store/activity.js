@@ -15,18 +15,33 @@ const state = () => {
 // 當我們在 component 中要設定、改變 state 中的資料，都需要透過 actions 底下的自訂方法，進一步呼叫 mutations 方法。
 // Vuex 官方文件有特別提到 actions 是支持異步操作。
 const actions = {
-  setNewsTab ({ commit }, code) {
+  callSetNewsTab ({ commit }, code) {
     if (code) {
-      commit('SET_NEWS_TAB', code);
+      commit('setNewTab', code);
     }
   }
 };
 
 // 真正更新 state 的方法，第一個參數 state 會自動注入，要帶進來的資料在第二個參數。
+// 只能做同步操作，不能做非同步操作。如要進行非同步操作請使用action
 const mutations = {
-  'SET_NEWS_TAB' (state, code) {
-    state.newsTab = code;
-    console.log(state);
+  /** 選擇swiper tab 狀態
+   * @param type mutation function name
+   * @param typeCode 類型。 1:新聞 2:優惠券 3:熱門商品
+   * @param code 分類編碼
+   */
+  setNewTab (state, { type, typeCode, code }) {
+    switch (typeCode) {
+      case 1 :
+        state.newsTab = code;
+        break;
+      case 2:
+        state.voucherTab = code;
+        break;
+      case 3:
+        state.productTab = code;
+        break;
+    }
   }
 };
 

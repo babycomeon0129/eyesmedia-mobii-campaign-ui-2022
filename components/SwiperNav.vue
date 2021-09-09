@@ -33,11 +33,16 @@ export default {
       type: Array,
       required: true
     },
-    /** 樣版 */
+    /** Css樣版 */
     template: {
       type: String,
       default: '',
       required: false
+    },
+    /** 資料類型 */
+    dataType: {
+      type: Number,
+      required: true
     }
   },
   data () {
@@ -53,7 +58,12 @@ export default {
     /** 點擊tab時 */
     tabClick (userDefineCode) {
       this.tabCheckNum = userDefineCode;
-      this.$store.commit('activity/SET_NEWS_TAB', userDefineCode);
+      // this.$store.commit('activity/setNewTab', this.dataType, userDefineCode);
+      this.$store.commit({
+        type: 'activity/setNewTab',
+        typeCode: this.dataType,
+        code: userDefineCode
+      });
     }
   }
 };

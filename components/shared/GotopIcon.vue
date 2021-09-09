@@ -1,7 +1,7 @@
 <template>
   <button v-show="goTopDisplay" type="button" class="btn" @click="goTop">
     <div class="go-top">
-      <img src="@/assets/image/activity/icon/goTop.png">
+      <img src="@/static/images/activity/icon/goTop.png">
     </div>
   </button>
 </template>

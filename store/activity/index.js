@@ -42,6 +42,7 @@ const mutations = {
         state.productTab = code;
         break;
     }
+    console.log(state);
   }
 };
 

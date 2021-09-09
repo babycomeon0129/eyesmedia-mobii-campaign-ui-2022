@@ -4,7 +4,7 @@
       <span class="scroll-top-inner">
         <button type="button">
           <img
-            src="@/assets/image/activity/icon/icon_service.png"
+            src="@/static/images/activity/icon/icon_service.png"
             class="justka-img"
           >
         </button>

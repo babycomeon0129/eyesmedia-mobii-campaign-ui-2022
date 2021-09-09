@@ -6,7 +6,7 @@
           <span>活動資訊</span>
         </div>
         <div class="channel-header-title">
-          <img src="../assets/image/channel-title.png">
+          <img src="@/static/images/test/channel-title.png">
         </div>
         <div class="channel-header-item">
           <span class="hi-user">Hi 訪客訪客訪客訪客訪客訪客</span>

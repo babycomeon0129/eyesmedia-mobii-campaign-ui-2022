@@ -164,11 +164,11 @@
 <script>
 import { directive } from 'vue-awesome-swiper';
 // 測試資料區
-import banner1 from '@/assets/image/default-banner.png';
-import banner2 from '@/assets/image/banner1.png';
+import banner1 from '@/static/images/test/default-banner.png';
+import banner2 from '@/static/images/test/banner1.png';
 
 export default {
-  name: 'Index',
+  name: 'Lynn',
   directives: {
     swiper: directive
   },
@@ -819,7 +819,15 @@ export default {
   },
   head () {
     return {
-      title: 'mobii 活動模組 測試頁'
+      title: 'mobii 活動模組 測試頁',
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description-HID',
+          name: 'description',
+          content: 'My custom description'
+        }
+      ]
     };
   },
   created () {

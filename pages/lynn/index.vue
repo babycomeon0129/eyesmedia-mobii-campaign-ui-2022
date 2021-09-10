@@ -827,6 +827,9 @@ export default {
           name: 'description',
           content: 'My custom description'
         }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/images/activity/icon/favicon.ico' }
       ]
     };
   },

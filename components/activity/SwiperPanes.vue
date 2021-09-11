@@ -3,10 +3,7 @@
     <!-- v-for  class: fade -->
     <div class="tab-pane" :class="panesTemplate">
       <!-- channel樣版 swiper -->
-      <div
-        v-swiper:mySwiper="swiperPanesOption"
-        class="swiper-container"
-      >
+      <div v-swiper:mySwiper="swiperPanesOption" class="swiper-container">
         <div class="swiper-wrapper">
           <div
             v-for="inside in panesData"
@@ -51,9 +48,9 @@
           </div>
         </div>
         <div class="swiper-pagination" />
+        <div v-if="panesArrows" class="swiper-button-prev" />
+        <div v-if="panesArrows" class="swiper-button-next" />
       </div>
-      <div v-if="panesArrows" class="swiper-button-prev" />
-      <div v-if="panesArrows" class="swiper-button-next" />
     </div>
   </div>
 </template>
@@ -113,7 +110,7 @@ export default {
 
 <style lang="scss" scoped>
 .tab-content {
-  padding-top: .75em;
+  padding-top: 0.75em;
   // min-height: 165px;
   @media (max-width: 767px) {
     // min-height: 230px;
@@ -226,9 +223,9 @@ export default {
   position: relative;
   padding-left: 3em;
   padding-right: 3em;
-  @media(max-width: 767px) {
-    padding-left: .5em;
-    padding-right: .5em;
+  @media (max-width: 767px) {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
   }
   .swiper-wrapper {
     padding-bottom: 3em;
@@ -241,7 +238,7 @@ export default {
     bottom: 30%;
     margin-top: auto;
     z-index: 100;
-    @media(max-width: 767px) {
+    @media (max-width: 767px) {
       top: 0;
       bottom: 0;
     }
@@ -259,7 +256,7 @@ export default {
     background-color: white;
     border-radius: 50%;
     border: 1px solid #ffb26b;
-    @media(max-width: 767px) {
+    @media (max-width: 767px) {
       font-size: small;
     }
   }

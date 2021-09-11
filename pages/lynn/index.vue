@@ -97,12 +97,13 @@
           />
         </div>
       </section>
+      <!-- footer 注意事項 -->
       <footer class="channel-footer">
         <h6>注意事項</h6>
-        <div class="content" :class="{'active': isOpenRead}">
-          媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小清創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門創選告類，早的樣式自演學起作變老要足開民門
+        <div class="content" :class="{'active': !isOpenRead}">
+          媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管
         </div>
-        <a v-if="!isOpenRead" @click="isOpenRead = true">〈繼續閱讀〉</a>
+        <a v-if="isOpenRead" @click="isOpenRead = false">〈繼續閱讀〉</a>
       </footer>
       <br>
       <!--div class="block">
@@ -342,7 +343,7 @@ export default {
       },
       /** 是否打開我的服務 */
       isOpenService: false,
-      /** 是否打開繼續閱讀 */
+      /** 是否啟用繼續閱讀 */
       isOpenRead: false,
       /** 測試資料區 */
       topBannerArr: [{
@@ -839,6 +840,12 @@ export default {
       this.isOpenService = e;
     });
   },
+  mounted () {
+    const noticeEl = document.querySelector('.channel-footer .content');
+    if (noticeEl.offsetHeight >= 59) {
+      this.isOpenRead = true;
+    }
+  },
   beforeDestroy () {
     // 要記得取消觀察
     this.$nuxt.$off('openMyService');
@@ -1064,6 +1071,8 @@ export default {
   }
   .el-message-box__content {
     background: #F9F9F9;
+    max-height: 550px;
+    overflow-y: scroll;
   }
   .el-message-box__headerbtn {
     i {

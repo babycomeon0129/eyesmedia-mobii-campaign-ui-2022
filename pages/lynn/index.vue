@@ -334,12 +334,7 @@ export default {
         observer: true,
         observeParents: true,
         preloadImages: true,
-        updateOnImagesReady: true,
-        on: {
-          click () {
-            this.slideTo(this.clickedIndex);
-          }
-        }
+        updateOnImagesReady: true
       },
       /** 是否打開我的服務 */
       isOpenService: false,

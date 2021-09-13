@@ -29,10 +29,10 @@
           </a>
         </div>
       </div>
+      <!-- Add Arrows -->
+      <div v-if="iconArrows" class="swiper-button-next" />
+      <div v-if="iconArrows" class="swiper-button-prev" />
     </div>
-    <!-- Add Arrows -->
-    <div v-if="iconArrows" class="swiper-button-next" />
-    <div v-if="iconArrows" class="swiper-button-prev" />
   </div>
 </template>
 

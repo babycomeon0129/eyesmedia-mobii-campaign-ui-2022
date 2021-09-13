@@ -3,7 +3,7 @@
     <!-- v-for  class: fade -->
     <div class="tab-pane" :class="panesTemplate">
       <!-- channel樣版 swiper -->
-      <div v-swiper:mySwiper="swiperPanesOption" class="swiper-container">
+      <div v-swiper:mySwiper="swiperPanesOption">
         <div class="swiper-wrapper">
           <div
             v-for="inside in panesData"
@@ -221,12 +221,8 @@ export default {
 ::v-deep .channel-template2-panes,
 ::v-deep .channel-template3-panes {
   position: relative;
-  padding-left: 3em;
-  padding-right: 3em;
-  @media (max-width: 767px) {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-  }
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   .swiper-wrapper {
     padding-bottom: 3em;
   }
@@ -235,13 +231,10 @@ export default {
   }
   .swiper-button-prev,
   .swiper-button-next {
-    bottom: 30%;
+    top: 0;
+    bottom: 0;
     margin-top: auto;
     z-index: 100;
-    @media (max-width: 767px) {
-      top: 0;
-      bottom: 0;
-    }
   }
   .swiper-button-next {
     right: 1%;

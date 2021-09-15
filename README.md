@@ -1,4 +1,4 @@
-# eyesmedia-activity-module
+# eyesmedia-mobii-campaign-ui
 ## npm 最低版本 v10.19.0
 ## Build Setup
 

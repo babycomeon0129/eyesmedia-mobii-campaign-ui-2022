@@ -32,7 +32,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'eyesmedia-activity-module',
+    title: 'eyesmedia-mobii-campaign-ui',
     htmlAttrs: {
       lang: 'zh-Hant-TW'
     },

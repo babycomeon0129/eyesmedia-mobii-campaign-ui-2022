@@ -21,7 +21,7 @@
           <a @click="$nuxt.$emit('openMyService', true);">
             <div class="img-box">
               <img
-                src="@/static/images/activity/icon/category3_more.png"
+                src="@/static/images/campaign/icon/category3_more.png"
                 alt="more"
               >
             </div>

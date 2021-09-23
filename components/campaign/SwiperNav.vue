@@ -52,15 +52,15 @@ export default {
     };
   },
   actions: {
-    ...mapActions('activity', ['setNewsTab'])
+    ...mapActions('campaign', ['setNewsTab'])
   },
   methods: {
     /** 點擊tab時 */
     tabClick (userDefineCode) {
       this.tabCheckNum = userDefineCode;
-      // this.$store.commit('activity/setNewTab', this.dataType, userDefineCode);
+      // this.$store.commit('campaign/setNewTab', this.dataType, userDefineCode);
       this.$store.commit({
-        type: 'activity/setNewTab',
+        type: 'campaign/setNewTab',
         typeCode: this.dataType,
         code: userDefineCode
       });

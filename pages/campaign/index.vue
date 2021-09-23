@@ -1,6 +1,6 @@
 <template>
   <div class="channel-wrap">
-    <ActivityHeader />
+    <CampaignHeader />
     <main>
       <!-- 首頁大圖輪播 -->
       <div class="top-banner">
@@ -825,7 +825,7 @@ export default {
         }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/images/activity/icon/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/images/campaign/icon/favicon.ico' }
       ]
     };
   },

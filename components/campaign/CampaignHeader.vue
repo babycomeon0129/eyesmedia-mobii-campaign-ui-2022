@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'ActivityHeader',
+  name: 'CampaignHeader',
   methods: {
     openInfoModal () {
       const msg = `注意事項：

@@ -7,7 +7,7 @@ const envObj = {
   },
   defind: {
     dev: {
-      apiPath: 'sit.lucas.com/api/v1',
+      apiPath: 'http://localhost:5000/campaign/api/v1',
       GA: 'UA-145003593-1',
       host: '0.0.0.0',
       port: 8083

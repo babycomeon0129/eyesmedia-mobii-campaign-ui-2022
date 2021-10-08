@@ -192,7 +192,12 @@ export default {
     };
     const apiData = await context.$axios.post('https://sit-afpapi.mobii.ai/api/Home', { Data: JSON.stringify(request) }, { headers });
     const resData = JSON.parse(apiData.data.Data);
+    const callApi = await context.$axios.get('http://localhost:5000/campaign/api/v1/events/detail/GAS');
+    const eventData = JSON.parse(callApi.data.data);
+    console.log('---------------------------------------');
+    console.log(eventData);
     return {
+      listData: eventData,
       testData: resData,
       env: context.env.SIDE_ENV
     };

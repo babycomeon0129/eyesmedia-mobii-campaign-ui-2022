@@ -95,7 +95,8 @@ export default {
     ['cookie-universal-nuxt', { parseJSON: false }],
     '@nuxtjs/gtm',
     '@nuxtjs/google-gtag',
-    '@nuxtjs/robots'
+    '@nuxtjs/robots',
+    'nuxt-material-design-icons'
   ],
   gtm: {
     id: 'GTM-MQX7SSB',

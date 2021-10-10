@@ -169,7 +169,7 @@ import banner1 from '@/static/images/test/default-banner.png';
 import banner2 from '@/static/images/test/banner1.png';
 
 export default {
-  name: 'Lynn',
+  name: 'Campaign',
   directives: {
     swiper: directive
   },
@@ -178,29 +178,29 @@ export default {
   },
   async asyncData (context) {
     // console.log('context', context);
-    const headers = {
-      'Content-Type': 'application/json',
-      xEyes_Command: '1110',
-      xEyes_X: '',
-      xEyes_Y: '',
-      xEyes_DeviceType: '0',
-      xEyes_CustomerInfo: '',
-      xEyes_DeviceCode: ''
-    };
-    const request = {
-      User_Code: 'qnWcdVmhuDtFPtZtczybJQ%3d%3d'
-    };
-    const apiData = await context.$axios.post('https://sit-afpapi.mobii.ai/api/Home', { Data: JSON.stringify(request) }, { headers });
-    const resData = JSON.parse(apiData.data.Data);
-    const callApi = await context.$axios.get('http://localhost:5000/campaign/api/v1/events/detail/GAS');
-    const eventData = JSON.parse(callApi.data.data);
-    console.log('---------------------------------------');
-    console.log(eventData);
-    return {
-      listData: eventData,
-      testData: resData,
-      env: context.env.SIDE_ENV
-    };
+    // const headers = {
+    //   'Content-Type': 'application/json',
+    //   xEyes_Command: '1110',
+    //   xEyes_X: '',
+    //   xEyes_Y: '',
+    //   xEyes_DeviceType: '0',
+    //   xEyes_CustomerInfo: '',
+    //   xEyes_DeviceCode: ''
+    // };
+    // const request = {
+    //   User_Code: 'qnWcdVmhuDtFPtZtczybJQ%3d%3d'
+    // };
+    // const apiData = await context.$axios.post('https://sit-afpapi.mobii.ai/api/Home', { Data: JSON.stringify(request) }, { headers });
+    // const resData = JSON.parse(apiData.data.Data);
+    // const callApi = await context.$axios.get('http://localhost:5000/campaign/api/v1/events/detail/GAS');
+    // const eventData = JSON.parse(callApi.data.data);
+    // console.log('---------------------------------------');
+    // console.log(eventData);
+    // return {
+    //   listData: eventData,
+    //   testData: resData,
+    //   env: context.env.SIDE_ENV
+    // };
   },
   data () {
     return {
@@ -835,10 +835,10 @@ export default {
     };
   },
   created () {
-    console.log('language >>>> ', this.$cookies.get('language'));
-    this.$nuxt.$on('openMyService', (e) => {
-      this.isOpenService = e;
-    });
+    // console.log('language >>>> ', this.$cookies.get('language'));
+    // this.$nuxt.$on('openMyService', (e) => {
+    //   this.isOpenService = e;
+    // });
   },
   mounted () {
     const noticeEl = document.querySelector('.channel-footer .content');
@@ -857,15 +857,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.channel-wrap {
-  width: 100%;
-  height: 100%;
-  min-width: 320px;
-  max-width: 1140px;
-  position: relative;
-  margin: 0 auto;
-  text-align: center;
-}
 
 /** banner */
 .top-banner {

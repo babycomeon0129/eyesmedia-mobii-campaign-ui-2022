@@ -94,8 +94,8 @@ export default {
   align-items: center;
   justify-content: space-between;
   .header-title {
-  font-size: x-large;
-  color: #13334C;
-}
+    font-size: x-large;
+    color: #13334C;
+  }
 }
 </style>

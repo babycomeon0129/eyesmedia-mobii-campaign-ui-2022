@@ -3,7 +3,7 @@
     <div class="channel-container">
       <div class="channel-header-box">
         <div class="channel-header-item" @click="openInfoModal">
-          <i class="material-icons">home</i>
+          <a><i class="material-icons">home</i></a>
         </div>
         <div class="channel-header-title">
           <img src="@/static/images/test/channel-title.png">
@@ -83,15 +83,6 @@ export default {
     font-size: small;
   }
 }
-.channel-header .channel-container {
-  max-width: 1140px;
-  margin: 0 auto;
-  background: white;
-  box-shadow: 0px 2px 7px -1px rgba(147, 137, 117, 0.2);
-  @media (max-width: 767px) {
-    box-shadow: none;
-  }
-}
 // mene icon
 .menu-icon {
   display: inline-block;
@@ -103,6 +94,7 @@ export default {
 .bar3 {
   width: 30px;
   height: 4px;
+  border-radius: 10px;
   background-color: #333;
   margin: 6px 0;
   transition: 0.4s;

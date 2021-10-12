@@ -2,8 +2,10 @@
   <div class="channel-header">
     <div class="channel-container">
       <div class="channel-header-box">
-        <div class="channel-header-item" @click="openInfoModal">
-          <a><i class="material-icons">home</i></a>
+        <div class="channel-header-item">
+          <a href="https://www.mobii.ai/">
+            <img src="@/static/images/campaign/icon/icon-home.png" class="rwdimgmax" alt="回Mobbi">
+          </a>
         </div>
         <div class="channel-header-title">
           <img src="@/static/images/test/channel-title.png">
@@ -15,19 +17,21 @@
           </button>
         </div>
         <div class="channel-header-item">
-          <el-dropdown trigger="click">
-            <div class="menu-icon" split-button :class="{'change': openMenu}" @click="openMenu = !openMenu">
+          <el-dropdown trigger="click" @visible-change="openMenu = $event">
+            <div class="menu-icon" :class="{'change': openMenu}">
               <div class="bar1" />
               <div class="bar2" />
               <div class="bar3" />
             </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item><a>我的會員頁</a></el-dropdown-item>
-                <el-dropdown-item><a>我的卡片</a></el-dropdown-item>
+                <el-dropdown-item><a href="https://www.mobii.ai/Member"><img src="@/static/images/campaign/icon/icon-menber.png" class="rwdimgmax" alt="我的會員頁">我的會員頁</a></el-dropdown-item>
+                <el-dropdown-item><a href="https://www.mobii.ai/MemberFunction/MemberCard?showBack=true"><img src="@/static/images/campaign/icon/icon-card.png" class="rwdimgmax" alt="我的卡片">我的卡片</a></el-dropdown-item>
                 <!-- 榮福專案專有選項 -->
                 <el-dropdown-item v-if="isVac">
-                  <a>申請榮福卡</a>
+                  <nuxt-link to="/campaign/VacCard">
+                    <img src="@/static/images/campaign/icon/icon-addcard.png" class="rwdimgmax" alt="申請榮福卡">申請榮福卡
+                  </nuxt-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -49,22 +53,7 @@ export default {
     };
   },
   methods: {
-    openInfoModal () {
-      const msg = `注意事項：
-
-      媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小清。
-      媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小
-      媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小
-      媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小
-      媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小
-      媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小
-      媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小
-      媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管童苦行皮腳種時輕應西野：程熱斯民作油得當我舉案也？字成樣日張華李，學起作變老要足開民門氣有去在音不小`;
-      this.$alert(msg, '活動資訊', {
-        showConfirmButton: false,
-        customClass: 'modal-style'
-      });
-    }
+    // ....
   }
 };
 </script>
@@ -124,7 +113,24 @@ export default {
   background: #13334C;
   border:none;
   .el-dropdown-menu__item {
-    color: #fff;
+    transition: .3s;
+    a {
+      padding: .1em 0;
+      color: #fff;
+      display: block;
+      border-bottom: .5px solid rgba(182,192,213,.5);
+    }
+    img {
+      margin-right: .5em;
+    }
+    &:last-of-type {
+      a {
+        border-bottom: none;
+      }
+    }
+    &:hover {
+      background: #000;
+    }
   }
   .popper__arrow {
     &::after {

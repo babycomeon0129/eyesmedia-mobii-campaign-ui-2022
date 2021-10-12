@@ -4,11 +4,11 @@
 const state = () => {
   return {
     /** 專屬新聞tab code */
-    newsTab: undefined,
+    cardTabs: [],
     /** 專屬優惠券tab code */
-    voucherTab: undefined,
+    voucherTabs: [],
     /** 專屬商品tab code */
-    productTab: undefined
+    productTabs: []
   };
 };
 
@@ -27,22 +27,23 @@ const actions = {
 const mutations = {
   /** 選擇swiper tab 狀態
    * @param type mutation function name
-   * @param typeCode 類型。 1:新聞 2:優惠券 3:熱門商品
-   * @param code 分類編碼
+   * @param typeCode 類型。 card:卡片 voucher:優惠券 product:熱門商品
+   * @param data 資料
    */
-  setNewTab (state, { type, typeCode, code }) {
-    switch (typeCode) {
-      case 1 :
-        state.newsTab = code;
-        break;
-      case 2:
-        state.voucherTab = code;
-        break;
-      case 3:
-        state.productTab = code;
-        break;
-    }
-    console.log(state);
+  setNewTab (state, { type, typeCode, data }) {
+    state[`${typeCode}Tabs`] = data;
+    // switch (typeCode) {
+    //   case 1 :
+    //     state.cardTabs = data;
+    //     break;
+    //   case 2:
+    //     state.voucherTabs = data;
+    //     break;
+    //   case 3:
+    //     state.productTabs = data;
+    //     break;
+    // }
+    // console.log(state);
   }
 };
 

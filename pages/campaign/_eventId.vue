@@ -33,7 +33,7 @@
       <div class="big-banner">
         <SwiperBanner
           :swiper-option="bigBannerOption"
-          :banner-img="topBannerArr"
+          :banner-img="campainData.ads"
           :pagination="true"
           :arrows="false"
           :cont-img="false"
@@ -41,8 +41,8 @@
         />
       </div>
       <!-- 專屬新聞 -->
-      <section class="channel-section">
-        <h6>專屬新聞</h6>
+      <section v-if="campainData.cardTabs.length > 0" class="channel-section">
+        <h6>{{ campainData.cardBlockName }}</h6>
         <div class="channel-swiper-box">
           <SwiperNav
             :swiper-nav-option="boxTabs"
@@ -60,12 +60,12 @@
         </div>
       </section>
       <!-- 專屬優惠券 -->
-      <section class="channel-section">
-        <h6>專屬優惠券</h6>
+      <section v-if="campainData.voucherTabs.length > 0" class="channel-section">
+        <h6>{{ campainData.voucherBlockName }}</h6>
         <div class="channel-swiper-box shadow">
           <SwiperNav
             :swiper-nav-option="boxTabs"
-            :nav-data="channel1"
+            :nav-data="campainData.voucherTabs"
             :template="'channel-template2'"
             :data-type="2"
           />
@@ -79,8 +79,8 @@
         </div>
       </section>
       <!-- 專屬優惠商品 -->
-      <section class="channel-section">
-        <h6>專屬優惠商品</h6>
+      <section v-if="campainData.productTabs.length > 0" class="channel-section">
+        <h6>{{ campainData.productBlockName }}</h6>
         <div class="channel-swiper-box shadow">
           <SwiperNav
             :swiper-nav-option="boxTabs"
@@ -99,26 +99,14 @@
       </section>
       <!-- footer 注意事項 -->
       <footer class="channel-footer">
-        <h6>注意事項</h6>
+        <h6>{{ campainData.eventsVm.mktEventOtherTitle }}</h6>
         <div class="content" :class="{'active': !isOpenRead}">
-          媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管媽小里家再即會色外出查賣收？時象案，創選告類，早的樣式自演等明，朋輕內間，管
+          {{ campainData.eventsVm.mktEventOtehrContent }}
         </div>
         <a v-if="isOpenRead" @click="isOpenRead = false">〈繼續閱讀〉</a>
       </footer>
       <br>
       <!--div class="block">
-        <span class="demonstration">來Call SIT API 看看吧</span>
-        <ul>
-          <li
-            v-for="item in testData.List_NewFunction"
-            :key="item.CategaryCode"
-          >
-            {{ item.CategaryName }}
-          </li>
-        </ul>
-        <nuxt-link :to="'/gui'" no-prefetch>
-          前往gui頁
-        </nuxt-link>
         <button type="button" class="submit-button icon-ic_send">
           測試GTM
         </button>
@@ -177,25 +165,26 @@ export default {
     context.$gtm.push({ event: 'sit網站瀏覽' });
   },
   async asyncData (context) {
-    // const headers = {
-    //   'Content-Type': 'application/json',
-    //   xEyes_Command: '1110',
-    //   xEyes_X: '',
-    //   xEyes_Y: '',
-    //   xEyes_DeviceType: '0',
-    //   xEyes_CustomerInfo: '',
-    //   xEyes_DeviceCode: ''
-    // };
-    // const request = {
-    //   User_Code: 'qnWcdVmhuDtFPtZtczybJQ%3d%3d'
-    // };
-    // const apiData = await context.$axios.post('https://sit-afpapi.mobii.ai/api/Home', { Data: JSON.stringify(request) }, { headers });
-    // const resData = JSON.parse(apiData.data.Data);
     const callApi = await context.$axios.get(`http://localhost:5000/campaign/api/v1/events/detail/${context.params.eventId}`);
     const eventData = JSON.parse(callApi.data.data);
     console.log('---------------------------------------');
     console.log(context.params.eventId);
-    console.log(eventData);
+    console.log(eventData.voucherTabs);
+    context.store.commit({
+      type: 'campaign/setNewTab',
+      typeCode: 'card',
+      data: eventData.cardTabs
+    });
+    context.store.commit({
+      type: 'campaign/setNewTab',
+      typeCode: 'voucher',
+      data: eventData.voucherTabs
+    });
+    context.store.commit({
+      type: 'campaign/setNewTab',
+      typeCode: 'product',
+      data: eventData.productTabs
+    });
     return {
       params: context.params,
       campainData: eventData,

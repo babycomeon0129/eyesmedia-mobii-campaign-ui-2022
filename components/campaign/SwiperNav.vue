@@ -3,11 +3,12 @@
     <ul class="swiper-wrapper nav nav-tabs nav-swiper">
       <li
         v-for="nav in navData"
-        :key="nav.UserDefine_Code"
+        :key="nav.id"
         class="swiper-slide"
-        @click="tabClick(nav.UserDefine_Code)"
+        @click="tabClick(nav.id)"
       >
-        <a :class="{'active':nav.UserDefine_Code === tabCheckNum }" class="tablist-link">{{ nav.UserDefine_Name }}</a>
+        <!-- active -->
+        <a :class="{'active':nav.id === tabId }" class="tablist-link">{{ nav.name }}</a>
       </li>
     </ul>
   </div>
@@ -48,7 +49,7 @@ export default {
   data () {
     return {
       /** 點選Tab狀態 */
-      tabCheckNum: this.navData[0].UserDefine_Code
+      tabId: this.navData[0].id
     };
   },
   actions: {
@@ -56,14 +57,14 @@ export default {
   },
   methods: {
     /** 點擊tab時 */
-    tabClick (userDefineCode) {
-      this.tabCheckNum = userDefineCode;
+    tabClick (id) {
+      this.tabId = id;
       // this.$store.commit('campaign/setNewTab', this.dataType, userDefineCode);
-      this.$store.commit({
-        type: 'campaign/setNewTab',
-        typeCode: this.dataType,
-        code: userDefineCode
-      });
+      // this.$store.commit({
+      //   type: 'campaign/setNewTab',
+      //   typeCode: this.dataType,
+      //   code: userDefineCode
+      // });
     }
   }
 };

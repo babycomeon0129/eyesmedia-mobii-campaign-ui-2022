@@ -96,7 +96,7 @@ export default {
     '@nuxtjs/gtm',
     '@nuxtjs/google-gtag',
     '@nuxtjs/robots',
-    'nuxt-material-design-icons'
+    'nuxt-material-design-icons-iconfont'
   ],
   gtm: {
     id: 'GTM-MQX7SSB',

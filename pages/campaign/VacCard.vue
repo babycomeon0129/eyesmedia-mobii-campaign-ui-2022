@@ -38,7 +38,8 @@
           </div>
         </div>
       </div>
-      <div class="channel-section">
+      <!-- 身份驗證欄 -->
+      <div v-if="!isVac" class="channel-section">
         <div class="col-12 vacinfo">
           <ul>
             <li>
@@ -48,27 +49,36 @@
                 <li>第二類退除役官兵</li>
                 <li>退除役官兵眷屬</li>
                 <li>退輔會(含所屬機構)職員工</li>
-                <li>其他退輔會同意者</li>
+                <li>其他經退輔會同意者</li>
               </ul>
             </li>
             <li>
-              <i class="material-icons">error_outline</i>所輸入之身分證字號，僅供身分驗證，以利數位榮福卡申請，不做其他用途。艾斯移動（Mobii!平台）不會記錄身分證字號，也不會保存於Mobii!平台系統裡。
-            </li>
-            <li>
-              <i class="material-icons">error_outline</i>若有問題請洽退輔會24小時服務專線：(02)2725-5700，或免付費服務電話：0800-212-154、0800-212-510。
+              所輸入之身分證字號，僅供申請數位榮福卡身分驗證使用，不做其他用途。艾斯移動 (Mobii 平台) 不會記錄、保存身分證字號於 Mobii 平台系統中。
+              <br><br>
+              榮福卡合作優惠終止時，優惠將轉換為一般會員。
             </li>
           </ul>
         </div>
         <div class="col-12 checkagree">
           <input id="checkOK" v-model="agree" type="checkbox">
-          <label for="checkOK">我同意艾斯移動（Mobii!平台）使用本卡內之會員個人資料及交易資料，以利發放點數回饋及參與Mobii!平台活動。</label>
+          <label for="checkOK">我同意艾斯移動（Mobii 平台）使用本卡內之會員個人資料及交易資料，以利發放點數回饋及參與 Mobii 平台活動。</label>
+        </div>
+      </div>
+      <div class="channel-section">
+        <div class="col-12 isVac">
+          <h2>已完成申請！</h2>
+          <p>您已完成數位榮福卡申請，歡迎您盡情享受<br>Mobii 獨家優惠！</p>
         </div>
       </div>
     </main>
-    <div class="foot-btn">
-      <button class="btn send" :class="{'unable': !agree}" :disabled="!agree" @click="onSubmit()">
+    <!-- 申請按鈕 -->
+    <div class="foot-btn" :class="{'isVac':isVac}">
+      <button v-if="!isVac" class="btn send" :class="{'unable': !agree}" :disabled="!agree" @click="onSubmit()">
         立即申請
       </button>
+      <p v-if="isVac">
+        <i class="material-icons">error_outline</i>若有問題請洽退輔會24小時服務專線：(02)2725-5700，或免付費服務電話：0800-212-154、0800-212-510
+      </p>
     </div>
   </div>
 </template>
@@ -81,30 +91,10 @@ export default {
     context.$gtm.push({ event: 'sit網站瀏覽' });
   },
   async asyncData (context) {
-    // console.log('context', context);
-    // const headers = {
-    //   'Content-Type': 'application/json',
-    //   xEyes_Command: '1110',
-    //   xEyes_X: '',
-    //   xEyes_Y: '',
-    //   xEyes_DeviceType: '0',
-    //   xEyes_CustomerInfo: '',
-    //   xEyes_DeviceCode: ''
-    // };
-    // const request = {
-    //   User_Code: 'qnWcdVmhuDtFPtZtczybJQ%3d%3d'
-    // };
-    // const apiData = await context.$axios.post('https://sit-afpapi.mobii.ai/api/Home', { Data: JSON.stringify(request) }, { headers });
-    // const resData = JSON.parse(apiData.data.Data);
-    // const callApi = await context.$axios.get('http://localhost:5000/campaign/api/v1/events/detail/GAS');
-    // const eventData = JSON.parse(callApi.data.data);
-    // console.log('---------------------------------------');
-    // console.log(eventData);
-    // return {
-    //   listData: eventData,
-    //   testData: resData,
-    //   env: context.env.SIDE_ENV
-    // };
+    const isVac = await true;
+    return {
+      isVac // 是否是榮福卡會員
+    };
   },
   data () {
     return {
@@ -258,9 +248,9 @@ $from-txt: #818181;
 }
 
 main {
-  margin-bottom: 8em;
+  margin-bottom: 7em;
   @media (max-width: 767px) {
-    margin-bottom: 6em;
+    margin-bottom: 5em;
   }
 }
 
@@ -280,7 +270,20 @@ main {
   width: 100%;
   padding: 1em;
   background: #fff;
-  box-shadow: 0 -5px 8px rgb(0 0 0 / 20%)
+  box-shadow: 0 -5px 8px rgb(0 0 0 / 20%);
+  &.isVac {
+    font-size: 90%;
+    color: $from-txt;
+    text-align: left;
+    padding: 1em 1em 40px 1em;
+    p {
+      position: relative;
+      i{
+        color: $default-icon;
+        position: absolute;
+      }
+    }
+  }
 }
 
 .send {

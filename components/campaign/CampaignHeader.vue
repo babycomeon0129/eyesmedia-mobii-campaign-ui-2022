@@ -25,7 +25,10 @@
               <el-dropdown-menu>
                 <el-dropdown-item><a>我的會員頁</a></el-dropdown-item>
                 <el-dropdown-item><a>我的卡片</a></el-dropdown-item>
-                <el-dropdown-item><a>申請榮福卡</a></el-dropdown-item>
+                <!-- 榮福專案專有選項 -->
+                <el-dropdown-item v-if="isVac">
+                  <a>申請榮福卡</a>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -39,8 +42,10 @@
 export default {
   name: 'CampaignHeader',
   data () {
+    const isVac = this.$route.params.eventId === 'VAC';
     return {
-      openMenu: false
+      openMenu: false,
+      isVac // 是否為榮福卡專案
     };
   },
   methods: {

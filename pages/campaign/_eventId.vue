@@ -6,7 +6,7 @@
       <div class="top-banner">
         <SwiperBanner
           :swiper-option="topBannerOption"
-          :banner-img="topBannerArr"
+          :banner-img="campainData.banners"
           :pagination="false"
           :arrows="false"
           :cont-img="false"
@@ -17,12 +17,12 @@
       <div>
         <div class="channel-icon">
           <div class="for-pc">
-            <SwiperIcon :icon-option="boxIconPC" :icons="icons" />
+            <SwiperIcon :icon-option="boxIconPC" :icons="campainData.icons" />
           </div>
           <div class="for-mobile">
             <SwiperIcon
               :icon-option="boxIcon"
-              :icons="icons"
+              :icons="campainData.icons"
               :icon-arrows="false"
               @tabCheck="channelNewsTab()"
             />
@@ -177,9 +177,6 @@ export default {
     context.$gtm.push({ event: 'sit網站瀏覽' });
   },
   async asyncData (context) {
-    console.log('---------');
-    await console.log(context.params.eventId);
-    // console.log('context', context);
     // const headers = {
     //   'Content-Type': 'application/json',
     //   xEyes_Command: '1110',
@@ -194,15 +191,17 @@ export default {
     // };
     // const apiData = await context.$axios.post('https://sit-afpapi.mobii.ai/api/Home', { Data: JSON.stringify(request) }, { headers });
     // const resData = JSON.parse(apiData.data.Data);
-    // const callApi = await context.$axios.get('http://localhost:5000/campaign/api/v1/events/detail/GAS');
-    // const eventData = JSON.parse(callApi.data.data);
-    // console.log('---------------------------------------');
-    // console.log(eventData);
-    // return {
-    //   listData: eventData,
-    //   testData: resData,
-    //   env: context.env.SIDE_ENV
-    // };
+    const callApi = await context.$axios.get(`http://localhost:5000/campaign/api/v1/events/detail/${context.params.eventId}`);
+    const eventData = JSON.parse(callApi.data.data);
+    console.log('---------------------------------------');
+    console.log(context.params.eventId);
+    console.log(eventData);
+    return {
+      params: context.params,
+      campainData: eventData,
+      // testData: resData,
+      env: context.env.SIDE_ENV
+    };
   },
   data () {
     return {

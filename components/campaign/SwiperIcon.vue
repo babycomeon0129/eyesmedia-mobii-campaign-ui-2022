@@ -9,11 +9,11 @@
         >
           <div class="item">
             <!-- if Function_IsActive == 0,  <a> class add 'disable'-->
-            <a :class="{'disable': icon.Function_IsActive === 0}" :href="icon.Function_URL" :target="icon.Function_URLTarget">
+            <a :class="{'disable': icon.Function_IsActive === 0}" :href="icon.mktEventItemUrl" :target="icon.mktEventItemUrlTarget">
               <div class="img-box">
-                <img :src="icon.Function_Icon" :alt="icon.Function_Name">
+                <img :src="icon.mktEventItemImg" :alt="icon.mktEventItemName">
               </div>
-              {{ icon.Function_Name }}
+              {{ icon.mktEventItemName }}
             </a>
           </div>
         </div>

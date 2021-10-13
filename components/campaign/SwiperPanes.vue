@@ -25,7 +25,7 @@
                 <!-- 新聞 -->
                 <div v-if="panesMode === 'card'" class="channel-content">
                   <p>
-                    {{ inside.title }}
+                    {{ inside.name }}
                   </p>
                 </div>
                 <!-- 優惠券 -->

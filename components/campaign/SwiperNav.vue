@@ -60,10 +60,9 @@ export default {
     /** 點擊tab時 */
     tabClick (id, idx) {
       this.tabId = id;
-      console.log(this.tabId, idx);
       this.$store.commit({
         type: 'campaign/setTabIndex',
-        typeCode: 'product',
+        typeCode: this.dataType,
         index: idx
       });
     }

@@ -52,7 +52,7 @@
           <SwiperPanes
             :swiper-panes-option="boxChannel1"
             :panes-mode="'card'"
-            :panes-data="channel1[0].VoucherData"
+            :panes-data="showCardTab"
             :panes-template="'channel-template1-panes'"
             :panes-arrows="false"
           />
@@ -71,7 +71,7 @@
           <SwiperPanes
             :swiper-panes-option="boxChannel2"
             :panes-mode="'voucher'"
-            :panes-data="campainData.voucherTabs[0].vouchers"
+            :panes-data="showVoucherTab"
             :panes-template="'channel-template2-panes'"
             :panes-arrows="true"
           />
@@ -90,7 +90,7 @@
           <SwiperPanes
             :swiper-panes-option="boxChannel2"
             :panes-mode="'product'"
-            :panes-data="channel1[0].VoucherData"
+            :panes-data="showProductTab"
             :panes-template="'channel-template3-panes'"
             :panes-arrows="true"
           />
@@ -145,11 +145,12 @@
       </div>
     </el-drawer>
     <GotopIcon />
-    <JustkaIcon />
+    <JustkaIcon v-if="campainData.eventsVm.mktEventOtehrJustka !== null && campainData.eventsVm.mktEventOtehrJustka !== ''" :juska-url="campainData.eventsVm.mktEventOtehrJustka" />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { directive } from 'vue-awesome-swiper';
 
 export default {
@@ -165,7 +166,7 @@ export default {
     const eventData = JSON.parse(callApi.data.data);
     console.log('---------------------------------------');
     console.log(context.params.eventId);
-    console.log(eventData);
+    console.log(eventData.cardTabs[0].items);
     context.store.commit({
       type: 'campaign/setNewTab',
       typeCode: 'card',
@@ -693,6 +694,9 @@ export default {
         { rel: 'icon', type: 'image/x-icon', href: '/images/campaign/icon/favicon.ico' }
       ]
     };
+  },
+  computed: {
+    ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab'])
   },
   created () {
     console.log('language >>>> ', this.$cookies.get('language'));

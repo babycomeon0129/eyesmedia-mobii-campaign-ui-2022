@@ -2,12 +2,12 @@
   <div class="bearservice">
     <div class="scroll-top-wrapper">
       <span class="scroll-top-inner">
-        <button type="button">
+        <a href="juskaUrl">
           <img
             src="@/static/images/campaign/icon/icon_service.png"
             class="justka-img"
           >
-        </button>
+        </a>
       </span>
       <div v-if="msgMode" class="justka-msg">
         <button type="button" @click="msgMode = !msgMode">
@@ -24,6 +24,13 @@
 <script>
 export default {
   name: 'JustkaIcon',
+  props: {
+    juskaUrl: {
+      type: String,
+      default: '',
+      require: false
+    }
+  },
   data () {
     return {
       /** 提示訊息是否開啟 */
@@ -68,7 +75,7 @@ export default {
     @media (min-width: 1200px) {
       right: calc((100% - 1140px) / 2);
     }
-    button {
+    button,a {
       background: transparent;
       border: 0;
       outline: none;
@@ -77,6 +84,10 @@ export default {
         height: 72px;
         display: block;
       }
+    }
+    a {
+      display: block;
+      padding-left: 10px;
     }
   }
 }

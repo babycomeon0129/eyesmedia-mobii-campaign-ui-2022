@@ -1,6 +1,6 @@
 <template>
   <div class="channel-wrap">
-    <CampaignHeader />
+    <CampaignHeader :title-img="campainData.eventsVm.mktEventLogo" />
     <main>
       <!-- 首頁大圖輪播 -->
       <div class="top-banner">
@@ -24,7 +24,6 @@
               :icon-option="boxIcon"
               :icons="campainData.icons"
               :icon-arrows="false"
-              @tabCheck="channelNewsTab()"
             />
           </div>
         </div>
@@ -46,13 +45,13 @@
         <div class="channel-swiper-box">
           <SwiperNav
             :swiper-nav-option="boxTabs"
-            :nav-data="channel1"
+            :nav-data="campainData.cardTabs"
             :template="'channel-template1'"
-            :data-type="1"
+            :data-type="'card'"
           />
           <SwiperPanes
             :swiper-panes-option="boxChannel1"
-            :panes-mode="1"
+            :panes-mode="'card'"
             :panes-data="channel1[0].VoucherData"
             :panes-template="'channel-template1-panes'"
             :panes-arrows="false"
@@ -67,12 +66,12 @@
             :swiper-nav-option="boxTabs"
             :nav-data="campainData.voucherTabs"
             :template="'channel-template2'"
-            :data-type="2"
+            :data-type="'voucher'"
           />
           <SwiperPanes
             :swiper-panes-option="boxChannel2"
-            :panes-mode="2"
-            :panes-data="channel1[0].VoucherData"
+            :panes-mode="'voucher'"
+            :panes-data="campainData.voucherTabs[0].vouchers"
             :panes-template="'channel-template2-panes'"
             :panes-arrows="true"
           />
@@ -84,13 +83,13 @@
         <div class="channel-swiper-box shadow">
           <SwiperNav
             :swiper-nav-option="boxTabs"
-            :nav-data="channel1"
+            :nav-data="campainData.productTabs"
             :template="'channel-template3'"
-            :data-type="3"
+            :data-type="'product'"
           />
           <SwiperPanes
             :swiper-panes-option="boxChannel2"
-            :panes-mode="3"
+            :panes-mode="'product'"
             :panes-data="channel1[0].VoucherData"
             :panes-template="'channel-template3-panes'"
             :panes-arrows="true"
@@ -130,15 +129,15 @@
             </div>
             <div class="row">
               <a
-                v-for="icon in icons"
-                :key="icon.Function_Code"
-                :target="icon.Function_URLTarget"
-                :href="icon.Function_URL"
+                v-for="icon in campainData.icons"
+                :key="icon.id"
+                :target="icon.target"
+                :href="icon.url"
                 :class="{'disable': icon.Function_IsActive === 0}"
                 class="col"
               >
-                <img :src="icon.Function_Icon">
-                <p class="txt-line-clamp1">{{ icon.Function_Name }}</p>
+                <img :src="icon.mktEventItemImg">
+                <p class="txt-line-clamp1">{{ icon.name }}</p>
               </a>
             </div>
           </div>
@@ -152,9 +151,6 @@
 
 <script>
 import { directive } from 'vue-awesome-swiper';
-// 測試資料區
-import banner1 from '@/static/images/test/default-banner.png';
-import banner2 from '@/static/images/test/banner1.png';
 
 export default {
   name: 'Campaign',
@@ -165,26 +161,28 @@ export default {
     context.$gtm.push({ event: 'sit網站瀏覽' });
   },
   async asyncData (context) {
-    const callApi = await context.$axios.get(`http://localhost:5000/campaign/api/v1/events/detail/${context.params.eventId}`);
+    const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`);
     const eventData = JSON.parse(callApi.data.data);
     console.log('---------------------------------------');
     console.log(context.params.eventId);
-    console.log(eventData.voucherTabs);
+    console.log(eventData);
     context.store.commit({
       type: 'campaign/setNewTab',
       typeCode: 'card',
-      data: eventData.cardTabs
+      data: eventData.cardTabs.map(data => data.items)
     });
     context.store.commit({
       type: 'campaign/setNewTab',
       typeCode: 'voucher',
-      data: eventData.voucherTabs
+      data: eventData.voucherTabs.map(data => data.vouchers)
     });
     context.store.commit({
       type: 'campaign/setNewTab',
       typeCode: 'product',
-      data: eventData.productTabs
+      data: eventData.productTabs.map(data => data.products)
     });
+    console.log('getters');
+    // console.log(context.store.getters['campaign/showTab']);
     return {
       params: context.params,
       campainData: eventData,
@@ -193,6 +191,7 @@ export default {
     };
   },
   data () {
+    // const adSlider = this.campainData.ads.length > 1 ? 1.2 : 1;
     return {
       /** 首頁Banner設定 */
       topBannerOption: {
@@ -336,135 +335,6 @@ export default {
       /** 是否啟用繼續閱讀 */
       isOpenRead: false,
       /** 測試資料區 */
-      topBannerArr: [{
-        img: banner1,
-        id: 1
-      }, {
-        img: banner2,
-        id: 2
-      }, {
-        img: banner1,
-        id: 3
-      }],
-      icons: [
-        {
-          Function_ID: 85,
-          Function_Code: 1006,
-          Function_CategaryCode: 10015,
-          Function_Name: '彩蛋',
-          Function_URL: '/Notification/NotificationDetail/380061081528577',
-          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200825/ec6c3f93-e394-4aac-8018-b5964ec75313.png',
-          Function_IsTop: 0,
-          Function_IsOther: 0,
-          Function_Sort: 0,
-          Function_URLTarget: '_self',
-          Function_IsActive: 0
-        },
-        {
-          Function_ID: 44,
-          Function_Code: 10014,
-          Function_CategaryCode: 10011,
-          Function_Name: '一元搶購',
-          Function_URL: '/Voucher/Event',
-          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200519/30874134-3c8a-45ca-bb05-141b95436060.jpg',
-          Function_IsTop: 0,
-          Function_IsOther: 0,
-          Function_Sort: 0,
-          Function_URLTarget: '_blank',
-          Function_IsActive: 1
-        },
-        {
-          Function_ID: 9,
-          Function_Code: 10009,
-          Function_CategaryCode: 10015,
-          Function_Name: '遊戲',
-          Function_URL: '/GameCenter',
-          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200519/f8d07653-40aa-4bb8-93d4-56a5b075a556.png',
-          Function_IsTop: 0,
-          Function_IsOther: 0,
-          Function_Sort: 0,
-          Function_URLTarget: '_self',
-          Function_IsActive: 1
-        },
-        {
-          Function_ID: 42,
-          Function_Code: 10016,
-          Function_CategaryCode: 10013,
-          Function_Name: '交通訂票',
-          Function_URL: '/Shopping/ProductList/210058666369001',
-          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200409/e8bbd771-1f48-4ee5-8dd1-4e7e563c4ea9.png',
-          Function_IsTop: 0,
-          Function_IsOther: 0,
-          Function_Sort: 0,
-          Function_URLTarget: '_blank',
-          Function_IsActive: 1
-        },
-        {
-          Function_ID: 49,
-          Function_Code: 10010,
-          Function_CategaryCode: 10014,
-          Function_Name: '新聞',
-          Function_URL: 'https://www.ettoday.net/',
-          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200810/d8091f44-5707-4b9d-8677-27c8b942e6fa.png',
-          Function_IsTop: 0,
-          Function_IsOther: 0,
-          Function_Sort: 0,
-          Function_URLTarget: '_blank',
-          Function_IsActive: 1
-        },
-        {
-          Function_ID: 25,
-          Function_Code: 20010,
-          Function_CategaryCode: 10011,
-          Function_Name: '自動測試用',
-          Function_URL: '/Shopping/ProductList/210064605585471',
-          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20210610/bfb8b863-4573-4dc3-9685-fb4232d10a7c.png',
-          Function_IsTop: 0,
-          Function_IsOther: 0,
-          Function_Sort: 0,
-          Function_URLTarget: '_self',
-          Function_IsActive: 1
-        },
-        {
-          Function_ID: 3,
-          Function_Code: 10003,
-          Function_CategaryCode: 10016,
-          Function_Name: '線上商城',
-          Function_URL: '/Shopping',
-          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200409/2d0b4c02-9b8b-4ccb-a69f-ca2865dd6929.png',
-          Function_IsTop: 0,
-          Function_IsOther: 0,
-          Function_Sort: 0,
-          Function_URLTarget: '_self',
-          Function_IsActive: 1
-        },
-        {
-          Function_ID: 4,
-          Function_Code: 10004,
-          Function_CategaryCode: 10016,
-          Function_Name: '找優惠',
-          Function_URL: '/Voucher/Offers',
-          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200519/7167852c-e161-4262-aa48-42a2feae14a1.jpg',
-          Function_IsTop: 0,
-          Function_IsOther: 0,
-          Function_Sort: 0,
-          Function_URLTarget: '_self',
-          Function_IsActive: 1
-        },
-        {
-          Function_ID: 46,
-          Function_Code: 10017,
-          Function_CategaryCode: 10013,
-          Function_Name: '道路救援',
-          Function_URL: 'http://www.24tms.com.tw/ugC_Home.asp?hidStyle=_Roads&hidURL=ugC_RoadRescue',
-          Function_Icon: 'https://sit-AFPSystem.mobii.ai//Upload/Images/20200810/1fc00f21-55ee-4717-b68b-94619dd1b031.png',
-          Function_IsTop: 0,
-          Function_IsOther: 0,
-          Function_Sort: 0,
-          Function_URLTarget: '_blank',
-          Function_IsActive: 1
-        }
-      ],
       channel1: [
         {
           UserDefine_ChannelID: 1111115,
@@ -810,13 +680,13 @@ export default {
   },
   head () {
     return {
-      title: 'mobii 活動模組 測試頁',
+      title: this.campainData.eventsVm.mktEventName,
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         {
           hid: 'description-HID',
           name: 'description',
-          content: 'My custom description'
+          content: this.campainData.eventsVm.mktEventMetaDiscription
         }
       ],
       link: [
@@ -825,10 +695,10 @@ export default {
     };
   },
   created () {
-    // console.log('language >>>> ', this.$cookies.get('language'));
-    // this.$nuxt.$on('openMyService', (e) => {
-    //   this.isOpenService = e;
-    // });
+    console.log('language >>>> ', this.$cookies.get('language'));
+    this.$nuxt.$on('openMyService', (e) => {
+      this.isOpenService = e;
+    });
   },
   mounted () {
     const noticeEl = document.querySelector('.channel-footer .content');

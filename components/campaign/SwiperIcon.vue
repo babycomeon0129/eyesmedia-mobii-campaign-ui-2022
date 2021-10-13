@@ -4,16 +4,16 @@
       <div class="swiper-wrapper">
         <div
           v-for="icon in icons"
-          :key="icon.Function_Code"
+          :key="icon.id"
           class="swiper-slide"
         >
           <div class="item">
             <!-- if Function_IsActive == 0,  <a> class add 'disable'-->
-            <a :class="{'disable': icon.Function_IsActive === 0}" :href="icon.mktEventItemUrl" :target="icon.mktEventItemUrlTarget">
+            <a :href="icon.url" :target="icon.target">
               <div class="img-box">
-                <img :src="icon.mktEventItemImg" :alt="icon.mktEventItemName">
+                <img :src="icon.img" :alt="icon.name">
               </div>
-              {{ icon.mktEventItemName }}
+              {{ icon.name }}
             </a>
           </div>
         </div>

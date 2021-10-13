@@ -7,40 +7,40 @@
         <div class="swiper-wrapper">
           <div
             v-for="inside in panesData"
-            :key="inside.Voucher_Code"
+            :key="inside.id"
             class="swiper-slide"
           >
-            <a class="products-item">
+            <a class="products-item" :href="inside.url" target="_blank">
               <div class="products-content">
                 <div class="products-img">
                   <div class="img-box">
                     <div
                       class="rwdimg-cover"
                       :style="{
-                        backgroundImage: `url(${inside.Voucher_Image})`,
+                        backgroundImage: `url(${inside.img})`,
                       }"
                     />
                   </div>
                 </div>
                 <!-- 新聞 -->
-                <div v-if="panesMode === 1" class="channel-content">
+                <div v-if="panesMode === 'card'" class="channel-content">
                   <p>
-                    {{ inside.Voucher_ExtName }}
+                    {{ inside.title }}
                   </p>
                 </div>
                 <!-- 優惠券 -->
-                <div v-if="panesMode === 2" class="channel-content">
-                  <p>{{ inside.Voucher_Title }}</p>
-                  <small>{{ inside.Voucher_ExtName }}</small>
+                <div v-if="panesMode === 'voucher'" class="channel-content">
+                  <p>{{ inside.title }}</p>
+                  <small>{{ inside.name }}</small>
                 </div>
                 <!-- 優惠商品 -->
-                <div v-if="panesMode === 3" class="channel-content">
-                  <p>{{ inside.Voucher_ExtName }}</p>
+                <div v-if="panesMode === 'product'" class="channel-content">
+                  <p>{{ inside.name }}</p>
                   <div class="spacialprice">
-                    {{ formatter(inside.Voucher_SpecialPrice) }}
+                    {{ formatter(inside.price) }}
                   </div>
                   <div class="sellprice">
-                    {{ formatter(inside.Voucher_SellPrice) }}
+                    {{ formatter(inside.specialPrice) }}
                   </div>
                 </div>
               </div>
@@ -80,10 +80,10 @@ export default {
       default: '',
       required: false
     },
-    /** 樣板模式 1:新聞 2:優惠券 3:商品 */
+    /** 樣板模式 card:卡片 voucher:優惠券 product:商品 */
     panesMode: {
-      type: Number,
-      default: 1,
+      type: String,
+      default: '',
       required: true
     },
     /** swiper是否顯示左右分頁(true顯示,false隱藏)  */

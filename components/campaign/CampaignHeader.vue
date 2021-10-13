@@ -8,7 +8,7 @@
           </a>
         </div>
         <div class="channel-header-title">
-          <img src="@/static/images/test/channel-title.png">
+          <img :src="titleImg">
         </div>
         <div class="channel-header-item" style="display: none;">
           <span class="hi-user">Hi 訪客訪客訪客訪客訪客訪客</span>
@@ -45,6 +45,13 @@
 <script>
 export default {
   name: 'CampaignHeader',
+  props: {
+    titleImg: {
+      type: String,
+      default: '@/static/images/campaign/icon/icon-home.png',
+      required: false
+    }
+  },
   data () {
     const isVac = this.$route.params.eventId === 'VAC';
     return {

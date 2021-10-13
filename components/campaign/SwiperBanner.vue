@@ -1,11 +1,11 @@
 <template>
   <div v-swiper:mySwiper="swiperOption">
     <div class="swiper-wrapper">
-      <div v-for="(banner, idx) in bannerImg" :key="`${banner.mktEventItemName}${idx}`" class="swiper-slide" :class="slideClass">
-        <a :class="aClass">
+      <div v-for="banner in bannerImg" :key="banner.id" class="swiper-slide" :class="slideClass">
+        <a :class="aClass" :href="banner.url" :target="banner.target">
           <div
             :class="contBackground"
-            :style="{ backgroundImage: `url(${banner.mktEventItemImg})` }"
+            :style="{ backgroundImage: `url(${banner.img})` }"
           />
         </a>
       </div>

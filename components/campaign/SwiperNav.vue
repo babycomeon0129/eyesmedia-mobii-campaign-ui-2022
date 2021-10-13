@@ -2,10 +2,10 @@
   <div v-swiper:mySwiper="swiperNavOption" class="nav-tabs-box" :class="template">
     <ul class="swiper-wrapper nav nav-tabs nav-swiper">
       <li
-        v-for="nav in navData"
+        v-for="(nav, index) in navData"
         :key="nav.id"
         class="swiper-slide"
-        @click="tabClick(nav.id)"
+        @click="tabClick(nav.id, index)"
       >
         <!-- active -->
         <a :class="{'active':nav.id === tabId }" class="tablist-link">{{ nav.name }}</a>
@@ -40,9 +40,10 @@ export default {
       default: '',
       required: false
     },
-    /** 資料類型 */
+    /** 資料類型 card:卡片 voucher:優惠券 product:商品 */
     dataType: {
-      type: Number,
+      type: String,
+      default: '',
       required: true
     }
   },
@@ -57,14 +58,14 @@ export default {
   },
   methods: {
     /** 點擊tab時 */
-    tabClick (id) {
+    tabClick (id, idx) {
       this.tabId = id;
-      // this.$store.commit('campaign/setNewTab', this.dataType, userDefineCode);
-      // this.$store.commit({
-      //   type: 'campaign/setNewTab',
-      //   typeCode: this.dataType,
-      //   code: userDefineCode
-      // });
+      console.log(this.tabId, idx);
+      this.$store.commit({
+        type: 'campaign/setTabIndex',
+        typeCode: 'product',
+        index: idx
+      });
     }
   }
 };

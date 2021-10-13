@@ -3,12 +3,23 @@
 // 存放要儲存的狀態或是資料
 const state = () => {
   return {
-    /** 專屬新聞tab code */
-    cardTabs: [],
-    /** 專屬優惠券tab code */
-    voucherTabs: [],
-    /** 專屬商品tab code */
-    productTabs: []
+    /** tab 類型 card:卡片 voucher:優惠券 product:熱門商品 */
+    tabType: '',
+    /** 專屬新聞tab */
+    card: {
+      index: 0,
+      tabs: []
+    },
+    /** 專屬優惠券tab */
+    voucher: {
+      index: 0,
+      tabs: []
+    },
+    /** 專屬商品tab */
+    product: {
+      index: 0,
+      tabs: []
+    }
   };
 };
 
@@ -25,33 +36,32 @@ const actions = {
 // 真正更新 state 的方法，第一個參數 state 會自動注入，要帶進來的資料在第二個參數。
 // 只能做同步操作，不能做非同步操作。如要進行非同步操作請使用action
 const mutations = {
-  /** 選擇swiper tab 狀態
-   * @param type mutation function name
-   * @param typeCode 類型。 card:卡片 voucher:優惠券 product:熱門商品
-   * @param data 資料
+  /** 儲存每個tab的資料
+   * @param {String} type mutation function name
+   * @param {String} typeCode 類型。 card:卡片 voucher:優惠券 product:熱門商品
+   * @param {Array} data 資料
    */
   setNewTab (state, { type, typeCode, data }) {
-    state[`${typeCode}Tabs`] = data;
-    // switch (typeCode) {
-    //   case 1 :
-    //     state.cardTabs = data;
-    //     break;
-    //   case 2:
-    //     state.voucherTabs = data;
-    //     break;
-    //   case 3:
-    //     state.productTabs = data;
-    //     break;
-    // }
-    // console.log(state);
+    state[`${typeCode}`].tabs = data;
+    console.log(state[`${typeCode}`].tabs);
+  },
+  /** 儲存tab 的index
+   *
+   * @param {String} typeCode 類型。 card:卡片 voucher:優惠券 product:熱門商品
+   * @param {Number} index index
+   */
+  setTabIndex (state, { type, typeCode, index }) {
+    state[`${typeCode}`].index = index;
+    state.tabType = typeCode;
+    console.log(state[`${typeCode}`]);
   }
 };
 
 // component 用來取得 state 的資料，在官方的說明當中建議大家將 getters 視為 computed 方法的概念
 // (實際上在 component 引入時也是掛在 computed 底下)。
 const getters = {
-  getNewsTab (state) {
-    return state.newsTab;
+  showTab (state) {
+    // return state[state.tabType].tabs[state[state.tabType].index];
   }
 };
 

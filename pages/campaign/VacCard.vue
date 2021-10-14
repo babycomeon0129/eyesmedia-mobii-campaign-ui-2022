@@ -4,7 +4,7 @@
       <div class="channel-container">
         <div class="channel-header-box">
           <div class="channel-header-item">
-            <a @click="$router.go(-1)">
+            <a @click="$router.back()">
               <i class="material-icons">navigate_before</i>
             </a>
           </div>
@@ -36,10 +36,13 @@
             <div class="forminput">
               <input
                 v-model="identityID"
+                @keyup.native="dentityCheck($event)"
                 placeholder="請輸入"
                 maxlength="10"
                 minlength="10"
                 type="text"
+                pattern="^[A-Za-z][12]\d{8}$"
+                required
               >
             </div>
           </div>
@@ -84,7 +87,7 @@
     </main>
     <!-- 申請按鈕 -->
     <div class="foot-btn" :class="{'isVac':isVac}">
-      <button v-if="!isVac" class="btn send" :class="{'unable': !agree || !dentityOk}" :disabled="!agree || !dentityOk" @click="onSubmit()">
+      <button v-if="!isVac" class="btn send" :class="{'unable': !agree || identityID === null}" :disabled="!agree || identityID === null" @click="onSubmit()">
         立即申請
       </button>
       <p v-if="isVac">
@@ -129,8 +132,8 @@ export default {
   },
   data () {
     return {
-      identityID: '', // 身分證字號
-      dentityOk: false, // 身分證字號長度驗證
+      identityID: null, // 身分證字號
+      dentityOk: true, // 身分證字號長度驗證
       errorMsg: '字數長度不足10碼', // 驗證提示
       agree: false, // 隱私權是否同意
       dialogVisible: false
@@ -144,7 +147,7 @@ export default {
         {
           hid: 'description-HID',
           name: 'description',
-          content: '數位榮福卡身分驗證頁'
+          content: '數位榮福卡身分驗證頁，申請數位榮福卡，需驗證是否符合以下身分，經退輔會驗證身分無誤後，方能完成數位榮福卡之申請。'
         }
       ],
       link: [
@@ -152,25 +155,21 @@ export default {
       ]
     };
   },
-  watch: {
-    identityID () {
-      this.dentityOk = this.identityID.length >= 10;
-    }
-  },
   created () {
     // console.log('language >>>> ', this.$cookies.get('language'));
     // this.$nuxt.$on('openMyService', (e) => {
     //   this.isOpenService = e;
     // });
   },
-  mounted () {
-    // ...
-  },
   methods: {
     onSubmit () {
-      // const regex = '/^[a-zA-Z]d{9}$/g';
-      // console.log(/^[a-zA-Z]d{9}$/g.test(this.identityID));
-      this.dialogVisible = true;
+      this.dentityOk = this.identityID.length >= 10;
+      if (this.dentityOk) {
+        this.dialogVisible = true;
+      }
+    },
+    dentityCheck (event) {
+      console.log(event);
     }
   }
 };

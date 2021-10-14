@@ -17,7 +17,7 @@ const envObj = {
     },
     sit: {
       env: 'sit',
-      apiPath: 'https://sit-eventapi.mobii.ai/campaign/api/v1',
+      apiPath: 'https://sit-eventsapi.mobii.ai/campaign/api/v1',
       login: 'https://www-uuat.mobii.ai/Login',
       domain: 'https://sit-events.mobii.ai',
       GA: 'GTM-KBZ2VT8',

@@ -3,6 +3,8 @@
 // 存放要儲存的狀態或是資料
 const state = () => {
   return {
+    /** 是否為登入 */
+    isLogin: false,
     /** tab 類型 card:卡片 voucher:優惠券 product:熱門商品 */
     tabType: '',
     /** 專屬新聞tab */
@@ -36,6 +38,10 @@ const actions = {
 // 真正更新 state 的方法，第一個參數 state 會自動注入，要帶進來的資料在第二個參數。
 // 只能做同步操作，不能做非同步操作。如要進行非同步操作請使用action
 const mutations = {
+  /** 改變登入狀態 */
+  setLogin (state) {
+    state.isLogin = !state.isLogin;
+  },
   /** 儲存每個tab的資料
    * @param {String} type mutation function name
    * @param {String} typeCode 類型。 card:卡片 voucher:優惠券 product:熱門商品
@@ -43,7 +49,6 @@ const mutations = {
    */
   setNewTab (state, { type, typeCode, data }) {
     state[`${typeCode}`].tabs = data;
-    // console.log(state[`${typeCode}`].tabs);
   },
   /** 儲存tab 的index
    *
@@ -53,22 +58,27 @@ const mutations = {
   setTabIndex (state, { type, typeCode, index }) {
     state[`${typeCode}`].index = index;
     state.tabType = typeCode;
-    console.log(state[`${typeCode}`].index, state.tabType);
-    // console.log(state[`${typeCode}`]);
   }
 };
 
 // component 用來取得 state 的資料，在官方的說明當中建議大家將 getters 視為 computed 方法的概念
 // (實際上在 component 引入時也是掛在 computed 底下)。
 const getters = {
+  /** 顯示卡片tab列表資料 */
   showCardTab (state) {
     return state.card.tabs[state.card.index];
   },
+  /** 顯示優惠券tab列表資料 */
   showVoucherTab (state) {
     return state.voucher.tabs[state.voucher.index];
   },
+  /** 顯示商品tab列表資料 */
   showProductTab (state) {
     return state.product.tabs[state.product.index];
+  },
+  /** 回傳登入狀態 */
+  isLogin (state) {
+    return state.isLogin;
   }
 };
 

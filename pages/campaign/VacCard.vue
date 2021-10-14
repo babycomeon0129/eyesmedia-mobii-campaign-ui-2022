@@ -4,7 +4,7 @@
       <div class="channel-container">
         <div class="channel-header-box">
           <div class="channel-header-item">
-            <a @click="$router.back()">
+            <a @click="goBack">
               <i class="material-icons">navigate_before</i>
             </a>
           </div>
@@ -36,13 +36,13 @@
             <div class="forminput">
               <input
                 v-model="identityID"
-                @keyup.native="dentityCheck($event)"
                 placeholder="請輸入"
                 maxlength="10"
                 minlength="10"
                 type="text"
                 pattern="^[A-Za-z][12]\d{8}$"
                 required
+                @keyup="dentityCheck($event)"
               >
             </div>
           </div>
@@ -155,12 +155,6 @@ export default {
       ]
     };
   },
-  created () {
-    // console.log('language >>>> ', this.$cookies.get('language'));
-    // this.$nuxt.$on('openMyService', (e) => {
-    //   this.isOpenService = e;
-    // });
-  },
   methods: {
     onSubmit () {
       this.dentityOk = this.identityID.length >= 10;
@@ -168,8 +162,12 @@ export default {
         this.dialogVisible = true;
       }
     },
+    goBack () {
+      // window.history.length > 1 ? this.$router.go(-1) : this.router.push('/campaign/VAC');
+      this.$router.go(-1);
+    },
     dentityCheck (event) {
-      console.log(event);
+      // console.log(event);
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="channel-wrap">
-    <CampaignHeader :title-img="campainData.eventsVm.mktEventLogo" />
+    <CampaignHeader :title-img="campainData.eventsVm.mktEventLogo" :login-url="env.login" :redirect-url="env.domain" />
     <main>
       <!-- 首頁大圖輪播 -->
       <div class="top-banner">
@@ -14,18 +14,16 @@
         />
       </div>
       <!-- 服務icon -->
-      <div>
-        <div class="channel-icon">
-          <div class="for-pc">
-            <SwiperIcon :icon-option="boxIconPC" :icons="campainData.icons" />
-          </div>
-          <div class="for-mobile">
-            <SwiperIcon
-              :icon-option="boxIcon"
-              :icons="campainData.icons"
-              :icon-arrows="false"
-            />
-          </div>
+      <div class="channel-icon">
+        <div class="for-pc">
+          <SwiperIcon :icon-option="boxIconPC" :icons="campainData.icons" />
+        </div>
+        <div class="for-mobile">
+          <SwiperIcon
+            :icon-option="boxIcon"
+            :icons="campainData.icons"
+            :icon-arrows="false"
+          />
         </div>
       </div>
       <!-- 中間大廣告 -->
@@ -136,7 +134,7 @@
                 :class="{'disable': icon.Function_IsActive === 0}"
                 class="col"
               >
-                <img :src="icon.mktEventItemImg">
+                <img :src="icon.img">
                 <p class="txt-line-clamp1">{{ icon.name }}</p>
               </a>
             </div>
@@ -159,14 +157,12 @@ export default {
     swiper: directive
   },
   middleware (context) {
-    context.$gtm.push({ event: 'sit網站瀏覽' });
+    context.$gtm.push({ event: `${context.env.SIDE_ENV.env}一頁式活動頁瀏覽` });
   },
   async asyncData (context) {
+    // 取回活動資料
     const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`);
     const eventData = JSON.parse(callApi.data.data);
-    console.log('---------------------------------------');
-    console.log(context.params.eventId);
-    console.log(eventData.cardTabs[0].items);
     context.store.commit({
       type: 'campaign/setNewTab',
       typeCode: 'card',
@@ -182,17 +178,13 @@ export default {
       typeCode: 'product',
       data: eventData.productTabs.map(data => data.products)
     });
-    console.log('getters');
-    // console.log(context.store.getters['campaign/showTab']);
     return {
       params: context.params,
-      campainData: eventData,
-      // testData: resData,
+      campainData: eventData, // 活動資料
       env: context.env.SIDE_ENV
     };
   },
   data () {
-    // const adSlider = this.campainData.ads.length > 1 ? 1.2 : 1;
     return {
       /** 首頁Banner設定 */
       topBannerOption: {
@@ -358,7 +350,11 @@ export default {
     ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab'])
   },
   created () {
-    console.log('language >>>> ', this.$cookies.get('language'));
+    console.log('M_idToken >>>> ', this.$cookies.get('M_idToken'));
+    if (this.$cookies.get('M_idToken') !== undefined) {
+      this.$store.commit('campaign/setLogin');
+    }
+    // 接收打開service icons 列表
     this.$nuxt.$on('openMyService', (e) => {
       this.isOpenService = e;
     });

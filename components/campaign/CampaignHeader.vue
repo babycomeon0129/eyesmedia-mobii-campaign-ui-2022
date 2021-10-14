@@ -10,13 +10,15 @@
         <div class="channel-header-title">
           <img :src="titleImg">
         </div>
-        <div class="channel-header-item" style="display: none;">
-          <span class="hi-user">Hi 訪客訪客訪客訪客訪客訪客</span>
-          <button class="btn channel-btn">
+        <!-- 登入 -->
+        <div v-if="!isLogin" class="channel-header-item">
+          <span class="hi-user" style="display: none;">Hi 訪客訪客訪客訪客訪客訪客</span>
+          <a class="btn channel-btn" :href="`${loginUrl}?fromOriginUri=${redirectUrl}/campaign/VAC`">
             登入/註冊
-          </button>
+          </a>
         </div>
-        <div class="channel-header-item">
+        <!-- menu -->
+        <div v-if="isLogin" class="channel-header-item">
           <el-dropdown trigger="click" @visible-change="openMenu = $event">
             <div class="menu-icon" :class="{'change': openMenu}">
               <div class="bar1" />
@@ -43,6 +45,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'CampaignHeader',
   props: {
@@ -50,17 +54,36 @@ export default {
       type: String,
       default: '@/static/images/campaign/icon/icon-home.png',
       required: false
+    },
+    loginUrl: {
+      type: String,
+      default: '',
+      required: true
+    },
+    redirectUrl: {
+      type: String,
+      default: '',
+      required: true
     }
   },
   data () {
     const isVac = this.$route.params.eventId === 'VAC';
     return {
-      openMenu: false,
+      openMenu: false, // menu開關
       isVac // 是否為榮福卡專案
     };
   },
+  computed: {
+    ...mapGetters('campaign', ['isLogin'])
+  },
+  mounted () {
+    // console.log('M_idToken >>>> ', this.$cookies.get('M_idToken'));
+  },
   methods: {
-    // ....
+    login () {
+      console.log(this.loginUrl);
+      // location.href = 'https://192.168.58.131:8083/campaign/VAC';
+    }
   }
 };
 </script>
@@ -68,12 +91,17 @@ export default {
 <style lang="scss" scoped>
 /** button */
 .channel-btn {
-  background: #ff8c05;
-  color: white;
+  background: #fff;
+  border: 1px solid #ff8c05;
+  color: #ff8c05;
   border-radius: 30px;
   padding: 0.25em 1em;
   box-shadow: 0px 2.75px 9.625px -1.375px rgba(147, 137, 117, 0.2);
   margin: 0 0.5em;
+  &:hover {
+    background: #ff8c05;
+    color: #fff;
+  }
 }
 
 /** share style */

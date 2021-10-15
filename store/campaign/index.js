@@ -40,7 +40,8 @@ const actions = {
 const mutations = {
   /** 改變登入狀態 */
   setLogin (state) {
-    state.isLogin = !state.isLogin;
+    state.isLogin = true;
+    console.log(state.isLogin);
   },
   /** 儲存每個tab的資料
    * @param {String} type mutation function name

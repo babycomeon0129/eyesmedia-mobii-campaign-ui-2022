@@ -27,6 +27,24 @@
             驗證資料
           </div>
         </div>
+        <div class="row form">
+          <div class="col-12 identity">
+            <label>
+              身分別
+              <span class="impt">*</span>
+            </label>
+            <div class="forminput">
+              <el-select v-model="requestData.dentityCat" :popper-class="'popperstyle'" placeholder="Select">
+                <el-option
+                  v-for="item in dentityCat"
+                  :key="item.value"
+                  :label="item.name"
+                  :value="item.value"
+                />
+              </el-select>
+            </div>
+          </div>
+        </div>
         <div class="row form" :class="{'error': !dentityOk}">
           <div class="col-12 identity">
             <label>
@@ -48,6 +66,22 @@
           </div>
           <div class="col-12 small-warning">
             <span v-if="!dentityOk">{{ errorMsg }}</span>
+          </div>
+        </div>
+        <div class="row form">
+          <div class="col-12 identity">
+            <label>
+              出生年月日
+              <span class="impt">*</span>
+            </label>
+            <div class="forminput">
+              <el-date-picker
+                v-model="requestData.birthDay"
+                type="date"
+                placeholder="年／月／日"
+                value-format="yyyy-MM-dd"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -132,6 +166,29 @@ export default {
   },
   data () {
     return {
+      requestData: {
+        dentityCat: null,
+        identityID: null,
+        birthDay: null
+      },
+      dentityCat: [
+        {
+          name: '榮民',
+          value: 1
+        },
+        {
+          name: '第二類退除役官兵',
+          value: 2
+        },
+        {
+          name: '退除役官兵眷屬',
+          value: 3
+        },
+        {
+          name: '退輔會(含所屬機構)職員工',
+          value: 4
+        }
+      ],
       identityID: null, // 身分證字號
       dentityOk: true, // 身分證字號長度驗證
       errorMsg: '字數長度不足10碼', // 驗證提示
@@ -238,6 +295,7 @@ $from-txt: #818181;
   .forminput {
     flex: 2;
     justify-content: flex-end;
+    text-align: right;
   }
   label {
     text-align: left;
@@ -353,7 +411,27 @@ $from-txt: #818181;
     background: #d3d3d3;
   }
 }
+::v-deep .el-select{
+  text-align: right;
+  .el-input.is-focus {
+    .el-input__inner {
+      border-color: $default-icon;
+    }
+  }
+}
 
+::v-deep .el-select .el-input__inner:focus {
+    border-color: $default-icon;
+}
+
+.popperstyle {
+  .selected{
+    color: $default-icon;
+  }
+  .el-select .el-input__inner:focus {
+    border-color: $default-icon;
+}
+}
 /** dialog */
 ::v-deep .el-dialog {
   .el-dialog__body{
@@ -368,5 +446,19 @@ $from-txt: #818181;
     }
   }
 }
+
+// 日期選擇器
+::v-deep .el-date-editor {
+  .el-input__inner {
+    text-align: right;
+    &:focus {
+    border-color: $default-icon;
+    }
+  }
+}
+
+::v-deep .el-date-table td.today span {
+    color: $default-icon;
+  }
 
 </style>

@@ -34,7 +34,7 @@
               <span class="impt">*</span>
             </label>
             <div class="forminput">
-              <el-select v-model="requestData.dentityCat" :popper-class="'popperstyle'" placeholder="Select">
+              <el-select v-model="requestData.dentityCat" :popper-class="'popperstyle'" placeholder="請選擇">
                 <el-option
                   v-for="item in dentityCat"
                   :key="item.value"
@@ -121,7 +121,7 @@
     </main>
     <!-- 申請按鈕 -->
     <div class="foot-btn" :class="{'isVac':isVac}">
-      <button v-if="!isVac" class="btn send" :class="{'unable': !agree || identityID === null}" :disabled="!agree || identityID === null" @click="onSubmit()">
+      <button v-if="!isVac" class="btn send col-12" :class="{'unable': !agree || identityID === null}" :disabled="!agree || identityID === null" @click="onSubmit()">
         立即申請
       </button>
       <p v-if="isVac">
@@ -130,17 +130,32 @@
     </div>
     <!-- 提醒視窗 -->
     <el-dialog
-      title="申請失敗！"
-      :visible.sync="dialogVisible"
+      :title="dialogOption.title"
+      :visible.sync="dialogOption.show"
       :show-close="false"
       top="30vh"
       width="60%"
     >
-      <span>請確認您的身分證字號，並重新輸入。若有問題請洽退輔會24小時服務專線：(02)2725-5700，或免付費服務電話：0800-212-154、0800-212-510</span>
+      <div class="col-12">
+        {{ dialogOption.cobtent }}
+      </div>
+      <div v-show="dialogOption.type === 3" class="col-12">
+        <input placeholder="請輸入所屬榮民身分證號">
+        <el-select v-model="requestData.dentityCat" placeholder="請選擇稱謂，您是榮民的" :popper-class="'popperstyle'" filterable>
+          <el-option
+            v-for="item in dentityCat"
+            :key="item.value"
+            :label="item.name"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
       <span slot="footer" class="dialog-footer">
-        <button type="button" class="btn send" @click="dialogVisible = false">重新輸入</button>
+        <a v-show="dialogOption.type === 1 || dialogOption.type === 3" type="button" class="btn goBack col-5">返回專頁</a>
+        <a v-show="dialogOption.type === 1" type="button" class="btn send col-5">前往登入註冊</a>
+        <button v-show="dialogOption.type === 2" type="button" class="btn send col-12" @click="dialogOption.show = false">重新輸入</button>
         <div class="col-12 closebtn">
-          <button type="button" class="btn close" @click="dialogVisible = false">
+          <button type="button" class="btn close" @click="dialogOption.show = false">
             <img
               src="@/static/images/campaign/icon/icon-close.png"
             >
@@ -148,7 +163,6 @@
         </div>
       </span>
     </el-dialog>
-    <!-- 申請視窗 -->
   </div>
 </template>
 
@@ -194,7 +208,12 @@ export default {
       dentityOk: true, // 身分證字號長度驗證
       errorMsg: '字數長度不足10碼', // 驗證提示
       agree: false, // 隱私權是否同意
-      dialogVisible: false
+      dialogOption: { // 提醒視窗Option
+        title: '請先登入',
+        cobtent: '請確認您的身分證字號，並重新輸入。若有問題請洽退輔會24小時服務專線：(02)2725-5700，或免付費服務電話：0800-212-154、0800-212-510',
+        show: false,
+        type: 3 // 1:請先登入  2: 申請失敗  3:輸入資料  4: 沒資料  5:成功
+      }
     };
   },
   head () {
@@ -217,7 +236,7 @@ export default {
     onSubmit () {
       this.dentityOk = this.identityID.length >= 10;
       if (this.dentityOk) {
-        this.dialogVisible = true;
+        this.dialogOption.show = true;
       }
     },
     goBack () {
@@ -248,7 +267,8 @@ $from-txt: #818181;
   line-height: 200%;
 }
 
-.col-12 {
+.row {
+  .col-12 {
   padding: 0 1em;
   &.vaclogo {
     padding: 100px 0;
@@ -268,6 +288,7 @@ $from-txt: #818181;
       }
     }
   }
+}
 }
 .form-title {
   text-align: center;
@@ -303,12 +324,15 @@ $from-txt: #818181;
     width: 135px;
     display: flex;
     align-items: center;
+    color: #13334C;
   }
   input {
     border: none;
     background: none;
     text-align: right;
-    color: #818181;
+    &::placeholder {
+       color: #818181;
+    }
     &:focus {
       outline: none;
     }
@@ -402,58 +426,128 @@ $from-txt: #818181;
   }
 }
 
-.send {
-  background: $default-icon;
+.btn {
   color: #fff;
   border-radius: 30px;
-  width: 100%;
+  &.send {
+  background: $default-icon;
   &.unable {
     color: #fff;
     background: #d3d3d3;
+    }
+  }
+  &.goBack {
+    background: #FBB54D;
   }
 }
+
+/** 下拉選單 */
 ::v-deep .el-select{
-  text-align: right;
+  .el-input__inner {
+    text-align: right;
+    background: none;
+    border: none;
+    &::placeholder {
+      color: #818181;
+      font-size:  1rem;
+    }
+    &:focus {
+      background: none;
+      border: none;
+    }
+  }
   .el-input.is-focus {
     .el-input__inner {
-      border-color: $default-icon;
+      background: none;
+      border: none;
     }
   }
 }
 
-::v-deep .el-select .el-input__inner:focus {
-    border-color: $default-icon;
+::v-deep .el-select-dropdown__list {
+  .el-select-dropdown__item {
+    display: flex;
+    // &.hover {
+    //   background: #FFFEF2;
+    // }
+    // &:hover {
+    //   background: #FFFEF2;
+    // }
+  }
+}
+
+::v-deep .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
+    background-color: #FFFEF2;
 }
 
 .popperstyle {
   .selected{
-    color: $default-icon;
+    color: #818181;
+    background: #FFFEF2;
   }
-  .el-select .el-input__inner:focus {
-    border-color: $default-icon;
 }
-}
+
 /** dialog */
 ::v-deep .el-dialog {
+  border-radius: 8px;
+  .el-dialog__title {
+    font-weight: bold;
+  }
   .el-dialog__body{
-    padding: 1em;
+    padding: 1em 2em;
+    color:#13334C;
   }
   .dialog-footer {
     position: relative;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 2em;
     .closebtn {
       text-align: center;
       position: absolute;
       bottom: -8em;
     }
   }
+  input {
+    margin: .3em;
+    border-radius: 8px;
+    outline: none;
+    text-align: right;
+    &:focus, &:active, &:visited {
+      border: 1px solid #FD5F00;
+    }
+  }
+  .el-select {
+    width: 100%;
+    .el-input__inner {
+      border: 1px solid #C4C4C4;
+    }
+    .el-input.is-focus {
+    .el-input__inner {
+      background: none;
+      border: 1px solid #FD5F00;
+    }
+  }
+  }
 }
 
 // 日期選擇器
 ::v-deep .el-date-editor {
+  .el-input__prefix {
+    right: 1em;
+  }
   .el-input__inner {
     text-align: right;
+    background: none;
+    border: none;
+    padding-right: .75rem;
+    &::placeholder {
+      color: #818181;
+      font-size:  1rem;
+    }
     &:focus {
-    border-color: $default-icon;
+      background: none;
+      border: none;
     }
   }
 }

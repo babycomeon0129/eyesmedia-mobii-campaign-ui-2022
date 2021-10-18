@@ -300,6 +300,9 @@ main {
     .channel-header-item {
       white-space: nowrap;
       width: calc((100% - 220px) / 2);
+      @media (max-width: 405px) {
+        width: calc((100% - 250px) / 2);
+      }
       &:first-child {
         text-align: left;
         padding-left: 1em;
@@ -307,7 +310,7 @@ main {
           font-size: xx-large;
         }
       }
-      &:last-child {
+      &:not(:first-child){
         display: flex;
         justify-content: right;
         align-self: center;

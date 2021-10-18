@@ -30,7 +30,7 @@
                 <el-dropdown-item><a href="https://www.mobii.ai/Member" target="_blank"><img src="@/static/images/campaign/icon/icon-menber.png" class="rwdimgmax" alt="我的會員頁">我的會員頁</a></el-dropdown-item>
                 <el-dropdown-item><a href="https://www.mobii.ai/MemberFunction/MemberCard?showBack=true" target="_blank"><img src="@/static/images/campaign/icon/icon-card.png" class="rwdimgmax" alt="我的卡片">我的卡片</a></el-dropdown-item>
                 <!-- 榮福專案專有選項 -->
-                <el-dropdown-item v-if="isVac">
+                <el-dropdown-item v-if="isVac" hidden>
                   <nuxt-link to="/campaign/VacCard">
                     <img src="@/static/images/campaign/icon/icon-addcard.png" class="rwdimgmax" alt="申請榮福卡">申請榮福卡
                   </nuxt-link>
@@ -81,7 +81,6 @@ export default {
   },
   methods: {
     login () {
-      console.log(this.loginUrl);
       // location.href = 'https://192.168.58.131:8083/campaign/VAC';
     }
   }

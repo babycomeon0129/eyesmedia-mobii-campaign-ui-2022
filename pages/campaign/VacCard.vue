@@ -53,7 +53,7 @@
             </label>
             <div class="forminput">
               <input
-                v-model="identityID"
+                v-model="requestData.idno"
                 placeholder="請輸入"
                 maxlength="10"
                 minlength="10"
@@ -121,7 +121,7 @@
     </main>
     <!-- 申請按鈕 -->
     <div class="foot-btn" :class="{'isVac':isVac}">
-      <button v-if="!isVac" class="btn send col-12" :class="{'unable': !agree || identityID === null}" :disabled="!agree || identityID === null" @click="onSubmit()">
+      <button v-if="!isVac" class="btn send col-12" :class="{'unable': !agree || requestData.idno === null}" :disabled="!agree || requestData.idno === null" @click="onSubmit()">
         立即申請
       </button>
       <p v-if="isVac">
@@ -143,7 +143,7 @@
         <input placeholder="請輸入所屬榮民身分證號">
         <el-select v-model="requestData.dentityCat" placeholder="請選擇稱謂，您是榮民的" :popper-class="'popperstyle'" filterable>
           <el-option
-            v-for="item in dentityCat"
+            v-for="item in pmsrel"
             :key="item.value"
             :label="item.name"
             :value="item.value"
@@ -183,7 +183,7 @@ export default {
     return {
       requestData: {
         dentityCat: null,
-        identityID: null,
+        idno: null,
         birthDay: null
       },
       dentityCat: [
@@ -204,7 +204,52 @@ export default {
           value: 4
         }
       ],
-      identityID: null, // 身分證字號
+      pmsrel: [ // 與榮民的關係列表
+        {
+          name: '父',
+          value: '21'
+        },
+        {
+          name: '母',
+          value: '22'
+        },
+        {
+          name: '養父',
+          value: '25'
+        },
+        {
+          name: '養母',
+          value: '26'
+        },
+        {
+          name: '配偶',
+          value: '30'
+        },
+        {
+          name: '夫',
+          value: '31'
+        },
+        {
+          name: '妻',
+          value: '32'
+        },
+        {
+          name: '子',
+          value: '41'
+        },
+        {
+          name: '女',
+          value: '42'
+        },
+        {
+          name: '養子',
+          value: '45'
+        },
+        {
+          name: '養女',
+          value: '46'
+        }
+      ],
       dentityOk: true, // 身分證字號長度驗證
       errorMsg: '字數長度不足10碼', // 驗證提示
       agree: false, // 隱私權是否同意
@@ -233,15 +278,17 @@ export default {
     };
   },
   methods: {
+    /** 第一次送出資料 */
     onSubmit () {
-      this.dentityOk = this.identityID.length >= 10;
+      // 驗證身分證字號是否10位數
+      this.dentityOk = this.requestData.idno.length >= 10;
       if (this.dentityOk) {
         this.dialogOption.show = true;
       }
     },
+    /** 返回鍵 */
     goBack () {
-      // window.history.length > 1 ? this.$router.go(-1) : this.router.push('/campaign/VAC');
-      this.$router.go(-1);
+      window.history.length > 1 ? this.$router.go(-1) : this.router.push('/campaign/VAC');
     },
     dentityCheck (event) {
       // console.log(event);
@@ -466,13 +513,13 @@ $from-txt: #818181;
 
 ::v-deep .el-select-dropdown__list {
   .el-select-dropdown__item {
+    text-align: right;
+  }
+}
+
+::v-deep .el-select-dropdown__list {
+  .el-select-dropdown__item {
     display: flex;
-    // &.hover {
-    //   background: #FFFEF2;
-    // }
-    // &:hover {
-    //   background: #FFFEF2;
-    // }
   }
 }
 
@@ -509,7 +556,7 @@ $from-txt: #818181;
     }
   }
   input {
-    margin: .3em;
+    margin: 1em 0 .3em 0;
     border-radius: 8px;
     outline: none;
     text-align: right;

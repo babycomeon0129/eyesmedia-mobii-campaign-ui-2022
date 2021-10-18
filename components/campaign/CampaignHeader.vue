@@ -8,17 +8,17 @@
           </a>
         </div>
         <div class="channel-header-title">
-          <img :src="titleImg">
+          <img :src="titleImg">{{ isLogin }}
         </div>
         <!-- 登入 -->
-        <div v-if="!isLogin" class="channel-header-item">
+        <div v-show="!isLogin" class="channel-header-item">
           <span class="hi-user" style="display: none;">Hi 訪客訪客訪客訪客訪客訪客</span>
           <a class="btn channel-btn" :href="`${loginUrl}?fromOriginUri=${redirectUrl}/campaign/VAC`">
             登入/註冊
           </a>
         </div>
         <!-- menu -->
-        <div v-if="isLogin" class="channel-header-item">
+        <div v-show="isLogin" class="channel-header-item">
           <el-dropdown trigger="click" @visible-change="openMenu = $event">
             <div class="menu-icon" :class="{'change': openMenu}">
               <div class="bar1" />

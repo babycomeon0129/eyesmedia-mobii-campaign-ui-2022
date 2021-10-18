@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { directive } from 'vue-awesome-swiper';
 
 export default {
@@ -160,6 +160,11 @@ export default {
     context.$gtm.push({ event: `${context.env.SIDE_ENV.env}一頁式活動頁瀏覽` });
   },
   async asyncData (context) {
+    console.log(' fetch M_idToken >>>> ', context.$cookies.get('M_idToken'));
+    if (context.$cookies.get('M_idToken') !== undefined) {
+      context.store.commit('campaign/setLogin');
+      console.log(444444);
+    }
     // 取回活動資料
     const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`);
     const eventData = JSON.parse(callApi.data.data);
@@ -350,10 +355,11 @@ export default {
     ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab'])
   },
   created () {
-    console.log('M_idToken >>>> ', this.$cookies.get('M_idToken'));
-    if (this.$cookies.get('M_idToken') !== undefined) {
-      this.$store.commit('campaign/setLogin');
-    }
+    // console.log(' fetch M_idToken >>>> ', this.$cookies.get('M_idToken'));
+    // if (this.$cookies.get('M_idToken') !== undefined) {
+    //   this.setLogin();
+    //   console.log(444444);
+    // }
     // 接收打開service icons 列表
     this.$nuxt.$on('openMyService', (e) => {
       this.isOpenService = e;
@@ -370,7 +376,9 @@ export default {
     this.$nuxt.$off('openMyService');
   },
   methods: {
-    // ...
+    ...mapMutations('campaign', {
+      setLogin: 'setLogin'
+    })
   }
 };
 </script>

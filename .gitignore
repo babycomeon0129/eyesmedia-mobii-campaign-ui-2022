@@ -88,3 +88,7 @@ sw.*
 
 # Vim swap files
 *.swp
+
+#SSL KEY
+server_mobii_202101.key
+mobii_20210112.pem

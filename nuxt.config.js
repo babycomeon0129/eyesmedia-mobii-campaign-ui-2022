@@ -13,7 +13,9 @@ const envObj = {
       domain: 'https://192.168.58.131:8083',
       GA: 'GTM-KBZ2VT8',
       host: '0.0.0.0',
-      port: 8083
+      port: 8083,
+      key: 'server_mobii_202101.key',
+      cert: 'mobii_20210112.pem'
     },
     sit: {
       env: 'sit',
@@ -22,7 +24,9 @@ const envObj = {
       domain: 'https://sit-events.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '210.65.10.85',
-      port: 8080
+      port: 8080,
+      key: '/etc/pki/eyesmedia/server_mobii_202101.key',
+      cert: '/etc/pki/eyesmedia/mobii_20210112.pem'
     },
     uat: {
       env: 'uat',
@@ -31,16 +35,20 @@ const envObj = {
       domain: 'https://events-uat.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '210.65.10.85',
-      port: 8080
+      port: 8080,
+      key: '/etc/pki/eyesmedia/server_mobii_202101.key',
+      cert: '/etc/pki/eyesmedia/mobii_20210112.pem'
     },
     prod: {
       env: 'prod',
       apiPath: 'biz.lucas.com/api/v1',
       login: 'https://mobii.ai/Login',
-      domain: 'https://events.mobii.ai/campaign',
+      domain: 'https://events.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '210.65.10.85',
-      port: 8080
+      port: 8080,
+      key: '/etc/pki/eyesmedia/server_mobii_202101.key',
+      cert: '/etc/pki/eyesmedia/mobii_20210112.pem'
     }
   }
 };
@@ -114,7 +122,17 @@ export default {
     '@nuxtjs/gtm',
     '@nuxtjs/google-gtag',
     '@nuxtjs/robots',
-    'nuxt-material-design-icons-iconfont'
+    'nuxt-material-design-icons-iconfont',
+    [
+      '@nuxtjs/recaptcha', {
+        /* reCAPTCHA options */
+        hideBadge: true,
+        size: 'normal',
+        language: 'zh-TW',
+        version: 2,
+        siteKey: '6LcrBtocAAAAAAFzxAklbyhTX-pmtxnb-aNgMIQH'
+      }
+    ]
   ],
   gtm: {
     id: 'GTM-MQX7SSB',
@@ -212,8 +230,8 @@ export default {
      * 當過期之後需找網管人員提供.
     */
     https: {
-      key: fs.readFileSync(path.resolve(__dirname, 'server_mobii_202101.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'mobii_20210112.pem'))
+      key: fs.readFileSync(path.resolve(__dirname, envObj.get(process.env.SIDE_ENV).key)),
+      cert: fs.readFileSync(path.resolve(__dirname, envObj.get(process.env.SIDE_ENV).cert))
     },
     // port: 8083, // default: 3000
     port: envObj.get(process.env.SIDE_ENV).port,

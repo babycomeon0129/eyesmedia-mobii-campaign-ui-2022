@@ -1,23 +1,35 @@
 <template>
-  <div class="bearservice">
-    <div class="scroll-top-wrapper">
-      <span class="scroll-top-inner">
-        <a href="juskaUrl">
-          <img
-            src="@/static/images/campaign/icon/icon_service.png"
-            class="justka-img"
-          >
-        </a>
-      </span>
-      <div v-if="msgMode" class="justka-msg">
-        <button type="button" @click="msgMode = !msgMode">
-          ×
-        </button>
-        <p>
-          哈囉您好！有需要幫忙的地方，歡迎找我喔！
-        </p>
+  <div>
+    <div class="bearservice">
+      <div class="scroll-top-wrapper">
+        <span class="scroll-top-inner">
+          <button href="juskaUrl" @click="dialogVisible = true">
+            <img
+              src="@/static/images/campaign/icon/icon_service.png"
+              class="justka-img"
+            >
+          </button>
+        </span>
+        <div v-if="msgMode" class="justka-msg">
+          <button type="button" @click="msgMode = !msgMode">
+            ×
+          </button>
+          <p>
+            哈囉您好！有需要幫忙的地方，歡迎找我喔！
+          </p>
+        </div>
       </div>
     </div>
+    <!-- 視窗 -->
+    <el-dialog
+      title="Justka"
+      :visible.sync="dialogVisible"
+      width="60%"
+      :destroy-on-close="true"
+    >
+      <iframe :src="juskaUrl" frameborder="0" class="justkaBox" />
+      <span slot="footer" class="dialog-footer" />
+    </el-dialog>
   </div>
 </template>
 
@@ -34,7 +46,9 @@ export default {
   data () {
     return {
       /** 提示訊息是否開啟 */
-      msgMode: true
+      msgMode: true,
+      /** dialog是否開啟 */
+      dialogVisible: false
     };
   }
 };
@@ -141,5 +155,12 @@ export default {
     line-height: 1.5;
     padding: 0;
   }
+}
+
+iframe.justkaBox{
+  width: 100%;
+  height: 100%;
+  min-height: 50vh;
+  border-radius: 5px;
 }
 </style>

@@ -17,8 +17,10 @@
     </div>
     <main>
       <div class="channel-section">
-        <div class="col-12 vaclogo">
-          <img src="@/static/images/campaign/vaclogo.png" class="rwdimgmax" alt="more">
+        <div class="row">
+          <div class="col-12 vaclogo">
+            <img src="@/static/images/campaign/vaclogo.png" class="rwdimgmax" alt="more">
+          </div>
         </div>
       </div>
       <div v-if="!isVac" class="channel-section">
@@ -34,7 +36,11 @@
               <span class="impt">*</span>
             </label>
             <div class="forminput">
-              <el-select v-model="requestData.dentityCat" :popper-class="'popperstyle'" placeholder="請選擇">
+              <el-select
+                v-model="requestData.dentityCat"
+                :popper-class="'popperstyle'"
+                placeholder="請選擇"
+              >
                 <el-option
                   v-for="item in dentityCat"
                   :key="item.value"
@@ -45,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div class="row form" :class="{'error': !dentityOk}">
+        <div class="row form" :class="{ 'error': !dentityOk }">
           <div class="col-12 identity">
             <label>
               身分證字號
@@ -78,9 +84,21 @@
               <el-date-picker
                 v-model="requestData.birthDay"
                 type="date"
-                placeholder="年／月／日"
-                value-format="yyyy-MM-dd"
+                placeholder="月／日"
+                format="MM-dd"
+                value-format="MM-dd"
               />
+            </div>
+          </div>
+        </div>
+        <div class="row form">
+          <div class="col-12 identity">
+            <label>
+              請勾選
+              <span class="impt">*</span>
+            </label>
+            <div class="forminput">
+              <recaptcha @error="onError" @success="onSuccess" @expired="onExpired" />
             </div>
           </div>
         </div>
@@ -101,8 +119,8 @@
             </li>
             <li>
               所輸入之身分證字號，僅供申請數位榮福卡身分驗證使用，不做其他用途。艾斯移動 (Mobii 平台) 不會記錄、保存身分證字號於 Mobii 平台系統中。
-              <br><br>
-              榮福卡合作優惠終止時，優惠將轉換為一般會員。
+              <br>
+              <br>榮福卡合作優惠終止時，優惠將轉換為一般會員。
             </li>
           </ul>
         </div>
@@ -115,13 +133,22 @@
       <div v-if="isVac" class="channel-section">
         <div class="col-12 isVac">
           <h2>已完成申請！</h2>
-          <p>您已完成數位榮福卡申請，歡迎您盡情享受<br>Mobii 獨家優惠！</p>
+          <p>
+            您已完成數位榮福卡申請，歡迎您盡情享受
+            <br>Mobii 獨家優惠！
+          </p>
         </div>
       </div>
     </main>
     <!-- 申請按鈕 -->
-    <div class="foot-btn" :class="{'isVac':isVac}">
-      <button v-if="!isVac" class="btn send col-12" :class="{'unable': !agree || requestData.idno === null}" :disabled="!agree || requestData.idno === null" @click="onSubmit()">
+    <div class="foot-btn" :class="{ 'isVac': isVac }">
+      <button
+        v-if="!isVac"
+        class="btn send col-12"
+        :class="{ 'unable': !agree || requestData.idno === null }"
+        :disabled="!agree || requestData.idno === null"
+        @click="onSubmit()"
+      >
         立即申請
       </button>
       <p v-if="isVac">
@@ -141,7 +168,12 @@
       </div>
       <div v-show="dialogOption.type === 3" class="col-12">
         <input placeholder="請輸入所屬榮民身分證號">
-        <el-select v-model="requestData.dentityCat" placeholder="請選擇稱謂，您是榮民的" :popper-class="'popperstyle'" filterable>
+        <el-select
+          v-model="requestData.dentityCat"
+          placeholder="請選擇稱謂，您是榮民的"
+          :popper-class="'popperstyle'"
+          filterable
+        >
           <el-option
             v-for="item in pmsrel"
             :key="item.value"
@@ -151,14 +183,21 @@
         </el-select>
       </div>
       <span slot="footer" class="dialog-footer">
-        <a v-show="dialogOption.type === 1 || dialogOption.type === 3" type="button" class="btn goBack col-5">返回專頁</a>
+        <a
+          v-show="dialogOption.type === 1 || dialogOption.type === 3"
+          type="button"
+          class="btn goBack col-5"
+        >返回專頁</a>
         <a v-show="dialogOption.type === 1" type="button" class="btn send col-5">前往登入註冊</a>
-        <button v-show="dialogOption.type === 2" type="button" class="btn send col-12" @click="dialogOption.show = false">重新輸入</button>
+        <button
+          v-show="dialogOption.type === 2"
+          type="button"
+          class="btn send col-12"
+          @click="dialogOption.show = false"
+        >重新輸入</button>
         <div class="col-12 closebtn">
           <button type="button" class="btn close" @click="dialogOption.show = false">
-            <img
-              src="@/static/images/campaign/icon/icon-close.png"
-            >
+            <img src="@/static/images/campaign/icon/icon-close.png">
           </button>
         </div>
       </span>
@@ -174,7 +213,15 @@ export default {
     context.$gtm.push({ event: 'sit網站瀏覽' });
   },
   async asyncData (context) {
-    const isVac = await false;
+    /** 登入idToken */
+    const idToken = context.$cookies.get('M_idToken') || null;
+    const vacData = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/check`, {
+      headers: {
+        Authorization: `Bearer ${idToken}`
+      }
+    });
+    console.log(vacData.data);
+    const isVac = false;
     return {
       isVac // 是否是榮福卡會員
     };
@@ -277,6 +324,9 @@ export default {
       ]
     };
   },
+  mounted () {
+    // ...
+  },
   methods: {
     /** 第一次送出資料 */
     onSubmit () {
@@ -292,6 +342,18 @@ export default {
     },
     dentityCheck (event) {
       // console.log(event);
+    },
+    /** 機器人驗證成功 */
+    onSuccess (token) {
+      console.log('Succeeded:', token);
+    },
+    /** 機器人驗證失敗 */
+    onError (error) {
+      console.log('Error happened:', error);
+    },
+    /** 機器人驗證過期？ */
+    onExpired () {
+      console.log('Expired');
     }
   }
 };
@@ -302,8 +364,8 @@ export default {
 $from-txt: #818181;
 
 .channel-header .channel-header-box .channel-header-item {
-    white-space: nowrap;
-    width:auto;
+  white-space: nowrap;
+  width: auto;
 }
 
 .channel-header-title {
@@ -316,32 +378,32 @@ $from-txt: #818181;
 
 .row {
   .col-12 {
-  padding: 0 1em;
-  &.vaclogo {
-    padding: 100px 0;
-    background: radial-gradient(
-      100% 100% at 50% 0%,
-      #fbfdfd 0%,
-      #f6f8f8 71.42%,
-      #eaeaea 100%
-    );
-    @media (max-width: 767px) {
-      padding: 80px 0;
-    }
-    img {
+    padding: 0 1em;
+    &.vaclogo {
+      padding: 100px 0;
+      background: radial-gradient(
+        100% 100% at 50% 0%,
+        #fbfdfd 0%,
+        #f6f8f8 71.42%,
+        #eaeaea 100%
+      );
       @media (max-width: 767px) {
-        width: 120px;
-        height: 120px;
+        padding: 80px 0;
+      }
+      img {
+        @media (max-width: 767px) {
+          width: 120px;
+          height: 120px;
+        }
       }
     }
+    &.form-title {
+      text-align: center;
+      color: #005792;
+      border-bottom: #ced4da 1px solid;
+      padding: 0.3em 0;
+    }
   }
-}
-}
-.form-title {
-  text-align: center;
-  color: #005792;
-  border-bottom: #ced4da 1px solid;
-  padding: 0.3em 0;
 }
 
 .impt {
@@ -351,7 +413,7 @@ $from-txt: #818181;
 .form {
   border-bottom: #ced4da 1px solid;
   position: relative;
-  padding: .5em 0;
+  padding: 0.5em 0;
   &.error {
     background: #fffef2;
     border-right: 4px solid $default-icon;
@@ -362,6 +424,7 @@ $from-txt: #818181;
   display: flex;
   flex-wrap: wrap;
   .forminput {
+    display: flex;
     flex: 2;
     justify-content: flex-end;
     text-align: right;
@@ -371,14 +434,14 @@ $from-txt: #818181;
     width: 135px;
     display: flex;
     align-items: center;
-    color: #13334C;
+    color: #13334c;
   }
   input {
     border: none;
     background: none;
     text-align: right;
     &::placeholder {
-       color: #818181;
+      color: #818181;
     }
     &:focus {
       outline: none;
@@ -404,7 +467,7 @@ $from-txt: #818181;
     text-align: left;
     color: $from-txt;
   }
-  >ul {
+  > ul {
     padding-left: 1.5em;
   }
   li {
@@ -434,14 +497,14 @@ $from-txt: #818181;
   display: flex;
   padding-bottom: 6em;
   label {
-    color: #13334C;
+    color: #13334c;
     text-align: left;
   }
 }
 
 .col-12.isVac {
-  color: #13334C;
-  padding: 50px ;
+  color: #13334c;
+  padding: 50px;
   h2 {
     margin-bottom: 18px;
   }
@@ -464,7 +527,7 @@ $from-txt: #818181;
     box-shadow: none;
     p {
       position: relative;
-      i{
+      i {
         color: $default-icon;
         position: absolute;
         left: -1.1em;
@@ -477,26 +540,26 @@ $from-txt: #818181;
   color: #fff;
   border-radius: 30px;
   &.send {
-  background: $default-icon;
-  &.unable {
-    color: #fff;
-    background: #d3d3d3;
+    background: $default-icon;
+    &.unable {
+      color: #fff;
+      background: #d3d3d3;
     }
   }
   &.goBack {
-    background: #FBB54D;
+    background: #fbb54d;
   }
 }
 
 /** 下拉選單 */
-::v-deep .el-select{
+::v-deep .el-select {
   .el-input__inner {
     text-align: right;
     background: none;
     border: none;
     &::placeholder {
       color: #818181;
-      font-size:  1rem;
+      font-size: 1rem;
     }
     &:focus {
       background: none;
@@ -523,14 +586,15 @@ $from-txt: #818181;
   }
 }
 
-::v-deep .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
-    background-color: #FFFEF2;
+::v-deep .el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
+  background-color: #fffef2;
 }
 
 .popperstyle {
-  .selected{
+  .selected {
     color: #818181;
-    background: #FFFEF2;
+    background: #fffef2;
   }
 }
 
@@ -540,9 +604,9 @@ $from-txt: #818181;
   .el-dialog__title {
     font-weight: bold;
   }
-  .el-dialog__body{
+  .el-dialog__body {
     padding: 1em 2em;
-    color:#13334C;
+    color: #13334c;
   }
   .dialog-footer {
     position: relative;
@@ -556,41 +620,45 @@ $from-txt: #818181;
     }
   }
   input {
-    margin: 1em 0 .3em 0;
+    margin: 1em 0 0.3em 0;
     border-radius: 8px;
     outline: none;
     text-align: right;
-    &:focus, &:active, &:visited {
-      border: 1px solid #FD5F00;
+    &:focus,
+    &:active,
+    &:visited {
+      border: 1px solid #fd5f00;
     }
   }
   .el-select {
     width: 100%;
     .el-input__inner {
-      border: 1px solid #C4C4C4;
+      border: 1px solid #c4c4c4;
     }
     .el-input.is-focus {
-    .el-input__inner {
-      background: none;
-      border: 1px solid #FD5F00;
+      .el-input__inner {
+        background: none;
+        border: 1px solid #fd5f00;
+      }
     }
-  }
   }
 }
 
 // 日期選擇器
 ::v-deep .el-date-editor {
   .el-input__prefix {
-    right: 1em;
+    i {
+      display: none;
+    }
   }
   .el-input__inner {
     text-align: right;
     background: none;
     border: none;
-    padding-right: .75rem;
+    padding-right: 0.75rem;
     &::placeholder {
       color: #818181;
-      font-size:  1rem;
+      font-size: 1rem;
     }
     &:focus {
       background: none;
@@ -598,9 +666,4 @@ $from-txt: #818181;
     }
   }
 }
-
-::v-deep .el-date-table td.today span {
-    color: $default-icon;
-  }
-
 </style>

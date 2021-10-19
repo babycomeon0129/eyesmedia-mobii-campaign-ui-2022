@@ -160,19 +160,21 @@ export default {
     context.$gtm.push({ event: `${context.env.SIDE_ENV.env}一頁式活動頁瀏覽` });
   },
   async asyncData (context) {
-    console.log(' fetch M_idToken >>>> ', context.$cookies.get('M_idToken'));
-    if (context.$cookies.get('M_idToken') !== undefined) {
+    // console.log(' fetch M_idToken >>>> ', context.$cookies.get('M_idToken'));
+    /** 登入idToken */
+    const idToken = context.$cookies.get('M_idToken') || null;
+    if (idToken !== null) {
       context.store.commit('campaign/setLogin');
     }
     // 取回活動資料
-    const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`);
-    // const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`, {
-    //   headers: {
-    //     Authorization: 'Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIwOGQ3MzZhYS05OTgzLTQ5MzItYmJkYy0yZmIwNzU1N2E5YjEiLCJhdWQiOiI3YTE5OGE5OC04NzFkLTRkMzYtODY2ZC0zYjI0NjQ4OGEyY2MiLCJvcGVuSWRQcm92aWRlciI6eyJuYW1lIjoiRXllc21lZGlhIiwicmVmSWQiOiJudWxsIn0sImV4cCI6MTYzNDU2MjM1NSwiaWF0IjoxNjM0NTI2MzU1LCJ1c2VyIjp7ImFjY291bnRJZCI6ImQzZjUzYTYwLWRiNzAtMTFlOS04YTM0LTJhMmFlMmRiY2NlNCIsIm5hbWUiOiJMeW5uIEh1YW5nIiwibW9iaWxlIjoiOTY4KioqNzYzIiwiaWQiOiIwOGQ3MzZhYS05OTgzLTQ5MzItYmJkYy0yZmIwNzU1N2E5YjEiLCJjb3VudHJ5TWNvZGUiOiI4ODYiLCJyZWdpc3RlckRhdGUiOiIxNjM0NTIxMjYxIn0sImlzcyI6ImV5ZXNtZWRpYS5jb20udHcifQ.FN8H48QgjPGyH7HAB_x_gf2C5HuoIeIzPweuC1gPc_4TzDysQZJ42thepveJg1TrX3r4N-GZ_u_W8PCZ_0PgD1FwE5p1boIOMMTep_rEjldBRmkI1XxuTUkYnNTsYV7-ZrxR7D3mivelgMfTXW5f_0GZx2b7Vf2zNUw_vhPbP1n7qZJrgJU-khxnhasd8lDvoFNuTT8seJnzaZg8DaXulvvdWGS7Bs_UvWXbPbTwxZpSINqjmJplLCWv1XNU-qlX3vxkGuEfWkcWLYxP2SlpzAZy0rlDrtX_IsYull5K5ibPpEwPeQoKsMoA0c3-vuE1GduWULUQb18kiETGNDtgYA'
-    //   }
-    // });
-    // const checkData = callApi;
-    // console.log(checkData);
+    // const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`);
+    const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`, {
+      headers: {
+        Authorization: `Bearer ${idToken}`
+      }
+    });
+    const checkData = callApi;
+    console.log(checkData.data);
     const eventData = JSON.parse(callApi.data.data);
     context.store.commit({
       type: 'campaign/setNewTab',
@@ -367,6 +369,7 @@ export default {
     //   console.log(444444);
     // }
     // 接收打開service icons 列表
+    // TODO: 有空需要改用vuex，盡量不用event bus
     this.$nuxt.$on('openMyService', (e) => {
       this.isOpenService = e;
     });

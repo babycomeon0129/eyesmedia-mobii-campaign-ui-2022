@@ -24,6 +24,7 @@
     "@nuxtjs/google-gtag": "^1.0.4",
     "@nuxtjs/gtm": "^2.4.0",
     "@nuxtjs/proxy": "^2.1.0",
+    "@nuxtjs/recaptcha": "^1.0.4",
     "@nuxtjs/robots": "^2.5.0",
     "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.9.1",

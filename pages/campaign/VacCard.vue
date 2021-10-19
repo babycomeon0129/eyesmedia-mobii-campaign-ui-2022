@@ -29,7 +29,7 @@
             驗證資料
           </div>
         </div>
-        <div class="row form">
+        <div class="row form" :class="{ 'error': !verify.idtype && verify.idtype !== null }">
           <div class="col-12 identity">
             <label>
               身分別
@@ -37,7 +37,7 @@
             </label>
             <div class="forminput">
               <el-select
-                v-model="requestData.dentityCat"
+                v-model="requestData.idtype"
                 :popper-class="'popperstyle'"
                 placeholder="請選擇"
               >
@@ -46,12 +46,17 @@
                   :key="item.value"
                   :label="item.name"
                   :value="item.value"
-                />
+                >
+                  <span style="float: right;">{{ item.name }}</span>
+                </el-option>
               </el-select>
             </div>
           </div>
+          <div class="col-12 small-warning">
+            <span v-if="!verify.idtype && verify.idtype !== null">請選擇身份別</span>
+          </div>
         </div>
-        <div class="row form" :class="{ 'error': !dentityOk }">
+        <div class="row form" :class="{ 'error': !verify.idno && verify.idno !== null }">
           <div class="col-12 identity">
             <label>
               身分證字號
@@ -71,7 +76,7 @@
             </div>
           </div>
           <div class="col-12 small-warning">
-            <span v-if="!dentityOk">{{ errorMsg }}</span>
+            <span v-if="!verify.idno && verify.idno !== null">字數長度不足10碼</span>
           </div>
         </div>
         <div class="row form">
@@ -82,7 +87,7 @@
             </label>
             <div class="forminput">
               <el-date-picker
-                v-model="requestData.birthDay"
+                v-model="requestData.birth_dt"
                 type="date"
                 placeholder="月／日"
                 format="MM-dd"
@@ -114,7 +119,6 @@
                 <li>第二類退除役官兵</li>
                 <li>退除役官兵眷屬</li>
                 <li>退輔會(含所屬機構)職員工</li>
-                <li>其他經退輔會同意者</li>
               </ul>
             </li>
             <li>
@@ -145,8 +149,8 @@
       <button
         v-if="!isVac"
         class="btn send col-12"
-        :class="{ 'unable': !agree || requestData.idno === null }"
-        :disabled="!agree || requestData.idno === null"
+        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null}"
+        :disabled="!agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null"
         @click="onSubmit()"
       >
         立即申請
@@ -160,11 +164,11 @@
       :title="dialogOption.title"
       :visible.sync="dialogOption.show"
       :show-close="false"
+      :close-on-click-modal="false"
       top="30vh"
-      width="60%"
     >
       <div class="col-12">
-        {{ dialogOption.cobtent }}
+        {{ dialogOption.content }}
       </div>
       <div v-show="dialogOption.type === 3" class="col-12">
         <input placeholder="請輸入所屬榮民身分證號">
@@ -179,16 +183,23 @@
             :key="item.value"
             :label="item.name"
             :value="item.value"
-          />
+          >
+            <span style="float: left;">{{ item.name }}</span>
+          </el-option>
         </el-select>
       </div>
       <span slot="footer" class="dialog-footer">
-        <a
+        <nuxt-link
           v-show="dialogOption.type === 1 || dialogOption.type === 3"
+          to="/campaign/VAC"
           type="button"
           class="btn goBack col-5"
-        >返回專頁</a>
-        <a v-show="dialogOption.type === 1" type="button" class="btn send col-5">前往登入註冊</a>
+        >
+          返回專頁</nuxt-link>
+        <a v-show="dialogOption.type === 1" :href="`${env.login}?fromOriginUri=${env.domain}/campaign/VAC`" type="button" class="btn send col-5">前往登入註冊</a>
+        <button v-show="dialogOption.type === 3" type="button" class="btn send col-5">
+          送出
+        </button>
         <button
           v-show="dialogOption.type === 2"
           type="button"
@@ -196,7 +207,7 @@
           @click="dialogOption.show = false"
         >重新輸入</button>
         <div class="col-12 closebtn">
-          <button type="button" class="btn close" @click="dialogOption.show = false">
+          <button v-show="dialogOption.type !== 1" type="button" class="btn close" @click="dialogOption.show = false">
             <img src="@/static/images/campaign/icon/icon-close.png">
           </button>
         </div>
@@ -213,6 +224,13 @@ export default {
     context.$gtm.push({ event: 'sit網站瀏覽' });
   },
   async asyncData (context) {
+    /** 提示dialog Option */
+    const dialogOption = {
+      title: '請先登入!',
+      content: '請先登入方能進行數位榮福卡申請',
+      show: false,
+      type: 1 // 1:請先登入  2: 申請失敗  3:輸入資料  4: 沒資料  5:成功
+    };
     /** 登入idToken */
     const idToken = context.$cookies.get('M_idToken') || null;
     const vacData = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/check`, {
@@ -220,38 +238,59 @@ export default {
         Authorization: `Bearer ${idToken}`
       }
     });
-    console.log(vacData.data);
-    const isVac = false;
+    let isVac = false;
+    if (vacData.data.errorCode === '996600001') {
+      isVac = vacData.data.sBind;
+    } else {
+      dialogOption.show = true;
+    }
     return {
-      isVac // 是否是榮福卡會員
+      /** 是否是榮福卡會員 */
+      isVac,
+      /** id token */
+      idToken,
+      /** 環境變數 */
+      env: context.env.SIDE_ENV,
+      /** 提示dialog Option */
+      dialogOption
     };
   },
   data () {
     return {
+      /** Api Request */
       requestData: {
-        dentityCat: null,
+        /** 身份別 */
+        idtype: null,
+        /** 身分證字號 */
         idno: null,
-        birthDay: null
+        /** 生日 */
+        birth_dt: null,
+        /** 會員編號 */
+        memid: null,
+        /** 所屬機構 */
+        affiliation: null
       },
+      /** 榮民的身份別 */
       dentityCat: [
         {
           name: '榮民',
-          value: 1
+          value: '1'
         },
         {
           name: '第二類退除役官兵',
-          value: 2
+          value: '2'
         },
         {
           name: '退除役官兵眷屬',
-          value: 3
+          value: '3'
         },
         {
           name: '退輔會(含所屬機構)職員工',
-          value: 4
+          value: '4'
         }
       ],
-      pmsrel: [ // 與榮民的關係列表
+      /** 與榮民的關係列表 */
+      pmsrel: [
         {
           name: '父',
           value: '21'
@@ -297,15 +336,23 @@ export default {
           value: '46'
         }
       ],
-      dentityOk: true, // 身分證字號長度驗證
-      errorMsg: '字數長度不足10碼', // 驗證提示
-      agree: false, // 隱私權是否同意
-      dialogOption: { // 提醒視窗Option
-        title: '請先登入',
-        cobtent: '請確認您的身分證字號，並重新輸入。若有問題請洽退輔會24小時服務專線：(02)2725-5700，或免付費服務電話：0800-212-154、0800-212-510',
-        show: false,
-        type: 3 // 1:請先登入  2: 申請失敗  3:輸入資料  4: 沒資料  5:成功
-      }
+      /** 榮民資料驗證 */
+      verify: {
+        idtype: null,
+        idno: null,
+        birth_dt: null
+      },
+      /** 隱私權是否同意 */
+      agree: false,
+      /** google reCaptcha */
+      reCaptcha: false
+      /** 提醒dialog option */
+      // dialogOption: {
+      //   title: '請先登入!',
+      //   cobtent: '請先登入方能進行數位榮福卡申請',
+      //   show: true,
+      //   type: 3 // 1:請先登入  2: 申請失敗  3:查無眷屬資料
+      // }
     };
   },
   head () {
@@ -328,12 +375,44 @@ export default {
     // ...
   },
   methods: {
-    /** 第一次送出資料 */
+    /** 立即申請（第一次送出資料） */
     onSubmit () {
-      // 驗證身分證字號是否10位數
-      this.dentityOk = this.requestData.idno.length >= 10;
-      if (this.dentityOk) {
-        this.dialogOption.show = true;
+      // 驗證是否選擇身份別
+      this.verify.idtype = this.requestData.idtype !== null;
+      // 驗證身分證字號是否10位
+      this.verify.idno = this.requestData.idno.length >= 10;
+      // 驗證是否選擇生日
+      this.verify.birth_dt = this.requestData.birth_dt !== null;
+      // 檢查verify內的東西是否都是true
+      const submitOk = Object.values(this.verify).every(e => e === true);
+      // TODO:上SIT記得補上機器人驗證
+      if (submitOk && this.agree) {
+        this.$axios.post(`${this.env.apiPath}/events/bind`, this.requestData, {
+          headers: {
+            Authorization: `Bearer ${this.idToken}`
+          }
+        }).then((res) => {
+          switch (res.data.errorCode) {
+            // 驗證成功
+            case '996600001':
+              this.isVac = true;
+              break;
+            // 驗證失敗，查無資料_榮民/二類官兵/員工
+            case '619820003':
+              this.dialogOption.type = 2;
+              this.dialogOption.title = '查無資料！';
+              this.dialogOption.content = '請確認您所填資料是否正確，並重新輸入。若有問題請洽所屬單位或退輔會24小時服務專線：(02)2725-5700';
+              this.dialogOption.show = true;
+              break;
+            // 驗證失敗，查無眷屬資料
+            case '999999999':
+              this.dialogOption.type = 3;
+              this.dialogOption.title = '查無眷屬資料！';
+              this.dialogOption.content = '請確認您所填資料是否正確，或提交以下資料給退輔會做查驗。若有問題請洽所屬單位，或退輔會24小時服務專線：(02)2725-5700';
+              this.dialogOption.show = true;
+              break;
+          }
+        });
       }
     },
     /** 返回鍵 */
@@ -346,14 +425,17 @@ export default {
     /** 機器人驗證成功 */
     onSuccess (token) {
       console.log('Succeeded:', token);
+      this.reCaptcha = true;
     },
     /** 機器人驗證失敗 */
     onError (error) {
       console.log('Error happened:', error);
+      this.reCaptcha = false;
     },
     /** 機器人驗證過期？ */
     onExpired () {
       console.log('Expired');
+      this.reCaptcha = false;
     }
   }
 };
@@ -553,10 +635,12 @@ $from-txt: #818181;
 
 /** 下拉選單 */
 ::v-deep .el-select {
-  .el-input__inner {
+  width: 100%;
+    .el-input__inner {
     text-align: right;
     background: none;
     border: none;
+    font-size: 1rem;
     &::placeholder {
       color: #818181;
       font-size: 1rem;
@@ -564,12 +648,14 @@ $from-txt: #818181;
     &:focus {
       background: none;
       border: none;
+      font-size: 1rem;
     }
   }
   .el-input.is-focus {
     .el-input__inner {
       background: none;
       border: none;
+      font-size: 1rem;
     }
   }
 }
@@ -601,18 +687,25 @@ $from-txt: #818181;
 /** dialog */
 ::v-deep .el-dialog {
   border-radius: 8px;
+  width: 30%;
+  @media (max-width: 960px) {
+    width: 50%;
+  }
+  @media (max-width: 767px) {
+    width: 70%;
+  }
   .el-dialog__title {
     font-weight: bold;
   }
   .el-dialog__body {
     padding: 1em 2em;
     color: #13334c;
+    font-size: medium;
   }
   .dialog-footer {
     position: relative;
     display: flex;
     justify-content: space-around;
-    padding: 0 2em;
     .closebtn {
       text-align: center;
       position: absolute;
@@ -655,6 +748,7 @@ $from-txt: #818181;
     text-align: right;
     background: none;
     border: none;
+    font-size: 1rem;
     padding-right: 0.75rem;
     &::placeholder {
       color: #818181;

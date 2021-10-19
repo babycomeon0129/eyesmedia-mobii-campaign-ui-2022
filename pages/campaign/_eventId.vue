@@ -160,21 +160,21 @@ export default {
     context.$gtm.push({ event: `${context.env.SIDE_ENV.env}一頁式活動頁瀏覽` });
   },
   async asyncData (context) {
-    // console.log(' fetch M_idToken >>>> ', context.$cookies.get('M_idToken'));
     /** 登入idToken */
     const idToken = context.$cookies.get('M_idToken') || null;
-    if (idToken !== null) {
-      context.store.commit('campaign/setLogin');
-    }
     // 取回活動資料
-    // const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`);
     const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`, {
       headers: {
         Authorization: `Bearer ${idToken}`
       }
     });
-    const checkData = callApi;
-    console.log(checkData.data);
+    // 判斷是否登入成功
+    if (callApi.data.errorCode === '996600001') {
+      context.store.commit('campaign/setLogin', true);
+    } else {
+      context.store.commit('campaign/setLogin', false);
+      context.$cookies.remove('M_idToken');
+    }
     const eventData = JSON.parse(callApi.data.data);
     context.store.commit({
       type: 'campaign/setNewTab',
@@ -352,7 +352,8 @@ export default {
           name: 'description',
           content: this.campainData.eventsVm.mktEventMetaDiscription
         },
-        { name: 'keywords', content: this.campainData.eventsVm.mktEventSeo }
+        { name: 'keywords', content: this.campainData.eventsVm.mktEventSeo },
+        { property: 'og:image', content: this.campainData.banners[0].img }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/images/campaign/icon/favicon.ico' }

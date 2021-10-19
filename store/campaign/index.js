@@ -39,8 +39,8 @@ const actions = {
 // 只能做同步操作，不能做非同步操作。如要進行非同步操作請使用action
 const mutations = {
   /** 改變登入狀態 */
-  setLogin (state) {
-    state.isLogin = true;
+  setLogin (state, login) {
+    state.isLogin = login;
   },
   /** 儲存每個tab的資料
    * @param {String} type mutation function name

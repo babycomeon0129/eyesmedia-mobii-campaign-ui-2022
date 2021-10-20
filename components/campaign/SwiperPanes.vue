@@ -10,7 +10,7 @@
             :key="inside.id"
             class="swiper-slide"
           >
-            <a class="products-item" :href="inside.url" :target="inside.target">
+            <a class="products-item" :href="inside.url" :target="'_' + inside.target">
               <div class="products-content">
                 <div class="products-img">
                   <div class="img-box">

@@ -22,7 +22,7 @@
     </div>
     <!-- 視窗 -->
     <el-dialog
-      title="Justka"
+      title=""
       :visible.sync="dialogVisible"
       width="60%"
       :destroy-on-close="true"

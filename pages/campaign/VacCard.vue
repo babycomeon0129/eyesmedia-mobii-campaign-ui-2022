@@ -171,12 +171,19 @@
         {{ dialogOption.content }}
       </div>
       <div v-show="dialogOption.type === 3" class="col-12">
-        <input placeholder="請輸入所屬榮民身分證號">
+        <input
+          v-model="pmsRequestData.pmsidno"
+          maxlength="10"
+          minlength="10"
+          type="text"
+          pattern="^[A-Za-z][12]\d{8}$"
+          required
+          placeholder="請輸入所屬榮民身分證號"
+        >
         <el-select
-          v-model="requestData.dentityCat"
+          v-model="pmsRequestData.pmsrel"
           placeholder="請選擇稱謂，您是榮民的"
           :popper-class="'popperstyle'"
-          filterable
         >
           <el-option
             v-for="item in pmsrel"
@@ -184,22 +191,33 @@
             :label="item.name"
             :value="item.value"
           >
-            <span style="float: left;">{{ item.name }}</span>
+            <span style="float: right; padding-right: 1em; font-size: medium;">{{ item.name }}</span>
           </el-option>
         </el-select>
       </div>
       <span slot="footer" class="dialog-footer">
+        <!-- 返回專頁 -->
         <nuxt-link
-          v-show="dialogOption.type === 1 || dialogOption.type === 3"
+          v-show="dialogOption.type === 1 || dialogOption.type === 3 || dialogOption.type === 5"
           to="/campaign/VAC"
           type="button"
-          class="btn goBack col-5"
+          class="btn col-5"
+          :class="{'goBack': dialogOption.type === 1 || dialogOption.type === 3, 'send': dialogOption.type === 5}"
         >
           返回專頁</nuxt-link>
+        <!-- 送出榮民眷屬資料 -->
         <a v-show="dialogOption.type === 1" :href="`${env.login}?fromOriginUri=${env.domain}/campaign/VAC`" type="button" class="btn send col-5">前往登入註冊</a>
-        <button v-show="dialogOption.type === 3" type="button" class="btn send col-5">
+        <button
+          v-show="dialogOption.type === 3"
+          type="button"
+          class="btn send col-5"
+          :class="{'unable': pmsRequestData.pmsidno === null || pmsRequestData.pmsrel === null}"
+          :disabled="pmsRequestData.pmsidno === null || pmsRequestData.pmsrel === null"
+          @click="pmsSubmit"
+        >
           送出
         </button>
+        <!-- 重新輸入 -->
         <button
           v-show="dialogOption.type === 2"
           type="button"
@@ -229,7 +247,7 @@ export default {
       title: '請先登入!',
       content: '請先登入方能進行數位榮福卡申請',
       show: false,
-      type: 1 // 1:請先登入  2: 申請失敗  3:輸入資料  4: 沒資料  5:成功
+      type: 1 // 1:請先登入  2: 驗證失敗，查無資料_榮民/二類官兵/員工  3:驗證失敗，查無眷屬資料  4: 送出資料失敗(error code: 9999)  5:成功
     };
     /** 登入idToken */
     const idToken = context.$cookies.get('M_idToken') || null;
@@ -240,7 +258,7 @@ export default {
     });
     let isVac = false;
     if (vacData.data.errorCode === '996600001') {
-      isVac = vacData.data.sBind;
+      isVac = vacData.data.isBind;
     } else {
       dialogOption.show = true;
     }
@@ -269,6 +287,12 @@ export default {
         memid: null,
         /** 所屬機構 */
         affiliation: null
+      },
+      /** 眷屬確認 Api Request */
+      pmsRequestData: {
+        idno: null,
+        pmsidno: null,
+        pmsrel: null
       },
       /** 榮民的身份別 */
       dentityCat: [
@@ -342,17 +366,16 @@ export default {
         idno: null,
         birth_dt: null
       },
+      /** 榮民眷屬資料驗證 */
+      verifyPms: {
+        idno: null,
+        pmsidno: null,
+        pmsrel: null
+      },
       /** 隱私權是否同意 */
       agree: false,
       /** google reCaptcha */
       reCaptcha: false
-      /** 提醒dialog option */
-      // dialogOption: {
-      //   title: '請先登入!',
-      //   cobtent: '請先登入方能進行數位榮福卡申請',
-      //   show: true,
-      //   type: 3 // 1:請先登入  2: 申請失敗  3:查無眷屬資料
-      // }
     };
   },
   head () {
@@ -371,6 +394,9 @@ export default {
       ]
     };
   },
+  updated () {
+    this.pmsRequestData.idno = this.requestData.idno;
+  },
   mounted () {
     // ...
   },
@@ -380,7 +406,7 @@ export default {
       // 驗證是否選擇身份別
       this.verify.idtype = this.requestData.idtype !== null;
       // 驗證身分證字號是否10位
-      this.verify.idno = this.requestData.idno.length >= 10;
+      this.verify.idno = this.requestData.idno.length === 10;
       // 驗證是否選擇生日
       this.verify.birth_dt = this.requestData.birth_dt !== null;
       // 檢查verify內的東西是否都是true
@@ -405,12 +431,46 @@ export default {
               this.dialogOption.show = true;
               break;
             // 驗證失敗，查無眷屬資料
-            case '999999999':
+            case '619820004':
               this.dialogOption.type = 3;
               this.dialogOption.title = '查無眷屬資料！';
               this.dialogOption.content = '請確認您所填資料是否正確，或提交以下資料給退輔會做查驗。若有問題請洽所屬單位，或退輔會24小時服務專線：(02)2725-5700';
               this.dialogOption.show = true;
               break;
+            // 其他錯誤
+            default:
+              this.dialogOption.type = 4;
+              this.dialogOption.title = '系統錯誤';
+              this.dialogOption.content = '';
+              this.dialogOption.show = true;
+              break;
+          }
+        });
+      }
+    },
+    pmsSubmit () {
+      // 檢查眷屬資料是否有欄位是空值
+      this.verifyPms.idno = this.pmsRequestData.idno !== null;
+      this.verifyPms.pmsidno = this.pmsRequestData.pmsidno.length === 10;
+      this.verifyPms.pmsrel = this.pmsRequestData.pmsrel !== null;
+      // 檢查verify內的東西是否都是true
+      const submitOk = Object.values(this.verifyPms).every(e => e === true);
+      if (submitOk) {
+        this.$axios.post(`${this.env.apiPath}/events/checkIdType`, this.pmsRequestData, {
+          headers: {
+            Authorization: `Bearer ${this.idToken}`
+          }
+        }).then((res) => {
+          if (res.data.errorCode === '996600001') {
+            this.dialogOption.type = 5;
+            this.dialogOption.title = '提交完成！';
+            this.dialogOption.content = '已將資料提交給退輔會相關單位做查驗，查驗需要一點時間，請您耐心等待。三天後若還是無法申請數位榮福卡，請洽退輔會24小時服務專線：(02)2725-5700';
+            this.dialogOption.show = true;
+          } else {
+            this.dialogOption.type = 4;
+            this.dialogOption.title = '綁定失敗！';
+            this.dialogOption.content = '';
+            this.dialogOption.show = true;
           }
         });
       }
@@ -701,6 +761,7 @@ $from-txt: #818181;
     padding: 1em 2em;
     color: #13334c;
     font-size: medium;
+    text-align: left;
   }
   .dialog-footer {
     position: relative;

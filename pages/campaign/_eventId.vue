@@ -129,7 +129,7 @@
               <a
                 v-for="icon in campainData.icons"
                 :key="icon.id"
-                :target="icon.target"
+                :target="'_' + icon.target"
                 :href="icon.url"
                 :class="{'disable': icon.Function_IsActive === 0}"
                 class="col"
@@ -364,11 +364,6 @@ export default {
     ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab'])
   },
   created () {
-    // console.log(' fetch M_idToken >>>> ', this.$cookies.get('M_idToken'));
-    // if (this.$cookies.get('M_idToken') !== undefined) {
-    //   this.setLogin();
-    //   console.log(444444);
-    // }
     // 接收打開service icons 列表
     // TODO: 有空需要改用vuex，盡量不用event bus
     this.$nuxt.$on('openMyService', (e) => {

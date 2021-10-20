@@ -2,7 +2,7 @@
   <div v-swiper:mySwiper="swiperOption">
     <div class="swiper-wrapper">
       <div v-for="banner in bannerImg" :key="banner.id" class="swiper-slide" :class="slideClass">
-        <a :class="aClass" :href="banner.url" :target="banner.target">
+        <a :class="aClass" :href="banner.url" :target="'_' + banner.target">
           <div
             :class="contBackground"
             :style="{ backgroundImage: `url(${banner.img})` }"

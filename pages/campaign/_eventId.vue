@@ -476,7 +476,7 @@ export default {
   padding: 0 0.5em;
 }
 .channel-template3 {
-  background: #ff9d42;
+  background: #FE9060;
   background-size: cover;
   overflow: hidden;
   padding: 0 0.5em;

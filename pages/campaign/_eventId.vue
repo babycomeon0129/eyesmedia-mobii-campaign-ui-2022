@@ -19,10 +19,8 @@
           <SwiperIcon :icon-option="boxIconPC" :icons="campainData.icons" />
         </div>
         <div class="for-mobile">
-          <SwiperIcon
-            :icon-option="boxIcon"
+          <SwiperIconMobile
             :icons="campainData.icons"
-            :icon-arrows="false"
           />
         </div>
       </div>

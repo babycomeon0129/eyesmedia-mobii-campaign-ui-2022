@@ -1,11 +1,12 @@
 <template>
   <div class="icon-box">
-    <div v-swiper:mySwiper="iconOption" class="index-icon">
+    <div class="index-icon">
       <div class="swiper-wrapper">
         <div
-          v-for="icon in icons"
+          v-for="(icon, idx) in icons"
           :key="icon.id"
           class="swiper-slide"
+          :hidden="idx > 8"
         >
           <div class="item">
             <!-- if Function_IsActive == 0,  <a> class add 'disable'-->
@@ -17,10 +18,18 @@
             </a>
           </div>
         </div>
+        <div class="swiper-slide">
+          <a @click="$nuxt.$emit('openMyService', true);">
+            <div class="img-box">
+              <img
+                src="@/static/images/campaign/icon/category3_more.png"
+                alt="more"
+              >
+            </div>
+            <p>更多服務</p>
+          </a>
+        </div>
       </div>
-      <!-- Add Arrows -->
-      <div v-if="iconArrows" class="swiper-button-next" />
-      <div v-if="iconArrows" class="swiper-button-prev" />
     </div>
   </div>
 </template>
@@ -29,26 +38,15 @@
 import { directive } from 'vue-awesome-swiper';
 
 export default {
-  name: 'SwiperIcon',
+  name: 'SwiperIconMobile',
   directives: {
     swiper: directive
   },
   props: {
-    /** swiper初始選項 */
-    iconOption: {
-      type: Object,
-      required: true
-    },
     /** 服務icon資料 */
     icons: {
       type: Array,
       required: true
-    },
-    /** swiper是否顯示箭頭分頁(true顯示,false隱藏) */
-    iconArrows: {
-      type: Boolean,
-      default: true,
-      required: false
     }
   }
 };
@@ -70,10 +68,10 @@ export default {
     //border: 1px solid #b0b0b0;
   }
   .swiper-wrapper {
-    display: -moz-inline-box;
-    display: -webkit-inline-box;
+    flex-wrap: wrap;
   }
   .swiper-slide {
+    width: 20%;
     text-align: center;
     background: #fff;
     height: calc((100% - 30px) / 2);

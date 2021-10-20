@@ -71,7 +71,6 @@
                 type="text"
                 pattern="^[A-Za-z][12]\d{8}$"
                 required
-                @keyup="dentityCheck($event)"
               >
             </div>
           </div>
@@ -149,8 +148,8 @@
       <button
         v-if="!isVac"
         class="btn send col-12"
-        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null}"
-        :disabled="!agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null"
+        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null || !reCaptcha}"
+        :disabled="!agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null || !reCaptcha"
         @click="onSubmit()"
       >
         立即申請
@@ -412,7 +411,7 @@ export default {
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verify).every(e => e === true);
       // TODO:上SIT記得補上機器人驗證
-      if (submitOk && this.agree) {
+      if (submitOk && this.agree && this.reCaptcha) {
         this.$axios.post(`${this.env.apiPath}/events/bind`, this.requestData, {
           headers: {
             Authorization: `Bearer ${this.idToken}`
@@ -478,9 +477,6 @@ export default {
     /** 返回鍵 */
     goBack () {
       window.history.length > 1 ? this.$router.go(-1) : this.router.push('/campaign/VAC');
-    },
-    dentityCheck (event) {
-      // console.log(event);
     },
     /** 機器人驗證成功 */
     onSuccess (token) {

@@ -204,8 +204,9 @@
           :class="{'goBack': dialogOption.type === 1 || dialogOption.type === 3, 'send': dialogOption.type === 5}"
         >
           返回專頁</nuxt-link>
+        <!-- 前往登入註冊 -->
+        <a v-show="dialogOption.type === 1" :href="`${env.mobii}/Login?fromOriginUri=${env.domain}/campaign/VAC`" type="button" class="btn send col-5">登入註冊</a>
         <!-- 送出榮民眷屬資料 -->
-        <a v-show="dialogOption.type === 1" :href="`${env.login}?fromOriginUri=${env.domain}/campaign/VAC`" type="button" class="btn send col-5">前往登入註冊</a>
         <button
           v-show="dialogOption.type === 3"
           type="button"

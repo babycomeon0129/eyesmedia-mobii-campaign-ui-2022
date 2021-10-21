@@ -171,13 +171,30 @@ export default {
     if (callApi.data.errorCode === '996600001') {
       context.store.commit('campaign/setLogin', true);
     } else {
+      // 登入失敗
       context.store.commit('campaign/setLogin', false);
-      context.$cookies.remove('M_idToken', '.mobii.ai');
+      context.$cookies.remove('M_idToken', {
+        path: '/',
+        domain: '.mobii.ai',
+        sameSite: 'Lax',
+        secure: true
+      });
     }
     // TODO:測試刪除cookie
-    context.$cookies.remove('adTime', '.mobii.ai');
-    context.$cookies.remove('userCode', '.mobii.ai');
-    context.$cookies.remove('userName', '.mobii.ai');
+    // context.$cookies.remove('userName', {
+    //   path: '/',
+    //   domain: '.mobii.ai',
+    //   sameSite: 'Lax',
+    //   secure: true
+    // });
+    // TODO: 測試儲存cookie
+    // context.$cookies.set('AIAIAIAIIA', '123123', {
+    //   path: '/',
+    //   domain: '.mobii.ai',
+    //   sameSite: 'Lax',
+    //   secure: true
+    // });
+
     const eventData = JSON.parse(callApi.data.data);
     context.store.commit({
       type: 'campaign/setNewTab',

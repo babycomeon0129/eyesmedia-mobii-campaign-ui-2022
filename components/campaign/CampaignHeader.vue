@@ -13,7 +13,7 @@
         <!-- 登入 -->
         <div v-show="!isLogin" class="channel-header-item">
           <span class="hi-user" style="display: none;">Hi 訪客訪客訪客訪客訪客訪客</span>
-          <a class="btn channel-btn" :href="`${loginUrl}?fromOriginUri=${redirectUrl}/campaign/VAC`">
+          <a class="btn channel-btn" :href="`${loginUrl}/Login?fromOriginUri=${redirectUrl}/campaign/VAC`">
             登入/註冊
           </a>
         </div>

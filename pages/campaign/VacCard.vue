@@ -439,8 +439,8 @@ export default {
             // 其他錯誤
             default:
               this.dialogOption.type = 4;
-              this.dialogOption.title = '系統錯誤';
-              this.dialogOption.content = '';
+              this.dialogOption.title = '綁定失敗！';
+              this.dialogOption.content = '綁定失敗，請洽客服人員';
               this.dialogOption.show = true;
               break;
           }
@@ -468,7 +468,7 @@ export default {
           } else {
             this.dialogOption.type = 4;
             this.dialogOption.title = '綁定失敗！';
-            this.dialogOption.content = '';
+            this.dialogOption.content = '綁定失敗，請洽客服人員';
             this.dialogOption.show = true;
           }
         });

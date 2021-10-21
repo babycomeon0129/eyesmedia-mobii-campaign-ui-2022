@@ -8,8 +8,8 @@ const envObj = {
   defind: {
     dev: {
       env: 'local',
-      apiPath: 'https://sit-eventsapi.mobii.ai/campaign/api/v1',
-      login: 'https://www-uuat.mobii.ai/Login',
+      apiPath: 'http://localhost:5000/campaign/api/v1',
+      mobii: 'https://www-uuat.mobii.ai',
       domain: 'https://192.168.58.131:8083',
       GA: 'GTM-KBZ2VT8',
       host: '0.0.0.0',
@@ -20,7 +20,7 @@ const envObj = {
     sit: {
       env: 'sit',
       apiPath: 'https://sit-eventsapi.mobii.ai/campaign/api/v1',
-      login: 'https://www-uuat.mobii.ai/Login',
+      mobii: 'https://www-uuat.mobii.ai',
       domain: 'https://sit-events.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '210.65.10.85',
@@ -31,7 +31,7 @@ const envObj = {
     uat: {
       env: 'uat',
       apiPath: 'https://sit-eventapi.mobii.ai/campaign/api/v1',
-      login: 'https://www-uuat.mobii.ai/Login',
+      mobii: 'https://www-uuat.mobii.ai',
       domain: 'https://events-uat.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '210.65.10.85',
@@ -42,7 +42,7 @@ const envObj = {
     prod: {
       env: 'prod',
       apiPath: 'biz.lucas.com/api/v1',
-      login: 'https://mobii.ai/Login',
+      mobii: 'https://mobii.ai',
       domain: 'https://events.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '210.65.10.85',

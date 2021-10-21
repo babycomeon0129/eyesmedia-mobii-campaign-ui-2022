@@ -1,6 +1,6 @@
 <template>
   <div class="channel-wrap">
-    <CampaignHeader :title-img="campainData.eventsVm.mktEventLogo" :login-url="env.login" :redirect-url="env.domain" />
+    <CampaignHeader :title-img="campainData.eventsVm.mktEventLogo" :login-url="env.mobii" :redirect-url="env.domain" />
     <main>
       <!-- 首頁大圖輪播 -->
       <div class="top-banner">
@@ -166,13 +166,18 @@ export default {
         Authorization: `Bearer ${idToken}`
       }
     });
+    console.log(callApi.data);
     // 判斷是否登入成功
     if (callApi.data.errorCode === '996600001') {
       context.store.commit('campaign/setLogin', true);
     } else {
       context.store.commit('campaign/setLogin', false);
-      context.$cookies.remove('M_idToken');
+      context.$cookies.remove('M_idToken', '.mobii.ai');
     }
+    // TODO:測試刪除cookie
+    context.$cookies.remove('adTime', '.mobii.ai');
+    context.$cookies.remove('userCode', '.mobii.ai');
+    context.$cookies.remove('userName', '.mobii.ai');
     const eventData = JSON.parse(callApi.data.data);
     context.store.commit({
       type: 'campaign/setNewTab',

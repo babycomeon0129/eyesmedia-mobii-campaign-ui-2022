@@ -257,10 +257,36 @@ export default {
       }
     });
     let isVac = false;
-    if (vacData.data.errorCode === '996600001') {
-      isVac = vacData.data.isBind;
-    } else {
-      dialogOption.show = true;
+    // 判斷是否登入成功
+    switch (vacData.data.errorCode) {
+      // 登入成功
+      case '996600001':
+        isVac = vacData.data.isBind;
+        // 如果idtoken跟cookie token不同，就更新cookie token
+        if (vacData.data.idToken !== idToken) {
+          context.$cookies.set('M_idToken', vacData.data.idToken, {
+            path: '/',
+            domain: '.mobii.ai',
+            sameSite: 'Lax',
+            secure: true
+          });
+        }
+        break;
+      // idToken 驗不過
+      case '619820001':
+        dialogOption.show = true;
+        context.store.commit('campaign/setLogin', false);
+        context.$cookies.remove('M_idToken', {
+          path: '/',
+          domain: '.mobii.ai',
+          sameSite: 'Lax',
+          secure: true
+        });
+        break;
+      // 其他各種登入錯誤
+      default:
+        dialogOption.show = true;
+        break;
     }
     return {
       /** 是否是榮福卡會員 */

@@ -168,18 +168,43 @@ export default {
     });
     console.log(callApi.data);
     // 判斷是否登入成功
-    if (callApi.data.errorCode === '996600001') {
-      context.store.commit('campaign/setLogin', true);
-    } else {
-      // 登入失敗
-      context.store.commit('campaign/setLogin', false);
-      context.$cookies.remove('M_idToken', {
-        path: '/',
-        domain: '.mobii.ai',
-        sameSite: 'Lax',
-        secure: true
-      });
+    switch (callApi.data.errorCode) {
+      // 登入成功
+      case '996600001':
+        context.store.commit('campaign/setLogin', true);
+        // 如果idtoken跟cookie token不同，就更新cookie token
+        if (callApi.data.idToken !== idToken) {
+          context.$cookies.set('M_idToken', callApi.data.idToken, {
+            path: '/',
+            domain: '.mobii.ai',
+            sameSite: 'Lax',
+            secure: true
+          });
+        }
+        break;
+      // idToken 驗不過
+      case '619820001':
+        context.store.commit('campaign/setLogin', false);
+        context.$cookies.remove('M_idToken', {
+          path: '/',
+          domain: '.mobii.ai',
+          sameSite: 'Lax',
+          secure: true
+        });
+        break;
     }
+    // if (callApi.data.errorCode === '996600001') {
+    //   context.store.commit('campaign/setLogin', true);
+    // } else {
+    //   // 登入失敗
+    //   context.store.commit('campaign/setLogin', false);
+    //   context.$cookies.remove('M_idToken', {
+    //     path: '/',
+    //     domain: '.mobii.ai',
+    //     sameSite: 'Lax',
+    //     secure: true
+    //   });
+    // }
     // TODO:測試刪除cookie
     // context.$cookies.remove('userName', {
     //   path: '/',

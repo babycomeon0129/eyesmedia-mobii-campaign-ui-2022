@@ -159,14 +159,28 @@ export default {
   },
   async asyncData (context) {
     /** 登入idToken */
-    const idToken = context.$cookies.get('M_idToken') || null;
+    let idToken = context.$cookies.get('M_idToken') || null;
+    console.log('asyncData>>>>>>>>>>' + context.query.M_idToken);
+    // 如果傳參含M_idToken，整個頁面reflash
+    let isReplace = false;
+    if (context.query.M_idToken) {
+      isReplace = true;
+      // 更新idToken
+      idToken = context.query.M_idToken;
+      context.$cookies.set('M_idToken', context.query.M_idToken, {
+        path: '/',
+        domain: '.mobii.ai',
+        sameSite: 'Lax',
+        secure: true
+      });
+    }
     // 取回活動資料
     const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`, {
       headers: {
         Authorization: `Bearer ${idToken}`
       }
     });
-    console.log(callApi.data);
+    // console.log(callApi.data);
     // 判斷是否登入成功
     switch (callApi.data.errorCode) {
       // 登入成功
@@ -239,7 +253,8 @@ export default {
     return {
       params: context.params,
       campainData: eventData, // 活動資料
-      env: context.env.SIDE_ENV
+      env: context.env.SIDE_ENV,
+      isReplace // 是否需要rePlace
     };
   },
   data () {
@@ -409,6 +424,10 @@ export default {
     ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab'])
   },
   created () {
+    console.log(this.isReplace);
+    if (this.isReplace) {
+      this.$router.replace({ path: `/campaign/${this.params.eventId}` });
+    }
     // 接收打開service icons 列表
     // TODO: 有空需要改用vuex，盡量不用event bus
     this.$nuxt.$on('openMyService', (e) => {

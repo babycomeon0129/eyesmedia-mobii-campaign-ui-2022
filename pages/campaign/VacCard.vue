@@ -250,7 +250,21 @@ export default {
       type: 1 // 1:請先登入  2: 驗證失敗，查無資料_榮民/二類官兵/員工  3:驗證失敗，查無眷屬資料  4: 送出資料失敗(error code: 9999)  5:成功
     };
     /** 登入idToken */
-    const idToken = context.$cookies.get('M_idToken') || null;
+    let idToken = context.$cookies.get('M_idToken') || null;
+    console.log('asyncData>>>>>>>>>>' + context.query.M_idToken);
+    // 如果傳參含M_idToken，整個頁面reflash
+    let isReplace = false;
+    if (context.query.M_idToken) {
+      isReplace = true;
+      // 更新idToken
+      idToken = context.query.M_idToken;
+      context.$cookies.set('M_idToken', context.query.M_idToken, {
+        path: '/',
+        domain: '.mobii.ai',
+        sameSite: 'Lax',
+        secure: true
+      });
+    }
     const vacData = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/check`, {
       headers: {
         Authorization: `Bearer ${idToken}`
@@ -296,7 +310,9 @@ export default {
       /** 環境變數 */
       env: context.env.SIDE_ENV,
       /** 提示dialog Option */
-      dialogOption
+      dialogOption,
+      /** 是否需要rePlace */
+      isReplace
     };
   },
   data () {
@@ -419,6 +435,12 @@ export default {
         { rel: 'icon', type: 'image/x-icon', href: '/images/campaign/icon/favicon.ico' }
       ]
     };
+  },
+  created () {
+    console.log(this.isReplace);
+    if (this.isReplace) {
+      this.$router.replace({ path: '/campaign/VacCard' });
+    }
   },
   updated () {
     this.pmsRequestData.idno = this.requestData.idno;

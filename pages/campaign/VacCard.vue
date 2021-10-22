@@ -109,6 +109,10 @@
       </div>
       <!-- 身份驗證欄 -->
       <div v-if="!isVac" class="channel-section">
+        <div class="col-12 checkagree">
+          <input id="checkOK" v-model="agree" type="checkbox">
+          <label for="checkOK">我同意艾斯移動（Mobii 平台）使用本卡內之會員個人資料及交易資料，以利發放點數回饋及參與 Mobii 平台活動。</label>
+        </div>
         <div class="col-12 vacinfo">
           <ul>
             <li>
@@ -126,10 +130,6 @@
               <br>榮福卡合作優惠終止時，優惠將轉換為一般會員。
             </li>
           </ul>
-        </div>
-        <div class="col-12 checkagree">
-          <input id="checkOK" v-model="agree" type="checkbox">
-          <label for="checkOK">我同意艾斯移動（Mobii 平台）使用本卡內之會員個人資料及交易資料，以利發放點數回饋及參與 Mobii 平台活動。</label>
         </div>
       </div>
       <!-- 完成申請 -->
@@ -649,7 +649,7 @@ $from-txt: #818181;
 }
 
 .vacinfo {
-  padding: 1em;
+  padding: 1em 0 6em 0;
   ul,
   li {
     list-style: none;
@@ -683,8 +683,8 @@ $from-txt: #818181;
 }
 
 .checkagree {
+  padding: 1em 0;
   display: flex;
-  padding-bottom: 6em;
   label {
     color: #13334c;
     text-align: left;

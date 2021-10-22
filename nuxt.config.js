@@ -8,7 +8,7 @@ const envObj = {
   defind: {
     dev: {
       env: 'local',
-      apiPath: 'https://sit-eventsapi.mobii.ai/campaign/api/v1',
+      apiPath: 'http://210.61.8.37:38085/campaign/api/v1',
       mobii: 'https://www-uuat.mobii.ai',
       domain: 'https://192.168.58.131:8083',
       GA: 'GTM-KBZ2VT8',
@@ -19,7 +19,7 @@ const envObj = {
     },
     sit: {
       env: 'sit',
-      apiPath: 'https://sit-eventsapi.mobii.ai/campaign/api/v1',
+      apiPath: 'http://210.61.8.37:38085/campaign/api/v1',
       mobii: 'https://www-uuat.mobii.ai',
       domain: 'https://sit-events.mobii.ai',
       GA: 'GTM-KBZ2VT8',

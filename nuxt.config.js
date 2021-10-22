@@ -20,7 +20,7 @@ const envObj = {
     sit: {
       env: 'sit',
       apiPath: 'http://210.61.8.37:38085/campaign/api/v1',
-      mobii: 'https://www-uuat.mobii.ai',
+      mobii: 'https://sit.mobii.ai',
       domain: 'https://sit-events.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '210.65.10.85',
@@ -31,7 +31,7 @@ const envObj = {
     uat: {
       env: 'uat',
       apiPath: 'https://sit-eventapi.mobii.ai/campaign/api/v1',
-      mobii: 'https://www-uuat.mobii.ai',
+      mobii: 'https://www-uat.mobii.ai',
       domain: 'https://events-uat.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '210.65.10.85',

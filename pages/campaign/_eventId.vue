@@ -180,7 +180,7 @@ export default {
         Authorization: `Bearer ${idToken}`
       }
     });
-    // console.log(callApi.data);
+    console.log(callApi.data);
     // 判斷是否登入成功
     switch (callApi.data.errorCode) {
       // 登入成功

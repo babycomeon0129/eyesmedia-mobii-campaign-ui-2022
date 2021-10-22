@@ -3,7 +3,7 @@
     <div class="channel-container">
       <div class="channel-header-box">
         <div class="channel-header-item">
-          <a href="https://www.mobii.ai/">
+          <a :href="`${loginUrl}`">
             <img src="@/static/images/campaign/icon/icon-home.png" class="rwdimgmax" alt="回Mobbi">
           </a>
         </div>
@@ -27,8 +27,8 @@
             </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item><a href="https://www.mobii.ai/Member" target="_blank"><img src="@/static/images/campaign/icon/icon-menber.png" class="rwdimgmax" alt="我的會員頁">我的會員頁</a></el-dropdown-item>
-                <el-dropdown-item><a href="https://www.mobii.ai/MemberFunction/MemberCard?showBack=true" target="_blank"><img src="@/static/images/campaign/icon/icon-card.png" class="rwdimgmax" alt="我的卡片">我的卡片</a></el-dropdown-item>
+                <el-dropdown-item><a :href="`${loginUrl}/Member`" target="_blank"><img src="@/static/images/campaign/icon/icon-menber.png" class="rwdimgmax" alt="我的會員頁">我的會員頁</a></el-dropdown-item>
+                <el-dropdown-item><a :href="`${loginUrl}/MemberFunction/MemberCard?showBack=true`" target="_blank"><img src="@/static/images/campaign/icon/icon-card.png" class="rwdimgmax" alt="我的卡片">我的卡片</a></el-dropdown-item>
                 <!-- 榮福專案專有選項 -->
                 <el-dropdown-item v-if="isVac">
                   <nuxt-link to="/campaign/VacCard">

@@ -137,8 +137,8 @@
         <div class="col-12 isVac">
           <h2>已完成申請！</h2>
           <p>
-            您已完成數位榮福卡申請，歡迎您盡情享受
-            <br>Mobii 獨家優惠！
+            您已完成數位榮福卡申請
+            <br>歡迎您盡情享受Mobii獨家優惠！
           </p>
         </div>
       </div>
@@ -271,11 +271,13 @@ export default {
       }
     });
     let isVac = false;
+    const responseData = JSON.parse(vacData.data.data);
     // 判斷是否登入成功
     switch (vacData.data.errorCode) {
       // 登入成功
       case '996600001':
-        isVac = vacData.data.isBind;
+        console.log(JSON.parse(vacData.data.data));
+        isVac = responseData.isBind;
         // 如果idtoken跟cookie token不同，就更新cookie token
         if (vacData.data.idToken !== idToken) {
           context.$cookies.set('M_idToken', vacData.data.idToken, {

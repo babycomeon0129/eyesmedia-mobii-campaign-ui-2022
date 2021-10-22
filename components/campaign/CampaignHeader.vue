@@ -112,6 +112,9 @@ export default {
 .menu-icon {
   display: inline-block;
   cursor: pointer;
+  &:focus {
+    outline:none;
+  }
 }
 
 .bar1,

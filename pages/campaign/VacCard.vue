@@ -85,13 +85,14 @@
               <span class="impt">*</span>
             </label>
             <div class="forminput">
-              <el-date-picker
+              <input v-model="requestData.birth_dt" type="text" placeholder="月／日，例：0129" maxlength="4" minlength="4">
+              <!--el-date-picker
                 v-model="requestData.birth_dt"
                 type="date"
                 placeholder="月／日"
                 format="MM-dd"
                 value-format="MM-dd"
-              />
+              /-->
             </div>
           </div>
         </div>

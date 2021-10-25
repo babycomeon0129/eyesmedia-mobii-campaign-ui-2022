@@ -129,7 +129,6 @@
                 :key="icon.id"
                 :target="'_' + icon.target"
                 :href="icon.url"
-                :class="{'disable': icon.Function_IsActive === 0}"
                 class="col"
               >
                 <img :src="icon.img">

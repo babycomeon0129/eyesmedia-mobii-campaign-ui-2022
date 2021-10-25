@@ -149,8 +149,8 @@
       <button
         v-if="!isVac"
         class="btn send col-12"
-        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null || !reCaptcha}"
-        :disabled="!agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null || !reCaptcha"
+        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null|| !reCaptcha}"
+        :disabled="!agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null|| !reCaptcha"
         @click="onSubmit()"
       >
         立即申請
@@ -194,6 +194,12 @@
             <span style="float: right; padding-right: 1em; font-size: medium;">{{ item.name }}</span>
           </el-option>
         </el-select>
+        <!-- 身分證錯誤提示 -->
+        <div v-if="!verifyPms.pmsidno && verifyPms.pmsidno !== null" class="row pms">
+          <div class="col-12 small-warning">
+            身分證字數長度不足10碼
+          </div>
+        </div>
       </div>
       <span slot="footer" class="dialog-footer">
         <!-- 返回專頁 -->
@@ -504,6 +510,10 @@ export default {
       this.verifyPms.idno = this.pmsRequestData.idno !== null;
       this.verifyPms.pmsidno = this.pmsRequestData.pmsidno.length === 10;
       this.verifyPms.pmsrel = this.pmsRequestData.pmsrel !== null;
+      console.log(this.verifyPms.pmsidno);
+      console.log(!this.verifyPms.idno);
+      console.log(this.verifyPms.idno !== null);
+      console.log(!this.verifyPms.idno && this.verifyPms.idno !== null);
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verifyPms).every(e => e === true);
       if (submitOk) {
@@ -789,6 +799,12 @@ $from-txt: #818181;
   .selected {
     color: #818181;
     background: #fffef2;
+  }
+}
+.pms {
+  position: relative;
+  .small-warning {
+    bottom: -20px;
   }
 }
 

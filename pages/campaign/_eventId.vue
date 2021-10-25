@@ -24,6 +24,9 @@
           />
         </div>
       </div>
+      <button class="btn send" @click="dialogVisible = true">
+        測試
+      </button>
       <!-- 中間大廣告 -->
       <div class="big-banner">
         <SwiperBanner
@@ -145,7 +148,6 @@
       title="請重新登入"
       :visible.sync="dialogVisible"
       :show-close="false"
-      width="30%"
     >
       <div class="col-12">
         登入失敗
@@ -221,6 +223,10 @@ export default {
           secure: true
         });
         dialogVisible = true;
+        break;
+      // 未登入
+      case '619820008':
+        context.store.commit('campaign/setLogin', false);
         break;
     }
     // if (callApi.data.errorCode === '996600001') {

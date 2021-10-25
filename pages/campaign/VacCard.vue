@@ -81,7 +81,7 @@
         <div class="row form">
           <div class="col-12 identity">
             <label>
-              出生年月日
+              生日
               <span class="impt">*</span>
             </label>
             <div class="forminput">

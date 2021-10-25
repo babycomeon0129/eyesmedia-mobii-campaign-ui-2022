@@ -215,7 +215,8 @@ input {
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.25rem;
+  color: #fff;
+  border-radius: 30px;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
   white-space: nowrap;
@@ -223,7 +224,18 @@ input {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
   }
+  &.send {
+    background: $default-icon;
+    &.unable {
+      color: #fff;
+      background: #d3d3d3;
+    }
+  }
+  &.goBack {
+    background: #fbb54d;
+  }
 }
+
 
 /* 區塊控制 */
 .d-none {

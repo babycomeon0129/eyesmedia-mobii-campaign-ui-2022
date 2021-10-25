@@ -8,7 +8,7 @@ const envObj = {
   defind: {
     dev: {
       env: 'local',
-      apiPath: 'http://210.61.8.37:38085/campaign/api/v1',
+      apiPath: 'https://api.mobii.ai/campaign/api/v1',
       mobii: 'https://www-uuat.mobii.ai',
       domain: 'https://192.168.58.131:8083',
       GA: 'GTM-KBZ2VT8',
@@ -19,7 +19,7 @@ const envObj = {
     },
     sit: {
       env: 'sit',
-      apiPath: 'http://210.61.8.37:38085/campaign/api/v1',
+      apiPath: 'https://api.mobii.ai/campaign/api/v1',
       mobii: 'https://www-uuat.mobii.ai',
       domain: 'https://sit-events.mobii.ai',
       GA: 'GTM-KBZ2VT8',
@@ -30,7 +30,7 @@ const envObj = {
     },
     uat: {
       env: 'uat',
-      apiPath: 'https://sit-eventapi.mobii.ai/campaign/api/v1',
+      apiPath: 'https://api.mobii.ai/campaign/api/v1',
       mobii: 'https://www-uat.mobii.ai',
       domain: 'https://events-uat.mobii.ai',
       GA: 'GTM-KBZ2VT8',
@@ -41,7 +41,7 @@ const envObj = {
     },
     prod: {
       env: 'prod',
-      apiPath: 'biz.lucas.com/api/v1',
+      apiPath: 'https://api.mobii.ai/api/v1',
       mobii: 'https://mobii.ai',
       domain: 'https://events.mobii.ai',
       GA: 'GTM-KBZ2VT8',

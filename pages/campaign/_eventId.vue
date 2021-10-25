@@ -140,6 +140,20 @@
         </div>
       </div>
     </el-drawer>
+    <!-- dialog -->
+    <el-dialog
+      title="請重新登入"
+      :visible.sync="dialogVisible"
+      :show-close="false"
+      width="30%"
+    >
+      <div class="col-12">
+        登入失敗
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <button class="btn send col-12" @click="dialogVisible = false">我知道了</button>
+      </span>
+    </el-dialog>
     <GotopIcon />
     <JustkaIcon v-if="campainData.eventsVm.mktEventOtehrJustka !== null && campainData.eventsVm.mktEventOtehrJustka !== ''" :juska-url="campainData.eventsVm.mktEventOtehrJustka" />
   </div>
@@ -160,7 +174,6 @@ export default {
   async asyncData (context) {
     /** 登入idToken */
     let idToken = context.$cookies.get('M_idToken') || null;
-    console.log('asyncData>>>>>>>>>>' + context.query.M_idToken);
     // 如果傳參含M_idToken，整個頁面reflash
     let isReplace = false;
     if (context.query.M_idToken) {
@@ -174,6 +187,8 @@ export default {
         secure: true
       });
     }
+    /** dialog 開關 */
+    let dialogVisible = false;
     // 取回活動資料
     const callApi = await context.$axios.get(`${context.env.SIDE_ENV.apiPath}/events/detail/${context.params.eventId}`, {
       headers: {
@@ -205,6 +220,7 @@ export default {
           sameSite: 'Lax',
           secure: true
         });
+        dialogVisible = true;
         break;
     }
     // if (callApi.data.errorCode === '996600001') {
@@ -254,7 +270,9 @@ export default {
       params: context.params,
       campainData: eventData, // 活動資料
       env: context.env.SIDE_ENV,
-      isReplace // 是否需要rePlace
+      isReplace, // 是否需要rePlace
+      /** dialog開關 */
+      dialogVisible
     };
   },
   data () {
@@ -668,6 +686,60 @@ export default {
       &::before {
         border: 1px solid #13334C;
         border-radius: 99em;
+      }
+    }
+  }
+}
+
+/** dialog */
+.el-dialog {
+  border-radius: 8px;
+  width: 30%;
+  @media (max-width: 960px) {
+    width: 50%;
+  }
+  @media (max-width: 767px) {
+    width: 70%;
+  }
+  .el-dialog__title {
+    font-weight: bold;
+  }
+  .el-dialog__body {
+    padding: 1em 2em;
+    color: #13334c;
+    font-size: medium;
+    text-align: center;
+  }
+  .dialog-footer {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    .closebtn {
+      text-align: center;
+      position: absolute;
+      bottom: -8em;
+    }
+  }
+  input {
+    margin: 1em 0 0.3em 0;
+    border-radius: 8px;
+    outline: none;
+    text-align: right;
+    &:focus,
+    &:active,
+    &:visited {
+      border: 1px solid #fd5f00;
+    }
+  }
+  .el-select {
+    width: 100%;
+    .el-input__inner {
+      border: 1px solid #c4c4c4;
+    }
+    .el-input.is-focus {
+      .el-input__inner {
+        background: none;
+        border: 1px solid #fd5f00;
       }
     }
   }

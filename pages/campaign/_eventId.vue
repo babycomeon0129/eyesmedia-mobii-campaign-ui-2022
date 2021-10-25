@@ -24,9 +24,6 @@
           />
         </div>
       </div>
-      <button class="btn send" @click="dialogVisible = true">
-        測試
-      </button>
       <!-- 中間大廣告 -->
       <div class="big-banner">
         <SwiperBanner

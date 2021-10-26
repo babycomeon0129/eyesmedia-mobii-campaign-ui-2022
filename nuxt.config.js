@@ -19,7 +19,7 @@ const envObj = {
     },
     sit: {
       env: 'sit',
-      apiPath: 'https://api.mobii.ai/campaign/api/v1',
+      apiPath: 'https://sit-api.mobii.ai/campaign/api/v1',
       mobii: 'https://www-uuat.mobii.ai',
       domain: 'https://sit-events.mobii.ai',
       GA: 'GTM-KBZ2VT8',
@@ -41,9 +41,9 @@ const envObj = {
     },
     prod: {
       env: 'prod',
-      apiPath: 'https://api.mobii.ai/api/v1',
-      mobii: 'https://mobii.ai',
-      domain: 'https://events.mobii.ai',
+      apiPath: 'https://api.mobii.ai/campaign/api/v1',
+      mobii: 'https://web.mobii.ai',
+      domain: 'https://event.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '172.31.15.221',
       port: 443,

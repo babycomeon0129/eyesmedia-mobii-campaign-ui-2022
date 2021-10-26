@@ -433,7 +433,7 @@ export default {
           content: this.campainData.eventsVm.mktEventMetaDiscription
         },
         { name: 'keywords', content: this.campainData.eventsVm.mktEventSeo },
-        { property: 'og:image', content: this.campainData.banners[0].img }
+        { property: 'og:image', content: this.campainData.banners.length === 0 ? '' : this.campainData.banners[0].img }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/images/campaign/icon/favicon.ico' }

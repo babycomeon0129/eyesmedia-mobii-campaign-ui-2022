@@ -46,7 +46,7 @@ const envObj = {
       domain: 'https://event.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '172.31.15.221',
-      port: 443,
+      port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
       cert: '/etc/pki/eyesmedia/mobii_20210112.pem'
     }

@@ -119,7 +119,7 @@
           <div>
             <div class="head-top">
               <!-- 點擊帶queryParams控制父層class -->
-              <button class="btn" @click="isOpenService = false">
+              <button class="btn goBack2" @click="isOpenService = false">
                 <i class="el-icon-arrow-left" /><span>返回</span>
               </button>
             </div>

@@ -6,7 +6,7 @@
           v-for="(icon, idx) in icons"
           :key="icon.id"
           class="swiper-slide"
-          :hidden="idx > 8"
+          :class="{'d-none': idx > 8}"
         >
           <div class="item">
             <!-- if Function_IsActive == 0,  <a> class add 'disable'-->

@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="swiper-slide">
-          <a @click="$nuxt.$emit('openMyService', true);">
+          <a @click="setDrawerOpen(true)">
             <div class="img-box">
               <img
                 src="@/static/images/campaign/icon/category3_more.png"
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import { directive } from 'vue-awesome-swiper';
 
 export default {
@@ -48,7 +49,13 @@ export default {
       type: Array,
       required: true
     }
+  },
+  methods: {
+    ...mapMutations('campaign', {
+      setDrawerOpen: 'setDrawerOpen'
+    })
   }
+
 };
 </script>
 

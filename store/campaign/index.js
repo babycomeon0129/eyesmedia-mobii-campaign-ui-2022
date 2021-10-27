@@ -21,7 +21,9 @@ const state = () => {
     product: {
       index: 0,
       tabs: []
-    }
+    },
+    /** 服務icon抽屜開啟 */
+    drawerOpen: false
   };
 };
 
@@ -38,6 +40,10 @@ const actions = {
 // 真正更新 state 的方法，第一個參數 state 會自動注入，要帶進來的資料在第二個參數。
 // 只能做同步操作，不能做非同步操作。如要進行非同步操作請使用action
 const mutations = {
+  /** 改變服務icon抽屜狀態 */
+  setDrawerOpen (state, show) {
+    state.drawerOpen = show;
+  },
   /** 改變登入狀態 */
   setLogin (state, login) {
     state.isLogin = login;
@@ -79,6 +85,9 @@ const getters = {
   /** 回傳登入狀態 */
   isLogin (state) {
     return state.isLogin;
+  },
+  drawerShow (state) {
+    return state.drawerOpen;
   }
 };
 

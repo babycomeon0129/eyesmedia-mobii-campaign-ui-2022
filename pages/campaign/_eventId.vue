@@ -109,7 +109,7 @@
     </main>
     <!-- 更多服務icon(滑頁) -->
     <el-drawer
-      :visible.sync="isOpenService"
+      :visible.sync="drawerShow"
       :direction="'rtl'"
       :size="'100%'"
       :with-header="false"
@@ -119,7 +119,7 @@
           <div>
             <div class="head-top">
               <!-- 點擊帶queryParams控制父層class -->
-              <button class="btn goBack2" @click="isOpenService = false">
+              <button class="btn goBack2" @click="setDrawerOpen(false)">
                 <i class="el-icon-arrow-left" /><span>返回</span>
               </button>
             </div>
@@ -441,7 +441,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab'])
+    ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab', 'drawerShow'])
   },
   created () {
     console.log(this.isReplace);
@@ -460,13 +460,10 @@ export default {
       this.isOpenRead = true;
     }
   },
-  beforeDestroy () {
-    // 要記得取消觀察
-    this.$nuxt.$off('openMyService');
-  },
   methods: {
     ...mapMutations('campaign', {
-      setLogin: 'setLogin'
+      setLogin: 'setLogin',
+      setDrawerOpen: 'setDrawerOpen'
     })
   }
 };

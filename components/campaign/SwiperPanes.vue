@@ -36,11 +36,11 @@
                 <!-- 優惠商品 -->
                 <div v-if="panesMode === 'product'" class="channel-content">
                   <p>{{ inside.name }}</p>
-                  <div class="spacialprice">
+                  <div v-show="inside.specialPrice > 0" class="spacialprice">
                     {{ formatter(inside.price) }}
                   </div>
                   <div class="sellprice">
-                    {{ formatter(inside.specialPrice) }}
+                    {{ formatter(inside.specialPrice) > 0 ? formatter(inside.specialPrice) : formatter(inside.price) }}
                   </div>
                 </div>
               </div>

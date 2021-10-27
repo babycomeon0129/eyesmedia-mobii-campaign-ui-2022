@@ -40,7 +40,7 @@
                     {{ formatter(inside.price) }}
                   </div>
                   <div class="sellprice">
-                    {{ formatter(inside.specialPrice) > 0 ? formatter(inside.specialPrice) : formatter(inside.price) }}
+                    {{ inside.specialPrice > 0 ? formatter(inside.specialPrice) : formatter(inside.price) }}
                   </div>
                 </div>
               </div>

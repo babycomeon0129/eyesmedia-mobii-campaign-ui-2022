@@ -19,7 +19,7 @@
       <div class="channel-section">
         <div class="row">
           <div class="col-12 vaclogo">
-            <img src="@/static/images/campaign/vaclogo.png" class="rwdimgmax" alt="more">
+            <img src="@/static/images/campaign/vaclogo_new.png" class="rwdimgmax" alt="more">
           </div>
         </div>
       </div>
@@ -591,9 +591,9 @@ $from-txt: #818181;
         padding: 80px 0;
       }
       img {
+        width: 60%;
         @media (max-width: 767px) {
-          width: 120px;
-          height: 120px;
+          width: 80%;
         }
       }
     }

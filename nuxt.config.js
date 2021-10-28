@@ -95,7 +95,8 @@ export default {
   plugins: [
     '@/plugins/element-ui',
     { src: '@/plugins/vue-awesome-swiper', mode: 'client' },
-    '~/plugins/gtm'
+    '~/plugins/gtm',
+    { src: '~/plugins/vue-lazyload', ssr: true }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -189,6 +190,7 @@ export default {
     assetFilter (assetFilename) {
       return assetFilename.endsWith('.js');
     },
+    vendor: ['axios', 'vue-lazyload'],
 
     // html壓縮與最小化
     html: {

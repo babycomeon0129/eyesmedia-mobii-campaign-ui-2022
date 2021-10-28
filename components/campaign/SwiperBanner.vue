@@ -4,8 +4,8 @@
       <div v-for="banner in bannerImg" :key="banner.id" class="swiper-slide" :class="slideClass">
         <a :class="aClass" :href="banner.url" :target="'_' + banner.target">
           <div
+            v-lazy:background-image="banner.img"
             :class="contBackground"
-            :style="{ backgroundImage: `url(${banner.img})` }"
           />
         </a>
       </div>

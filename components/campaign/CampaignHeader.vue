@@ -8,7 +8,7 @@
           </a>
         </div>
         <div class="channel-header-title">
-          <img :src="titleImg">
+          <img v-lazy="titleImg">
         </div>
         <!-- 登入 -->
         <div v-show="!isLogin" class="channel-header-item">

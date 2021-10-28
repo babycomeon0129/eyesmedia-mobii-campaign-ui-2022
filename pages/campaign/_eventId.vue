@@ -131,7 +131,7 @@
                 :href="icon.url"
                 class="col"
               >
-                <img :src="icon.img">
+                <img v-lazy="icon.img">
                 <p class="txt-line-clamp1">{{ icon.name }}</p>
               </a>
             </div>

@@ -11,7 +11,7 @@
             <!-- if Function_IsActive == 0,  <a> class add 'disable'-->
             <a :href="icon.url" :target="'_' + icon.target">
               <div class="img-box">
-                <img :src="icon.img" :alt="icon.name">
+                <img v-lazy="icon.img" :alt="icon.name">
               </div>
               {{ icon.name }}
             </a>

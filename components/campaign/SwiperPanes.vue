@@ -15,10 +15,8 @@
                 <div class="products-img">
                   <div class="img-box">
                     <div
+                      v-lazy:background-image="inside.img"
                       class="rwdimg-cover"
-                      :style="{
-                        backgroundImage: `url(${inside.img})`,
-                      }"
                     />
                   </div>
                 </div>

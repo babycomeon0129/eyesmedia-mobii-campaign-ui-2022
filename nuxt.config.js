@@ -96,7 +96,8 @@ export default {
     '@/plugins/element-ui',
     { src: '@/plugins/vue-awesome-swiper', mode: 'client' },
     '~/plugins/gtm',
-    { src: '~/plugins/vue-lazyload', ssr: true }
+    { src: '~/plugins/vue-lazyload', ssr: true },
+    { src: '~/plugins/vue-linkify', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

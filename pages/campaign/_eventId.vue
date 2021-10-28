@@ -96,7 +96,8 @@
       <footer class="channel-footer">
         <h6>{{ campainData.eventsVm.mktEventOtherTitle }}</h6>
         <div class="content" :class="{'active': !isOpenRead}">
-          {{ campainData.eventsVm.mktEventOtehrContent }}
+          <!-- eslint-disable vue/no-v-html -->
+          <div v-linkified v-html="campainData.eventsVm.mktEventOtehrContent" />
         </div>
         <a v-if="isOpenRead" @click="isOpenRead = false">〈繼續閱讀〉</a>
       </footer>

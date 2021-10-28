@@ -225,33 +225,6 @@ export default {
         context.store.commit('campaign/setLogin', false);
         break;
     }
-    // if (callApi.data.errorCode === '996600001') {
-    //   context.store.commit('campaign/setLogin', true);
-    // } else {
-    //   // 登入失敗
-    //   context.store.commit('campaign/setLogin', false);
-    //   context.$cookies.remove('M_idToken', {
-    //     path: '/',
-    //     domain: '.mobii.ai',
-    //     sameSite: 'Lax',
-    //     secure: true
-    //   });
-    // }
-    // TODO:測試刪除cookie
-    // context.$cookies.remove('userName', {
-    //   path: '/',
-    //   domain: '.mobii.ai',
-    //   sameSite: 'Lax',
-    //   secure: true
-    // });
-    // TODO: 測試儲存cookie
-    // context.$cookies.set('AIAIAIAIIA', '123123', {
-    //   path: '/',
-    //   domain: '.mobii.ai',
-    //   sameSite: 'Lax',
-    //   secure: true
-    // });
-
     const eventData = JSON.parse(callApi.data.data);
     context.store.commit({
       type: 'campaign/setNewTab',
@@ -448,11 +421,6 @@ export default {
     if (this.isReplace) {
       this.$router.replace({ path: `/campaign/${this.params.eventId}` });
     }
-    // 接收打開service icons 列表
-    // TODO: 有空需要改用vuex，盡量不用event bus
-    this.$nuxt.$on('openMyService', (e) => {
-      this.isOpenService = e;
-    });
   },
   mounted () {
     const noticeEl = document.querySelector('.channel-footer .content');

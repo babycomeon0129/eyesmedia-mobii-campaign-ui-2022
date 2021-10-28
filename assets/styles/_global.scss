@@ -304,6 +304,7 @@ main {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     .channel-header-title {
       img {
         height: 100%;

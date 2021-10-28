@@ -149,11 +149,12 @@
       <button
         v-if="!isVac"
         class="btn send col-12"
-        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null|| !reCaptcha}"
-        :disabled="!agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null|| !reCaptcha"
+        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null|| !reCaptcha || onSubmitLoading}"
+        :disabled="!agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null|| !reCaptcha || onSubmitLoading"
         @click="onSubmit()"
       >
-        立即申請
+        <span v-if="onSubmitLoading"><i class="el-icon-loading" /></span>
+        <span v-if="!onSubmitLoading">立即申請</span>
       </button>
       <p v-if="isVac">
         <i class="material-icons">error_outline</i>若有問題請洽退輔會24小時服務專線：(02)2725-5700，或免付費服務電話：0800-212-154、0800-212-510
@@ -218,11 +219,12 @@
           v-show="dialogOption.type === 3"
           type="button"
           class="btn send col-5"
-          :class="{'unable': pmsRequestData.pmsidno === null || pmsRequestData.pmsrel === null}"
-          :disabled="pmsRequestData.pmsidno === null || pmsRequestData.pmsrel === null"
+          :class="{'unable': pmsRequestData.pmsidno === null || pmsRequestData.pmsrel === null || pmsSubmitLoading}"
+          :disabled="pmsRequestData.pmsidno === null || pmsRequestData.pmsrel === null || pmsSubmitLoading"
           @click="pmsSubmit"
         >
-          送出
+          <span v-if="pmsSubmitLoading"><i class="el-icon-loading" /></span>
+          <span v-if="!pmsSubmitLoading">送出</span>
         </button>
         <!-- 重新輸入 -->
         <button
@@ -426,7 +428,11 @@ export default {
       /** 隱私權是否同意 */
       agree: false,
       /** google reCaptcha */
-      reCaptcha: false
+      reCaptcha: false,
+      /** 立即申請按鈕，等待api的loading */
+      onSubmitLoading: false,
+      /** 眷屬申請按鈕，等待api的loading */
+      pmsSubmitLoading: false
     };
   },
   head () {
@@ -460,6 +466,7 @@ export default {
   methods: {
     /** 立即申請（第一次送出資料） */
     onSubmit () {
+      this.onSubmitLoading = true;
       // 驗證是否選擇身份別
       this.verify.idtype = this.requestData.idtype !== null;
       // 驗證身分證字號是否10位
@@ -475,6 +482,7 @@ export default {
             Authorization: `Bearer ${this.idToken}`
           }
         }).then((res) => {
+          this.onSubmitLoading = false;
           switch (res.data.errorCode) {
             // 驗證成功
             case '996600001':
@@ -506,14 +514,11 @@ export default {
       }
     },
     pmsSubmit () {
+      this.pmsSubmitLoading = true;
       // 檢查眷屬資料是否有欄位是空值
       this.verifyPms.idno = this.pmsRequestData.idno !== null;
       this.verifyPms.pmsidno = this.pmsRequestData.pmsidno.length === 10;
       this.verifyPms.pmsrel = this.pmsRequestData.pmsrel !== null;
-      console.log(this.verifyPms.pmsidno);
-      console.log(!this.verifyPms.idno);
-      console.log(this.verifyPms.idno !== null);
-      console.log(!this.verifyPms.idno && this.verifyPms.idno !== null);
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verifyPms).every(e => e === true);
       if (submitOk) {
@@ -522,6 +527,7 @@ export default {
             Authorization: `Bearer ${this.idToken}`
           }
         }).then((res) => {
+          this.pmsSubmitLoading = false;
           if (res.data.errorCode === '996600001') {
             this.dialogOption.type = 5;
             this.dialogOption.title = '提交完成！';

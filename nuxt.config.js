@@ -42,7 +42,7 @@ const envObj = {
     prod: {
       env: 'prod',
       apiPath: 'https://api.mobii.ai/campaign/api/v1',
-      mobii: 'https://web.mobii.ai',
+      mobii: 'https://mobii.ai',
       domain: 'https://event.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '172.31.15.221',

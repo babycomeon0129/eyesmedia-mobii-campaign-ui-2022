@@ -260,7 +260,6 @@ export default {
     };
     /** 登入idToken */
     let idToken = context.$cookies.get('M_idToken') || null;
-    console.log('asyncData>>>>>>>>>>' + context.query.M_idToken);
     // 如果傳參含M_idToken，整個頁面reflash
     let isReplace = false;
     if (context.query.M_idToken) {
@@ -285,7 +284,6 @@ export default {
     switch (vacData.data.errorCode) {
       // 登入成功
       case '996600001':
-        console.log(JSON.parse(vacData.data.data));
         isVac = responseData.isBind;
         // 如果idtoken跟cookie token不同，就更新cookie token
         if (vacData.data.idToken !== idToken) {
@@ -452,7 +450,6 @@ export default {
     };
   },
   created () {
-    console.log(this.isReplace);
     if (this.isReplace) {
       this.$router.replace({ path: '/campaign/VacCard' });
     }
@@ -548,17 +545,14 @@ export default {
     },
     /** 機器人驗證成功 */
     onSuccess (token) {
-      console.log('Succeeded:', token);
       this.reCaptcha = true;
     },
     /** 機器人驗證失敗 */
-    onError (error) {
-      console.log('Error happened:', error);
+    onError () {
       this.reCaptcha = false;
     },
     /** 機器人驗證過期？ */
     onExpired () {
-      console.log('Expired');
       this.reCaptcha = false;
     }
   }

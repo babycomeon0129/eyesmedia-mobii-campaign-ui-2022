@@ -96,7 +96,7 @@ export default {
     '@/plugins/element-ui',
     { src: '@/plugins/vue-awesome-swiper', mode: 'client' },
     '~/plugins/gtm',
-    { src: '~/plugins/vue-lazyload', ssr: true },
+    { src: '~/plugins/vue-lazyload' },
     { src: '~/plugins/vue-linkify', ssr: false }
   ],
 
@@ -191,7 +191,6 @@ export default {
     assetFilter (assetFilename) {
       return assetFilename.endsWith('.js');
     },
-    vendor: ['axios', 'vue-lazyload'],
 
     // html壓縮與最小化
     html: {

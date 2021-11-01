@@ -194,7 +194,6 @@ export default {
         Authorization: `Bearer ${idToken}`
       }
     });
-    console.log(callApi.data);
     // 判斷是否登入成功
     switch (callApi.data.errorCode) {
       // 登入成功
@@ -418,7 +417,6 @@ export default {
     ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab', 'drawerShow'])
   },
   created () {
-    console.log(this.isReplace);
     if (this.isReplace) {
       this.$router.replace({ path: `/campaign/${this.params.eventId}` });
     }

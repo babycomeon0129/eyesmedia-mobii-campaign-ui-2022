@@ -594,7 +594,7 @@ export default {
 /** footer */
 .channel-footer {
   padding: 1em 2em;
-  margin-bottom: 2em;
+  margin-bottom: 12em;
   font-size: small;
   color: #717171;
   text-align: left;

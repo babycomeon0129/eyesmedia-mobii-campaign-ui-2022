@@ -45,7 +45,7 @@
             </a>
           </div>
         </div>
-        <div class="swiper-pagination" />
+        <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets" />
         <div v-if="panesArrows" class="swiper-button-prev" />
         <div v-if="panesArrows" class="swiper-button-next" />
       </div>

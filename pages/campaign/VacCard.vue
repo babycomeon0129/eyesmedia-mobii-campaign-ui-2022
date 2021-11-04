@@ -541,7 +541,7 @@ export default {
     },
     /** 返回鍵 */
     goBack () {
-      window.history.length > 1 ? this.$router.go(-1) : this.router.push('/campaign/VAC');
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/campaign/VAC');
     },
     /** 機器人驗證成功 */
     onSuccess (token) {

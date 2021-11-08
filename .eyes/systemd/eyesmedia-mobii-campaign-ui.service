@@ -1,0 +1,19 @@
+[Unit]
+Description=eyesmedia-mobii-campaign-ui
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+Alias=eyesmedia-mobii-campaign-ui.service
+
+[Service]
+UMask=002
+User=eyesmedia
+Group=eyesmedia
+RootDirectory=/usr/services/eyesmedia/apps/eyesmedia-mobii-campaign-ui
+ExecStart=nvm use v14.17.5 && /usr/bin/npm install  && /usr/bin/npm run build-sit  && /usr/bin/npm run start-sit
+Type=simple
+TimeoutSec=60
+# Use this to switch malloc implementation
+EnvironmentFile=/usr/services/eyesmedia/apps/eyesmedia-mobii-campaign-ui/.eyes/systemd/eyesmedia-mobii-campaign-ui.conf
+SuccessExitStatus=143

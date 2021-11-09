@@ -154,7 +154,11 @@
       </span>
     </el-dialog>
     <GotopIcon />
-    <JustkaIcon v-if="campainData.eventsVm.mktEventOtehrJustka !== null && campainData.eventsVm.mktEventOtehrJustka !== ''" :juska-url="campainData.eventsVm.mktEventOtehrJustka" />
+    <JustkaIcon
+      v-if="campainData.eventsVm.mktEventOtehrJustka !== null && campainData.eventsVm.mktEventOtehrJustka !== ''"
+      :juska-url="`${campainData.eventsVm.mktEventOtehrJustka} &J_idToken=${idToken}`"
+      :id-token="idToken"
+    />
   </div>
 </template>
 
@@ -247,7 +251,8 @@ export default {
       env: context.env.SIDE_ENV,
       isReplace, // 是否需要rePlace
       /** dialog開關 */
-      dialogVisible
+      dialogVisible,
+      idToken // 登入token
     };
   },
   data () {
@@ -417,6 +422,7 @@ export default {
     ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab', 'drawerShow'])
   },
   created () {
+    console.log(this.idToken);
     if (this.isReplace) {
       this.$router.replace({ path: `/campaign/${this.params.eventId}` });
     }

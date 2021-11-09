@@ -736,21 +736,6 @@ $from-txt: #818181;
   }
 }
 
-.btn {
-  color: #fff;
-  border-radius: 30px;
-  &.send {
-    background: $default-icon;
-    &.unable {
-      color: #fff;
-      background: #d3d3d3;
-    }
-  }
-  &.goBack {
-    background: #fbb54d;
-  }
-}
-
 /** 下拉選單 */
 ::v-deep .el-select {
   width: 100%;

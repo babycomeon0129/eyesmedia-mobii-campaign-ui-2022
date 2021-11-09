@@ -3,7 +3,7 @@
     <div class="bearservice">
       <div class="scroll-top-wrapper">
         <span class="scroll-top-inner">
-          <button href="juskaUrl" @click="dialogVisible = true">
+          <button href="juskaUrl" @click="justkaDialog = true">
             <img
               src="@/static/images/campaign/icon/icon_service.png"
               class="justka-img"
@@ -20,15 +20,30 @@
         </div>
       </div>
     </div>
-    <!-- 視窗 -->
+    <!-- justka dialog -->
     <el-dialog
       title=""
-      :visible.sync="dialogVisible"
+      :visible.sync="justkaDialog"
       width="60%"
       :destroy-on-close="true"
     >
       <iframe :src="juskaUrl" frameborder="0" class="justkaBox" />
       <span slot="footer" class="dialog-footer" />
+    </el-dialog>
+    <!-- dialog 提醒視窗  -->
+    <el-dialog
+      title=""
+      :visible.sync="dialogOption"
+      width="60%"
+      :destroy-on-close="true"
+    >
+      <div class="col-12">
+        登入失敗
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <button class="btn goBack col-6" @click="dialogOption = false">我知道了</button>
+        <button class="btn send col-6" @click="dialogOption = false">登入/註冊</button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -41,14 +56,21 @@ export default {
       type: String,
       default: '',
       require: false
+    },
+    idToken: {
+      type: String,
+      default: null,
+      require: true
     }
   },
   data () {
     return {
       /** 提示訊息是否開啟 */
       msgMode: true,
-      /** dialog是否開啟 */
-      dialogVisible: false
+      /** justkaDialog是否開啟 */
+      justkaDialog: false,
+      /** 提示Dialog是否開啟 */
+      dialogOption: false
     };
   }
 };

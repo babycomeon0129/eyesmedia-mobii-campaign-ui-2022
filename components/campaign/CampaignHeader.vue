@@ -4,7 +4,7 @@
       <div class="channel-header-box">
         <div class="channel-header-item">
           <a :href="`${loginUrl}/?isApp=1`">
-            <img src="@/static/images/campaign/icon/icon-home.png" class="rwdimgmax" alt="回Mobbi">
+            <img src="@/static/images/campaign/icon/icon-home.svg" class="rwdimgmax" alt="回Mobbi">
           </a>
         </div>
         <div class="channel-header-title">

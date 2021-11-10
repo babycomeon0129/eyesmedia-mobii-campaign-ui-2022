@@ -3,7 +3,7 @@
     <div class="bearservice">
       <div class="scroll-top-wrapper">
         <span class="scroll-top-inner">
-          <button href="juskaUrl" @click="justkaDialog = true">
+          <button href="juskaUrl" @click="clickJuska">
             <img
               src="@/static/images/campaign/icon/icon_service.png"
               class="justka-img"
@@ -41,8 +41,8 @@
         登入失敗
       </div>
       <span slot="footer" class="dialog-footer">
-        <button class="btn goBack col-6" @click="dialogOption = false">我知道了</button>
-        <button class="btn send col-6" @click="dialogOption = false">登入/註冊</button>
+        <button class="btn goBack col-5" @click="dialogOption = false">我知道了</button>
+        <a class="btn send col-5" :href="`${loginUrl}/Login?fromOriginUri=${redirectUrl}/campaign/VAC`">登入/註冊</a>
       </span>
     </el-dialog>
   </div>
@@ -61,6 +61,16 @@ export default {
       type: String,
       default: null,
       require: true
+    },
+    loginUrl: {
+      type: String,
+      default: '',
+      required: true
+    },
+    redirectUrl: {
+      type: String,
+      default: '',
+      required: true
     }
   },
   data () {
@@ -72,6 +82,11 @@ export default {
       /** 提示Dialog是否開啟 */
       dialogOption: false
     };
+  },
+  methods: {
+    clickJuska () {
+      this.idToken === null ? this.dialogOption = true : this.justkaDialog = true;
+    }
   }
 };
 </script>

@@ -156,7 +156,7 @@
     <GotopIcon />
     <JustkaIcon
       v-if="campainData.eventsVm.mktEventOtehrJustka !== null && campainData.eventsVm.mktEventOtehrJustka !== ''"
-      :juska-url="`${campainData.eventsVm.mktEventOtehrJustka} &J_idToken=${idToken}`"
+      :juska-url="`${campainData.eventsVm.mktEventOtehrJustka}&J_idToken=${idToken}`"
       :id-token="idToken"
       :login-url="env.mobii"
       :redirect-url="env.domain"

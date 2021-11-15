@@ -495,7 +495,7 @@ export default {
               this.dialogOption.content = '請確認您所填資料是否正確，或提交以下資料給退輔會做查驗。若有問題請洽所屬單位，或退輔會24小時服務專線：(02)2725-5700';
               this.dialogOption.show = true;
               break;
-            // 其他錯誤
+            // 此身分證字號已申請過
             case '619820009':
               this.idnoApplied = true;
               break;

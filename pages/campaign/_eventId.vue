@@ -249,12 +249,15 @@ export default {
     });
     return {
       params: context.params,
-      campainData: eventData, // 活動資料
+      /** 活動資料 */
+      campainData: eventData,
       env: context.env.SIDE_ENV,
-      isReplace, // 是否需要rePlace
+      /** 是否需要rePlace */
+      isReplace,
       /** dialog開關 */
       dialogVisible,
-      idToken // 登入token
+      /** 登入token */
+      idToken
     };
   },
   data () {
@@ -424,7 +427,6 @@ export default {
     ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab', 'drawerShow'])
   },
   created () {
-    console.log(this.idToken);
     if (this.isReplace) {
       this.$router.replace({ path: `/campaign/${this.params.eventId}` });
     }

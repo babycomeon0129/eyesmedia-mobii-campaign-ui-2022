@@ -56,7 +56,7 @@
             <span v-if="!verify.idtype && verify.idtype !== null">請選擇身份別</span>
           </div>
         </div>
-        <div class="row form" :class="{ 'error': !verify.idno && verify.idno !== null }">
+        <div class="row form" :class="{ 'error': (!verify.idno && verify.idno !== null) || idnoApplied }">
           <div class="col-12 identity">
             <label>
               身分證字號
@@ -76,6 +76,7 @@
           </div>
           <div class="col-12 small-warning">
             <span v-if="!verify.idno && verify.idno !== null">字數長度不足10碼</span>
+            <span v-if="idnoApplied">此身分證字號已申請過</span>
           </div>
         </div>
         <div class="row form">
@@ -86,13 +87,6 @@
             </label>
             <div class="forminput">
               <input v-model="requestData.birth_dt" type="text" placeholder="月／日，例：0129" maxlength="4" minlength="4">
-              <!--el-date-picker
-                v-model="requestData.birth_dt"
-                type="date"
-                placeholder="月／日"
-                format="MM-dd"
-                value-format="MM-dd"
-              /-->
             </div>
           </div>
         </div>
@@ -430,7 +424,9 @@ export default {
       /** 立即申請按鈕，等待api的loading */
       onSubmitLoading: false,
       /** 眷屬申請按鈕，等待api的loading */
-      pmsSubmitLoading: false
+      pmsSubmitLoading: false,
+      /** 身分證是否已申請 */
+      idnoApplied: false
     };
   },
   head () {
@@ -498,6 +494,10 @@ export default {
               this.dialogOption.title = '查無眷屬資料！';
               this.dialogOption.content = '請確認您所填資料是否正確，或提交以下資料給退輔會做查驗。若有問題請洽所屬單位，或退輔會24小時服務專線：(02)2725-5700';
               this.dialogOption.show = true;
+              break;
+            // 其他錯誤
+            case '619820009':
+              this.idnoApplied = true;
               break;
             // 其他錯誤
             default:

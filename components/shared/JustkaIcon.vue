@@ -84,6 +84,7 @@ export default {
     };
   },
   methods: {
+    /** 點擊Juska按鈕，未登入時跳請先登入 */
     clickJuska () {
       this.idToken === null ? this.dialogOption = true : this.justkaDialog = true;
     }

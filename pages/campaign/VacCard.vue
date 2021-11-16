@@ -238,6 +238,15 @@
             <img src="@/static/images/campaign/icon/icon-close.png">
           </button>
         </div>
+        <!-- 朕知道了 -->
+        <nuxt-link
+          v-show="dialogOption.type === 6"
+          type="button"
+          class="btn send col-12"
+          to="/campaign/VAC"
+        >
+          我知道了
+        </nuxt-link>
       </span>
     </el-dialog>
   </div>
@@ -256,7 +265,7 @@ export default {
       title: '請先登入!',
       content: '請先登入方能進行數位榮福卡申請',
       show: false,
-      type: 1 // 1:請先登入  2: 驗證失敗，查無資料_榮民/二類官兵/員工  3:驗證失敗，查無眷屬資料  4: 送出資料失敗(error code: 9999)  5:成功
+      type: 1 // 1:請先登入  2: 驗證失敗，查無資料_榮民/二類官兵/員工  3:驗證失敗，查無眷屬資料  4: 送出資料失敗(error code: 9999)  5:成功 6: 後端自定義
     };
     /** 登入idToken */
     let idToken = context.$cookies.get('M_idToken') || null;
@@ -306,9 +315,16 @@ export default {
           secure: true
         });
         break;
+      // 系統維護
+      case '616600001':
+        dialogOption.title = vacData.data.errorTitle;
+        dialogOption.content = vacData.data.errorDesc;
+        dialogOption.type = 6;
+        dialogOption.show = true;
+        break;
       // 其他各種登入錯誤
       default:
-        dialogOption.show = true;
+        // dialogOption.show = true;
         break;
     }
     return {

@@ -253,16 +253,16 @@ export default {
       type: 1 // 1:請先登入  2: 驗證失敗，查無資料_榮民/二類官兵/員工  3:驗證失敗，查無眷屬資料  4: 送出資料失敗(error code: 9999)  5:成功
     };
     /** 登入idToken */
-    let idToken = context.$cookies.get('M_idToken') || null;
+    let idToken = context.$cookies.get(`${context.env.SIDE_ENV.cookie}`) || null;
     // 如果傳參含M_idToken，整個頁面reflash
     let isReplace = false;
     if (context.query.M_idToken) {
       isReplace = true;
       // 更新idToken
       idToken = context.query.M_idToken;
-      context.$cookies.set('M_idToken', context.query.M_idToken, {
+      context.$cookies.set(`${context.env.SIDE_ENV.cookie}`, context.query.M_idToken, {
         path: '/',
-        domain: '.mobii.ai',
+        domain: `${context.env.SIDE_ENV.cookieDomain}`,
         sameSite: 'Lax',
         secure: true
       });
@@ -281,9 +281,9 @@ export default {
         isVac = responseData.isBind;
         // 如果idtoken跟cookie token不同，就更新cookie token
         if (vacData.data.idToken !== idToken) {
-          context.$cookies.set('M_idToken', vacData.data.idToken, {
+          context.$cookies.set(`${context.env.SIDE_ENV.cookie}`, vacData.data.idToken, {
             path: '/',
-            domain: '.mobii.ai',
+            domain: `${context.env.SIDE_ENV.cookieDomain}`,
             sameSite: 'Lax',
             secure: true
           });
@@ -293,9 +293,9 @@ export default {
       case '619820001':
         dialogOption.show = true;
         context.store.commit('campaign/setLogin', false);
-        context.$cookies.remove('M_idToken', {
+        context.$cookies.remove(`${context.env.SIDE_ENV.cookie}`, {
           path: '/',
-          domain: '.mobii.ai',
+          domain: `${context.env.SIDE_ENV.cookieDomain}`,
           sameSite: 'Lax',
           secure: true
         });

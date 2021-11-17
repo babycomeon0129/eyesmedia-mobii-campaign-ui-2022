@@ -178,16 +178,16 @@ export default {
   },
   async asyncData (context) {
     /** 登入idToken */
-    let idToken = context.$cookies.get('M_idToken') || null;
+    let idToken = context.$cookies.get(`${context.env.SIDE_ENV.cookie}`) || null;
     // 如果傳參含M_idToken，整個頁面reflash
     let isReplace = false;
     if (context.query.M_idToken) {
       isReplace = true;
       // 更新idToken
       idToken = context.query.M_idToken;
-      context.$cookies.set('M_idToken', context.query.M_idToken, {
+      context.$cookies.set(`${context.env.SIDE_ENV.cookie}`, context.query.M_idToken, {
         path: '/',
-        domain: '.mobii.ai',
+        domain: `${context.env.SIDE_ENV.cookieDomain}`,
         sameSite: 'Lax',
         secure: true
       });
@@ -207,9 +207,9 @@ export default {
         context.store.commit('campaign/setLogin', true);
         // 如果idtoken跟cookie token不同，就更新cookie token
         if (callApi.data.idToken !== idToken) {
-          context.$cookies.set('M_idToken', callApi.data.idToken, {
+          context.$cookies.set(`${context.env.SIDE_ENV.cookie}`, callApi.data.idToken, {
             path: '/',
-            domain: '.mobii.ai',
+            domain: `${context.env.SIDE_ENV.cookieDomain}`,
             sameSite: 'Lax',
             secure: true
           });
@@ -218,9 +218,9 @@ export default {
       // idToken 驗不過
       case '619820001':
         context.store.commit('campaign/setLogin', false);
-        context.$cookies.remove('M_idToken', {
+        context.$cookies.remove(`${context.env.SIDE_ENV.cookie}`, {
           path: '/',
-          domain: '.mobii.ai',
+          domain: `${context.env.SIDE_ENV.cookieDomain}`,
           sameSite: 'Lax',
           secure: true
         });

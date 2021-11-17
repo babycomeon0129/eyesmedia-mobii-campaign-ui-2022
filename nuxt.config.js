@@ -8,8 +8,10 @@ const envObj = {
   defind: {
     dev: {
       env: 'local',
+      cookie: 'sit.idToken',
+      cookieDomain: 'sit.mobii.ai',
       apiPath: 'https://sit-api.mobii.ai/campaign/api/v1',
-      mobii: 'https://www-uuat.mobii.ai',
+      mobii: 'https://sit.mobii.ai',
       domain: 'https://192.168.58.131:8083',
       GA: 'GTM-KBZ2VT8',
       host: '0.0.0.0',
@@ -19,8 +21,10 @@ const envObj = {
     },
     sit: {
       env: 'sit',
+      cookie: 'sit.idToken',
+      cookieDomain: 'sit.mobii.ai',
       apiPath: 'https://sit-api.mobii.ai/campaign/api/v1',
-      mobii: 'https://www-uuat.mobii.ai',
+      mobii: 'https://sit.mobii.ai',
       domain: 'https://sit-events.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '172.31.15.223',
@@ -30,6 +34,8 @@ const envObj = {
     },
     uat: {
       env: 'uat',
+      cookie: 'uat.idToken',
+      cookieDomain: 'uat.mobii.ai',
       apiPath: 'https://api.mobii.ai/campaign/api/v1',
       mobii: 'https://www-uat.mobii.ai',
       domain: 'https://events-uat.mobii.ai',
@@ -41,6 +47,8 @@ const envObj = {
     },
     prod: {
       env: 'prod',
+      cookie: 'M_idToken',
+      cookieDomain: '.mobii.ai',
       apiPath: 'https://api.mobii.ai/campaign/api/v1',
       mobii: 'https://mobii.ai',
       domain: 'https://event.mobii.ai',

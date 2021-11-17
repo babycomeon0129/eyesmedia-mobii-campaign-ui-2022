@@ -315,6 +315,13 @@ export default {
           secure: true
         });
         break;
+      // 未登入
+      case '619820008':
+        dialogOption.title = '請先登入!';
+        dialogOption.content = '請先登入方能進行數位榮福卡申請';
+        dialogOption.type = 1;
+        dialogOption.show = true;
+        break;
       // 系統維護
       case '616600001':
         dialogOption.title = vacData.data.errorTitle;

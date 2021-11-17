@@ -21,10 +21,10 @@ const envObj = {
     },
     sit: {
       env: 'sit',
-      cookie: 'sit.idToken',
-      cookieDomain: 'sit.mobii.ai',
+      cookie: 'uuat.idToken',
+      cookieDomain: 'www-uuat.mobii.ai',
       apiPath: 'https://sit-api.mobii.ai/campaign/api/v1',
-      mobii: 'https://sit.mobii.ai',
+      mobii: 'https://www-uuat.mobii.ai',
       domain: 'https://sit-events.mobii.ai',
       GA: 'GTM-KBZ2VT8',
       host: '172.31.15.223',

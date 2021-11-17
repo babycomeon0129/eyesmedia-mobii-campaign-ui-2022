@@ -234,7 +234,7 @@
           @click="dialogOption.show = false"
         >重新輸入</button>
         <div class="col-12 closebtn">
-          <button v-show="dialogOption.type !== 1" type="button" class="btn close" @click="dialogOption.show = false">
+          <button v-show="dialogOption.type !== 1 && dialogOption.type !== 6" type="button" class="btn close" @click="dialogOption.show = false">
             <img src="@/static/images/campaign/icon/icon-close.png">
           </button>
         </div>

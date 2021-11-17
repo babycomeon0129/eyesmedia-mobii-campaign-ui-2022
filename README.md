@@ -1,7 +1,7 @@
 # eyesmedia-mobii-campaign-ui
 ## npm 最低版本 v10.19.0
 ## Build Setup
-# version: 
+# version: web.1.3.4
 
 ```bash
 # install dependencies

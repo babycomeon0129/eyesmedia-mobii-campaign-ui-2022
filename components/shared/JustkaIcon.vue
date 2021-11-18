@@ -38,7 +38,7 @@
       :destroy-on-close="true"
     >
       <div class="col-12">
-        登入失敗
+        請先登入
       </div>
       <span slot="footer" class="dialog-footer">
         <button class="btn goBack col-5" @click="dialogOption = false">我知道了</button>

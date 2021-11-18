@@ -165,6 +165,7 @@
       :title="dialogOption.title"
       :visible.sync="dialogOption.show"
       :show-close="false"
+      :close-on-press-escape="false"
       :close-on-click-modal="false"
       top="30vh"
     >

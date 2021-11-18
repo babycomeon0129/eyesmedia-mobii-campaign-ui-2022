@@ -159,6 +159,7 @@
       :title="dialogOption.title"
       :visible.sync="dialogOption.show"
       :show-close="false"
+      :close-on-press-escape="false"
       :close-on-click-modal="false"
       top="30vh"
     >
@@ -228,10 +229,19 @@
           @click="dialogOption.show = false"
         >重新輸入</button>
         <div class="col-12 closebtn">
-          <button v-show="dialogOption.type !== 1" type="button" class="btn close" @click="dialogOption.show = false">
+          <button v-show="dialogOption.type !== 1 && dialogOption.type !== 6" type="button" class="btn close" @click="dialogOption.show = false">
             <img src="@/static/images/campaign/icon/icon-close.png">
           </button>
         </div>
+        <!-- 朕知道了 -->
+        <nuxt-link
+          v-show="dialogOption.type === 6"
+          type="button"
+          class="btn send col-12"
+          to="/campaign/VAC"
+        >
+          我知道了
+        </nuxt-link>
       </span>
     </el-dialog>
   </div>
@@ -250,7 +260,7 @@ export default {
       title: '請先登入!',
       content: '請先登入方能進行數位榮福卡申請',
       show: false,
-      type: 1 // 1:請先登入  2: 驗證失敗，查無資料_榮民/二類官兵/員工  3:驗證失敗，查無眷屬資料  4: 送出資料失敗(error code: 9999)  5:成功
+      type: 1 // 1:請先登入  2: 驗證失敗，查無資料_榮民/二類官兵/員工  3:驗證失敗，查無眷屬資料  4: 送出資料失敗(error code: 9999)  5:成功 6: 後端自定義
     };
     /** 登入idToken */
     let idToken = context.$cookies.get('M_idToken') || null;
@@ -300,9 +310,23 @@ export default {
           secure: true
         });
         break;
+      // 未登入
+      case '619820008':
+        dialogOption.title = '請先登入!';
+        dialogOption.content = '請先登入方能進行數位榮福卡申請';
+        dialogOption.type = 1;
+        dialogOption.show = true;
+        break;
+      // 系統維護
+      case '616600001':
+        dialogOption.title = vacData.data.errorTitle;
+        dialogOption.content = vacData.data.errorDesc;
+        dialogOption.type = 6;
+        dialogOption.show = true;
+        break;
       // 其他各種登入錯誤
       default:
-        dialogOption.show = true;
+        // dialogOption.show = true;
         break;
     }
     return {

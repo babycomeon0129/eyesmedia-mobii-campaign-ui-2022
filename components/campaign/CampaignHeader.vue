@@ -3,7 +3,7 @@
     <div class="channel-container">
       <div class="channel-header-box">
         <div class="channel-header-item">
-          <a :href="`${loginUrl}/?isApp=1`">
+          <a :href="`${loginUrl}`">
             <img src="@/static/images/campaign/icon/icon-home.svg" class="rwdimgmax" alt="回Mobbi">
           </a>
         </div>

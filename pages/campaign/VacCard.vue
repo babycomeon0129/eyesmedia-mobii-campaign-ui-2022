@@ -93,6 +93,29 @@
         <div class="row form">
           <div class="col-12 identity">
             <label>
+              推薦單位
+            </label>
+            <div class="forminput">
+              <el-select
+                v-model="requestData.service_unit"
+                :popper-class="'popperstyle'"
+                placeholder="請選擇"
+              >
+                <el-option
+                  v-for="(item, idx) in serviceUnitList"
+                  :key="'serviceUnit' + idx"
+                  :label="item"
+                  :value="item"
+                >
+                  <span style="float: right;">{{ item }}</span>
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+        </div>
+        <div class="row form">
+          <div class="col-12 identity">
+            <label>
               請勾選
               <span class="impt">*</span>
             </label>
@@ -355,7 +378,9 @@ export default {
         /** 會員編號 */
         memid: null,
         /** 所屬機構 */
-        affiliation: null
+        affiliation: null,
+        /** 推薦單位 */
+        service_unit: null
       },
       /** 眷屬確認 Api Request */
       pmsRequestData: {
@@ -381,6 +406,29 @@ export default {
           name: '退輔會(含所屬機構)職員工',
           value: '4'
         }
+      ],
+      /** 推薦單位清單 */
+      serviceUnitList: [
+        '基隆市榮服處',
+        '臺北市榮服處',
+        '新北市榮服處',
+        '宜蘭縣榮服處',
+        '桃園市榮服處',
+        '新竹榮服處',
+        '苗栗縣榮服處',
+        '臺中市榮服處',
+        '彰化縣榮服處',
+        '南投縣榮服處',
+        '雲林縣榮服處',
+        '嘉義榮服處',
+        '臺南市榮服處',
+        '高雄市榮服處',
+        '屏東縣榮服處',
+        '花蓮縣榮服處',
+        '臺東縣榮服處',
+        '澎湖縣榮服處',
+        '金門縣榮服處',
+        '國軍退除役官兵輔導委員會'
       ],
       /** 與榮民的關係列表 */
       pmsrel: [

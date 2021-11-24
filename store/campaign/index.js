@@ -22,6 +22,11 @@ const state = () => {
       index: 0,
       tabs: []
     },
+    /** 專屬商店tab */
+    store: {
+      index: 0,
+      tabs: []
+    },
     /** 服務icon抽屜開啟 */
     drawerOpen: false
   };
@@ -81,6 +86,10 @@ const getters = {
   /** 顯示商品tab列表資料 */
   showProductTab (state) {
     return state.product.tabs[state.product.index];
+  },
+  /** 顯示商店tab列表資料 */
+  showStoreTab (state) {
+    return state.store.tabs[state.store.index];
   },
   /** 回傳登入狀態 */
   isLogin (state) {

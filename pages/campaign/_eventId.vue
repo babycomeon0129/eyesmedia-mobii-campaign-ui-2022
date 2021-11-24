@@ -92,6 +92,25 @@
           />
         </div>
       </section>
+      <!-- 專屬商店 -->
+      <section v-if="campainData.storeTabs.length > 0" class="channel-section">
+        <h6>{{ campainData.storeBlockName }}</h6>
+        <div class="channel-swiper-box shadow">
+          <SwiperNav
+            :swiper-nav-option="boxTabs"
+            :nav-data="campainData.storeTabs"
+            :template="'channel-template4'"
+            :data-type="'store'"
+          />
+          <SwiperPanes
+            :swiper-panes-option="boxChannel2"
+            :panes-mode="'store'"
+            :panes-data="showStoreTab"
+            :panes-template="'channel-template4-panes'"
+            :panes-arrows="true"
+          />
+        </div>
+      </section>
       <!-- footer 注意事項 -->
       <footer class="channel-footer">
         <h6>{{ campainData.eventsVm.mktEventOtherTitle }}</h6>
@@ -247,6 +266,12 @@ export default {
       typeCode: 'product',
       data: eventData.productTabs.map(data => data.products)
     });
+    context.store.commit({
+      type: 'campaign/setNewTab',
+      typeCode: 'store',
+      data: eventData.storeTabs.map(data => data.stores)
+    });
+    console.log(eventData.storeTabs.map(data => data.stores));
     return {
       params: context.params,
       /** 活動資料 */
@@ -424,7 +449,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab', 'drawerShow'])
+    ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab', 'showStoreTab', 'drawerShow'])
   },
   created () {
     if (this.isReplace) {
@@ -537,6 +562,13 @@ export default {
 }
 .channel-template3 {
   background: #FE9060;
+  background-size: cover;
+  overflow: hidden;
+  padding: 0 0.5em;
+}
+
+.channel-template4 {
+  background: #FE8660;;
   background-size: cover;
   overflow: hidden;
   padding: 0 0.5em;

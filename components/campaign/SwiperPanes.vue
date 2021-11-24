@@ -41,6 +41,13 @@
                     {{ inside.specialPrice > 0 ? formatter(inside.specialPrice) : formatter(inside.price) }}
                   </div>
                 </div>
+                <!-- 專屬商店 -->
+                <div v-if="panesMode === 'store'" class="channel-content">
+                  <p>{{ inside.name }}</p>
+                  <div class="storetype">
+                    <i class="material-icons">language</i> {{ inside.type }}
+                  </div>
+                </div>
               </div>
             </a>
           </div>
@@ -215,9 +222,32 @@ export default {
     }
   }
 }
+/** 專屬商店 */
+.channel-template4-panes {
+  .channel-content {
+    text-align: left;
+    p {
+      color: #FF9D42;
+      font-size: small;
+      font-weight: 700;
+    }
+    .storetype {
+      color: #717171;
+      font-size: xx-small;
+      padding: .3em 0;
+      i {
+        color: #FF9D42;
+        font-size: medium;
+        vertical-align: bottom;
+        margin-bottom: 1px;
+      }
+    }
+  }
+}
 
 ::v-deep .channel-template2-panes,
-::v-deep .channel-template3-panes {
+::v-deep .channel-template3-panes,
+::v-deep .channel-template4-panes {
   position: relative;
   padding-left: 0.5em;
   padding-right: 0.5em;

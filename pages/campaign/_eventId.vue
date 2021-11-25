@@ -24,6 +24,10 @@
           />
         </div>
       </div>
+      <!-- 偷偷埋版號 -->
+      <div style="display: none;">
+        version: {{ env.version }} | {{ env.updateTime }}
+      </div>
       <!-- 中間大廣告 -->
       <div class="big-banner">
         <SwiperBanner
@@ -271,7 +275,6 @@ export default {
       typeCode: 'store',
       data: eventData.storeTabs.map(data => data.stores)
     });
-    console.log(eventData.storeTabs.map(data => data.stores));
     return {
       params: context.params,
       /** 活動資料 */

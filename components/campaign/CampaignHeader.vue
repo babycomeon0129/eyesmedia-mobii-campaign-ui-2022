@@ -75,11 +75,6 @@ export default {
   },
   computed: {
     ...mapGetters('campaign', ['isLogin'])
-  },
-  methods: {
-    login () {
-      // location.href = 'https://192.168.58.131:8083/campaign/VAC';
-    }
   }
 };
 </script>

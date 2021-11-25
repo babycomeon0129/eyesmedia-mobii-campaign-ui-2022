@@ -15,7 +15,9 @@ const envObj = {
       host: '0.0.0.0',
       port: 8083,
       key: 'server_mobii_202101.key',
-      cert: 'mobii_20210112.pem'
+      cert: 'mobii_20210112.pem',
+      version: 'web.1.3.5_1207',
+      updateTime: '2021-11-25 AM10:31'
     },
     sit: {
       env: 'sit',
@@ -26,7 +28,9 @@ const envObj = {
       host: '172.31.15.223',
       port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
-      cert: '/etc/pki/eyesmedia/mobii_20210112.pem'
+      cert: '/etc/pki/eyesmedia/mobii_20210112.pem',
+      version: 'web.1.3.5_1207',
+      updateTime: '2021-11-25 AM10:31'
     },
     uat: {
       env: 'uat',
@@ -37,7 +41,9 @@ const envObj = {
       host: '210.65.10.85',
       port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
-      cert: '/etc/pki/eyesmedia/mobii_20210112.pem'
+      cert: '/etc/pki/eyesmedia/mobii_20210112.pem',
+      version: 'web.1.3.5_1207',
+      updateTime: '2021-11-25 AM10:31'
     },
     prod: {
       env: 'prod',
@@ -48,7 +54,9 @@ const envObj = {
       host: '210.65.10.85',
       port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
-      cert: '/etc/pki/eyesmedia/mobii_20210112.pem'
+      cert: '/etc/pki/eyesmedia/mobii_20210112.pem',
+      version: 'web.1.3.5_1207',
+      updateTime: '2021-11-25 AM10:31'
     }
   }
 };

@@ -45,7 +45,7 @@
                 <div v-if="panesMode === 'store'" class="channel-content">
                   <p>{{ inside.name }}</p>
                   <div class="storetype">
-                    <i class="material-icons">language</i> {{ inside.type }}
+                    <i v-if="inside.type === '線上店'" class="material-icons">language</i> <i v-if="inside.type === '實體店'" class="material-icons">place</i>{{ inside.type }}
                   </div>
                 </div>
               </div>
@@ -230,6 +230,9 @@ export default {
       color: #FF9D42;
       font-size: small;
       font-weight: 700;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
     .storetype {
       color: #717171;

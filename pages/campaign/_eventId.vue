@@ -115,6 +115,10 @@
           />
         </div>
       </section>
+      <!-- 瀑布流 -->
+      <section class="channel-section">
+        <WaterFall />
+      </section>
       <!-- footer 注意事項 -->
       <footer class="channel-footer">
         <h6>{{ campainData.eventsVm.mktEventOtherTitle }}</h6>
@@ -238,7 +242,7 @@ export default {
           });
         }
         break;
-      // idToken 驗不過
+        // idToken 驗不過
       case '619820001':
         context.store.commit('campaign/setLogin', false);
         context.$cookies.remove('M_idToken', {
@@ -249,7 +253,7 @@ export default {
         });
         dialogVisible = true;
         break;
-      // 未登入
+        // 未登入
       case '619820008':
         context.store.commit('campaign/setLogin', false);
         break;

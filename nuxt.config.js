@@ -43,7 +43,7 @@ const envObj = {
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
       cert: '/etc/pki/eyesmedia/mobii_20210112.pem',
       version: 'web.1.3.5_1207',
-      updateTime: '2021-11-25 AM10:31'
+      updateTime: '2021-12-01 AM10:34'
     },
     prod: {
       env: 'prod',

@@ -38,7 +38,7 @@ const envObj = {
       mobii: 'https://www-uat.mobii.ai',
       domain: 'https://events-uat.mobii.ai',
       GA: 'GTM-KBZ2VT8',
-      host: '210.65.10.85',
+      host: '10.255.1.130',
       port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
       cert: '/etc/pki/eyesmedia/mobii_20210112.pem',

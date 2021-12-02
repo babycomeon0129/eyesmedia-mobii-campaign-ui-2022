@@ -23,14 +23,50 @@
     </div>
     <!-- 優惠券模板 -->
     <div v-if="waterFallType === 'VOUCHER'" class="row voucher">
-      <div v-for="inside in waterFallList" :key="inside.id" class="col-6">
+      <div v-for="inside in waterFallList" :key="inside.id" class="col-6 col-m12">
         <div class="row block">
           <div class="col-4">
             <div v-lazy:background-image="inside.img" class="rwdimg-cover" />
           </div>
           <div class="col-8 voucher-content">
             <span>線上店</span>
-            內容
+            <p>森田藥妝</p>
+            <h4>VT消費滿999元送立牌文字可以打到</h4>
+            <div class="row voucher-content2">
+              <div class="col-8">
+                <div class="row">
+                  <div class="col-4 voucher-type">
+                    <i class="material-icons">local_mall</i>
+                    購物
+                  </div>
+                  <div class="col-8 mpoint">
+                    <img src="@/static/images/campaign/icon/mpoint.png">500
+                  </div>
+                </div>
+                <div class="col-12 date">
+                  2021/08/01~2021/12/31
+                </div>
+              </div>
+              <div class="col-4">
+                <a class="btn exchange">兌換</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 商店 -->
+    <div v-if="waterFallType === 'STORE'" class="row store">
+      <div v-for="inside in waterFallList" :key="inside.id" class="col-3 col-m6">
+        <div class="block">
+          <div class="store-img">
+            <div v-lazy:background-image="inside.img" class="rwdimg-cover" />
+          </div>
+          <div class="store-content">
+            <p>{{ inside.name }}</p>
+            <div class="storetype">
+              <i v-if="inside.type === '線上店'" class="material-icons">language</i> <i v-if="inside.type === '實體店'" class="material-icons">place</i>{{ inside.type }}
+            </div>
           </div>
         </div>
       </div>
@@ -128,24 +164,117 @@ export default {
     padding: 0.7em;
   }
   .block {
-    border: 1px red solid;
+    align-items: stretch;
     box-shadow: 0px 2.58344px 9.04203px -1.29172px rgba(147, 137, 117, 0.2);
-    border-radius: 10.3337px;
+    border-radius: 10px;
     overflow: hidden;
+    background: #fff;
   }
   .voucher-content {
     position: relative;
     color: #717171;
-    height: 100%;
     text-align: left;
     padding: 1em 0;
+    font-size: small;
+    @media screen and (max-width: 465px) {
+      font-size: .1em;
+    }
+    h4 {
+      font-size: 1.1em;
+      padding: .5em 0 0 .5em;
+      margin: 0;
+      color: #FF9D42;
+      @media screen and (max-width: 465px) {
+      font-size: .5em;
+    }
+    }
+    p {
+      margin-left: .5em;
+    }
     span {
       position: absolute;
       top:0;
-      right: 20%;
+      right: 10%;
+      padding: 5px 8px;
       background: rgba(242, 242, 242, 0.7);
-      font-size: xx-small;
     }
+  }
+  .voucher-content2 {
+    padding: 1em 0;
+    .col-4 {
+      padding-right: 1em;
+    }
+  }
+  .voucher-type {
+    background: #FFBE5B;
+    color: #fff;
+    font-size: .7em;
+    padding: 2px 1px 2px .5em;
+    text-align: right;
+    vertical-align: middle;
+    border-radius: 0px 4px 4px 0px;
+    @media screen and (max-width: 465px) {
+      font-size: .1em;
+    }
+    i {
+      font-size: 8px;
+    }
+  }
+  .mpoint {
+    padding-left: .5em;
+  }
+  .exchange {
+    border: 1px solid #FF9D42;
+    color: #FF9D42;
+    font-size: small;
+    width: 100%;
+    &:hover {
+      background: #FF9D42;
+      color: #fff;
+    }
+  }
+  .date {
+    padding: .5em 0 0 .5em;
+  }
+}
+
+.store {
+  .col-3 {
+    padding: 0.7em;
+  }
+  .block {
+    box-shadow: 0px 2.58344px 9.04203px -1.29172px rgba(147, 137, 117, 0.2);
+    border-radius: 19px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .store-content {
+    font-size: small;
+    padding: 1em;
+    text-align: left;
+    p {
+      color: #FF9D42;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      font-weight: 700;
+    }
+  }
+  .storetype {
+    color: #717171;
+    font-size: xx-small;
+    padding: .3em 0;
+    i {
+      color: #FF9D42;
+      font-size: medium;
+      vertical-align: bottom;
+      margin-bottom: 1px;
+    }
+  }
+  .store-img {
+    height: 180px;
+    overflow: hidden;
   }
 }
 </style>

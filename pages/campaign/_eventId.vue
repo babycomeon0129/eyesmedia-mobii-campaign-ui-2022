@@ -117,7 +117,7 @@
       </section>
       <!-- 瀑布流 -->
       <section class="channel-section">
-        <WaterFall :water-fall-list="showVoucherTab" :water-fall-type="'VOUCHER'" />
+        <WaterFall :water-fall-list="showStoreTab" :water-fall-type="'STORE'" />
       </section>
       <!-- footer 注意事項 -->
       <footer class="channel-footer">
@@ -279,6 +279,7 @@ export default {
       typeCode: 'store',
       data: eventData.storeTabs.map(data => data.stores)
     });
+    console.log(eventData);
     return {
       params: context.params,
       /** 活動資料 */

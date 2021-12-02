@@ -117,7 +117,7 @@
       </section>
       <!-- 瀑布流 -->
       <section class="channel-section">
-        <WaterFall />
+        <WaterFall :water-fall-list="showVoucherTab" :water-fall-type="'VOUCHER'" />
       </section>
       <!-- footer 注意事項 -->
       <footer class="channel-footer">

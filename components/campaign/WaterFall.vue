@@ -60,9 +60,12 @@
       <div v-for="inside in waterFallList" :key="inside.id" class="col-3 col-m6">
         <div class="block">
           <div class="store-img">
-            <div v-lazy:background-image="inside.img" class="rwdimg-cover" />
+            <div v-lazy:background-image="inside.img" class="rwdimg-cover h72" />
           </div>
           <div class="store-content">
+            <div class="store-logo">
+              <div v-lazy:background-image="inside.img" class="rwdimg-cover logoimg" />
+            </div>
             <p>{{ inside.name }}</p>
             <div class="storetype">
               <i v-if="inside.type === '線上店'" class="material-icons">language</i> <i v-if="inside.type === '實體店'" class="material-icons">place</i>{{ inside.type }}
@@ -126,6 +129,8 @@ export default {
   .products-content {
     padding: .7em;
     text-align: left;
+    background: #fff;
+    min-height: 85px;
     p,
     .spacialprice,
     .sellprice {
@@ -185,8 +190,8 @@ export default {
       margin: 0;
       color: #FF9D42;
       @media screen and (max-width: 465px) {
-      font-size: .5em;
-    }
+        font-size: .5em;
+      }
     }
     p {
       margin-left: .5em;
@@ -218,6 +223,8 @@ export default {
     }
     i {
       font-size: 8px;
+      vertical-align: middle;
+      margin-bottom: 3px;
     }
   }
   .mpoint {
@@ -240,7 +247,7 @@ export default {
 
 .store {
   .col-3 {
-    padding: 0.7em;
+    padding: .7em;
   }
   .block {
     box-shadow: 0px 2.58344px 9.04203px -1.29172px rgba(147, 137, 117, 0.2);
@@ -249,9 +256,19 @@ export default {
     background: #fff;
   }
   .store-content {
+    position: relative;
     font-size: small;
-    padding: 1em;
+    padding: 2em 1em 1em 1em;
     text-align: left;
+    @media screen and (max-width: 767px) {
+      padding: 3em 1em 1em 1em;
+    }
+    @media screen and (max-width: 480px) {
+      padding: 2em 1em 1em 1em;
+    }
+    @media screen and (max-width: 320px) {
+      padding: 1.5em 1em 1em 1em;
+    }
     p {
       color: #FF9D42;
       overflow: hidden;
@@ -272,9 +289,30 @@ export default {
       margin-bottom: 1px;
     }
   }
-  .store-img {
-    height: 180px;
+  .store-logo {
+    width: 28%;
     overflow: hidden;
+    border-radius: 50em;
+    border: 3px solid #fff;
+    position: absolute;
+    top: -50%;
+    left: 5%;
+    @media screen and (max-width: 960px) {
+      top: -30%
+    }
+    @media screen and (max-width: 767px) {
+      width: 25%;
+      top: -55%;
+    }
+    @media screen and (max-width: 660px) {
+      top: -30%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 30%;
+    }
+    .logoimg {
+      min-height: 0;
+    }
   }
 }
 </style>

@@ -784,7 +784,7 @@ $from-txt: #818181;
 .foot-btn {
   position: fixed;
   min-width: 320px;
-  max-width: 1140px;
+  max-width: 1093px;
   bottom: 0;
   width: 100%;
   padding: 1em;

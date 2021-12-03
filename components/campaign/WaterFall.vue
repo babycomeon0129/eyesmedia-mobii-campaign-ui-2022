@@ -3,22 +3,24 @@
     <!-- 商品模板 -->
     <div v-if="waterFallType === 'PRODUCT'" class="row product">
       <div v-for="inside in waterFallList" :key="inside.id" class="col-3 col-m6">
-        <div class="block">
-          <div class="products-img">
-            <div v-lazy:background-image="inside.img" class="rwdimg-cover" />
-          </div>
-          <div class="products-content">
-            <p>{{ inside.name }}</p>
-            <div v-show="inside.specialPrice > 0" class="spacialprice">
-              {{ formatter(inside.price) }}
+        <a :href="inside.url" :target="'_' + inside.target">
+          <div class="block">
+            <div class="products-img">
+              <div v-lazy:background-image="inside.img" class="rwdimg-cover" />
             </div>
-            <div
-              class="sellprice"
-            >
-              {{ inside.specialPrice > 0 ? formatter(inside.specialPrice) : formatter(inside.price) }}
+            <div class="products-content">
+              <p>{{ inside.name }}</p>
+              <div v-show="inside.specialPrice > 0" class="spacialprice">
+                {{ formatter(inside.price) }}
+              </div>
+              <div
+                class="sellprice"
+              >
+                {{ inside.specialPrice > 0 ? formatter(inside.specialPrice) : formatter(inside.price) }}
+              </div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
     <!-- 優惠券模板 -->
@@ -29,49 +31,56 @@
             <div v-lazy:background-image="inside.img" class="rwdimg-cover" />
           </div>
           <div class="col-8 voucher-content">
-            <span>線上店</span>
-            <p>森田藥妝</p>
-            <h4>VT消費滿999元送立牌文字可以打到</h4>
+            <span>{{ inside.storeType }}</span>
+            <p>{{ inside.storeName }}</p>
+            <h4>{{ inside.name }}</h4>
             <div class="row voucher-content2">
               <div class="col-8">
                 <div class="row">
                   <div class="col-4 voucher-type">
-                    <i class="material-icons">local_mall</i>
-                    購物
+                    <i v-if="inside.type === '購物'" class="material-icons">local_mall</i>
+                    <i v-if="inside.type === '美食'" class="material-icons">fastfood</i>
+                    <i v-if="inside.type === '景點'" class="material-icons">hiking</i>
+                    <i v-if="inside.type === '醫療'" class="material-icons">medication</i>
+                    <i v-if="inside.type === '遊樂'" class="material-icons">sports_esports</i>
+                    <i v-if="inside.type === '住宿'" class="material-icons">local_hotel</i>
+                    {{ inside.type }}
                   </div>
-                  <div class="col-8 mpoint">
-                    <img src="@/static/images/campaign/icon/mpoint.png">500
+                  <div v-if="inside.mPoint > 0" class="col-8 mpoint">
+                    <img src="@/static/images/campaign/icon/mpoint.png"> {{ inside.mPoint }}
                   </div>
                 </div>
                 <div class="col-12 date">
-                  2021/08/01~2021/12/31
+                  {{ inside.starDate }} ~ {{ inside.endDate }}
                 </div>
               </div>
               <div class="col-4">
-                <a class="btn exchange">兌換</a>
+                <a class="btn exchange" :href="inside.url" target="_blank">兌換</a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- 商店 -->
+    <!-- 商店模板 -->
     <div v-if="waterFallType === 'STORE'" class="row store">
       <div v-for="inside in waterFallList" :key="inside.id" class="col-3 col-m6">
-        <div class="block">
+        <a class="block" :href="inside.url" :target="'_' + inside.target">
           <div class="store-img">
             <div v-lazy:background-image="inside.img" class="rwdimg-cover h72" />
           </div>
           <div class="store-content">
             <div class="store-logo">
-              <div v-lazy:background-image="inside.img" class="rwdimg-cover logoimg" />
+              <div v-lazy:background-image="inside.logo" class="rwdimg-cover logoimg" />
             </div>
             <p>{{ inside.name }}</p>
             <div class="storetype">
-              <i v-if="inside.type === '線上店'" class="material-icons">language</i> <i v-if="inside.type === '實體店'" class="material-icons">place</i>{{ inside.type }}
+              <i v-if="inside.type === '線上店'" class="material-icons">language</i>
+              <i v-if="inside.type === '實體店'" class="material-icons">place</i>
+              {{ inside.type }}
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </div>
@@ -118,10 +127,10 @@ export default {
     padding: .7em;
     @media screen and (max-width: 767px) {
       &:nth-child(odd) {
-      padding: 1em .5em 1em 0;
+        padding: 1em .5em 1em 0;
       }
       &:nth-child(even) {
-      padding: 1em 0 1em .5em;
+        padding: 1em 0 1em .5em;
       }
     }
   }
@@ -130,7 +139,6 @@ export default {
     padding: .7em;
     text-align: left;
     background: #fff;
-    min-height: 85px;
     p,
     .spacialprice,
     .sellprice {
@@ -149,6 +157,7 @@ export default {
       font-size: small;
       color: #717171;
       font-weight: bold;
+      min-height: 32px;
     }
     .spacialprice {
       color: #c4c4c4;
@@ -166,7 +175,17 @@ export default {
 
 .voucher {
   .col-6 {
-    padding: 0.7em;
+    &:nth-child(odd) {
+        padding: .7em .5em .7em 0;
+      }
+    &:nth-child(even) {
+        padding: .7em 0 .7em .5em;
+    }
+    @media screen and (max-width: 767px) {
+      &:nth-child(odd),&:nth-child(even) {
+        padding: .7em 0;
+      }
+    }
   }
   .block {
     align-items: stretch;
@@ -181,14 +200,21 @@ export default {
     text-align: left;
     padding: 1em 0;
     font-size: small;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-around;
     @media screen and (max-width: 465px) {
       font-size: .1em;
     }
     h4 {
-      font-size: 1.1em;
+      font-size: 1.3em;
       padding: .5em 0 0 .5em;
       margin: 0;
       color: #FF9D42;
+      @media screen and (max-width: 960px) {
+        font-size: 1.1em;
+      }
       @media screen and (max-width: 465px) {
         font-size: .5em;
       }
@@ -205,7 +231,7 @@ export default {
     }
   }
   .voucher-content2 {
-    padding: 1em 0;
+    padding: 1em 0 0 0;
     .col-4 {
       padding-right: 1em;
     }
@@ -229,6 +255,12 @@ export default {
   }
   .mpoint {
     padding-left: .5em;
+    @media screen and (max-width: 767px) {
+      padding-left: 4em;
+    }
+    img {
+      margin-right: 3px;
+    }
   }
   .exchange {
     border: 1px solid #FF9D42;

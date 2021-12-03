@@ -117,7 +117,8 @@
       </section>
       <!-- 瀑布流 -->
       <section class="channel-section">
-        <WaterFall :water-fall-list="showStoreTab" :water-fall-type="'VOUCHER'" />
+        <h6>{{ campainData.waterfallBlockName }}</h6>
+        <WaterFall :water-fall-list="campainData.waterfallItems" :water-fall-type="campainData.waterfallBlockType" />
       </section>
       <!-- footer 注意事項 -->
       <footer class="channel-footer">

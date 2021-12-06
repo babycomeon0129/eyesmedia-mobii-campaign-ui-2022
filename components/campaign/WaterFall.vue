@@ -121,10 +121,21 @@ export default {
   .block {
     border-radius: 13px;
     overflow: hidden;
-    box-shadow: 0px 3.01241px 10.5434px -1.50621px rgba(147, 137, 117, 0.2);
+    box-shadow: 0px 3px 10.5px -1.5px rgba(147, 137, 117, 0.2);
   }
   .col-3 {
-    padding: .7em;
+    &:nth-child(4n+1) {
+      padding: .7em 1.4em .7em 0;
+    }
+    &:nth-child(4n+2) {
+      padding: .7em .931em .7em .469em;
+    }
+    &:nth-child(4n+3) {
+      padding: .7em .469em .7em .931em;
+    }
+    &:nth-child(4n) {
+      padding: .7em 0 .7em 1.4em;
+    }
     @media screen and (max-width: 767px) {
       &:nth-child(odd) {
         padding: 1em .5em 1em 0;
@@ -189,7 +200,7 @@ export default {
   }
   .block {
     align-items: stretch;
-    box-shadow: 0px 2.58344px 9.04203px -1.29172px rgba(147, 137, 117, 0.2);
+    box-shadow: 0px 2.6px 9px -1.3px rgba(147, 137, 117, 0.2);
     border-radius: 10px;
     overflow: hidden;
     background: #fff;
@@ -204,6 +215,9 @@ export default {
     flex-direction: column;
     align-items: stretch;
     justify-content: space-around;
+    @media screen and (min-width: 768px) and (max-width: 960px) {
+        font-size: .1em;
+    }
     @media screen and (max-width: 465px) {
       font-size: .1em;
     }
@@ -215,12 +229,22 @@ export default {
       @media screen and (max-width: 960px) {
         font-size: 1.1em;
       }
+      @media screen and (min-width: 768px) and (max-width: 960px) {
+        font-size: .5em;
+        padding-left: 5px;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: 1.3em;
+      }
       @media screen and (max-width: 465px) {
         font-size: .5em;
       }
     }
     p {
       margin-left: .5em;
+      @media screen and (min-width: 768px) and (max-width: 960px) {
+        padding-left: 5px;
+      }
     }
     span {
       position: absolute;
@@ -233,20 +257,17 @@ export default {
   .voucher-content2 {
     padding: 1em 0 0 0;
     .col-4 {
-      padding-right: 1em;
+      padding-right: .5em;
     }
   }
   .voucher-type {
     background: #FFBE5B;
     color: #fff;
     font-size: .7em;
-    padding: 2px 1px 2px .5em;
+    padding: 2px 5px;
     text-align: right;
     vertical-align: middle;
     border-radius: 0px 4px 4px 0px;
-    @media screen and (max-width: 465px) {
-      font-size: .1em;
-    }
     i {
       font-size: 8px;
       vertical-align: middle;
@@ -274,18 +295,41 @@ export default {
   }
   .date {
     padding: .5em 0 0 .5em;
+    @media screen and (min-width: 768px) and (max-width: 960px) {
+        padding: 3px 0 0 5px;
+    }
   }
 }
 
 .store {
   .col-3 {
-    padding: .7em;
+    &:nth-child(4n+1) {
+      padding: .7em 1.4em .7em 0;
+    }
+    &:nth-child(4n+2) {
+      padding: .7em .931em .7em .469em;
+    }
+    &:nth-child(4n+3) {
+      padding: .7em .469em .7em .931em;
+    }
+    &:nth-child(4n) {
+      padding: .7em 0 .7em 1.4em;
+    }
+    @media screen and (max-width: 767px) {
+      &:nth-child(odd) {
+        padding: 1em .5em 1em 0;
+      }
+      &:nth-child(even) {
+        padding: 1em 0 1em .5em;
+      }
+    }
   }
   .block {
-    box-shadow: 0px 2.58344px 9.04203px -1.29172px rgba(147, 137, 117, 0.2);
+    box-shadow: 0px 2.6px 9px -1.3px rgba(147, 137, 117, 0.2);
     border-radius: 19px;
     overflow: hidden;
     background: #fff;
+    display: block;
   }
   .store-content {
     position: relative;

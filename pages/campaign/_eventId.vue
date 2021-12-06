@@ -118,7 +118,15 @@
       <!-- 瀑布流 -->
       <section class="channel-section">
         <h6>{{ campainData.waterfallBlockName }}</h6>
-        <WaterFall :water-fall-list="campainData.waterfallItems" :water-fall-type="campainData.waterfallBlockType" />
+        <WaterFall
+          v-infinite-scroll="loadMore"
+          :infinite-scroll-distance="50"
+          :infinite-scroll-throttle-delay="1000"
+          :water-fall-list="campainData.waterfallItems"
+          :water-fall-type="campainData.waterfallBlockType"
+        />
+        <!-- 瀑布流loading -->
+        <i v-if="waterFallRequest.load" class="el-icon-loading" />
       </section>
       <!-- footer 注意事項 -->
       <footer class="channel-footer">
@@ -280,7 +288,6 @@ export default {
       typeCode: 'store',
       data: eventData.storeTabs.map(data => data.stores)
     });
-    console.log(eventData);
     return {
       params: context.params,
       /** 活動資料 */
@@ -291,7 +298,18 @@ export default {
       /** dialog開關 */
       dialogVisible,
       /** 登入token */
-      idToken
+      idToken,
+      /** 瀑布流request */
+      waterFallRequest: {
+        id: eventData.waterfallBlockId,
+        load: false, // 瀑布流是否正在call api，前端用
+        paginationInfo: {
+          pageIndex: 1,
+          pageSize: 20,
+          totalPages: eventData.paginationInfo.totalPages,
+          totalNumber: eventData.paginationInfo.totalNumber
+        }
+      }
     };
   },
   data () {
@@ -475,7 +493,26 @@ export default {
     ...mapMutations('campaign', {
       setLogin: 'setLogin',
       setDrawerOpen: 'setDrawerOpen'
-    })
+    }),
+    loadMore () {
+      this.waterFallRequest.paginationInfo.pageIndex++;
+      console.log(this.waterFallRequest.paginationInfo.pageIndex);
+      if (this.waterFallRequest.paginationInfo.pageIndex <= this.waterFallRequest.paginationInfo.totalPages) {
+        this.waterFallRequest.load = true;
+        this.$axios.post(`${this.env.apiPath}/events/waterfall`, this.waterFallRequest, {
+          headers: {
+            Authorization: `Bearer ${this.idToken}`
+          }
+        }).then((res) => {
+          const data = JSON.parse(res.data.data);
+          this.waterFallRequest.paginationInfo.totalPages = data.paginationInfo.totalPages;
+          for (const items of data.waterfallItems) {
+            this.campainData.waterfallItems.push(items);
+          }
+          this.waterFallRequest.load = false;
+        });
+      }
+    }
   }
 };
 </script>

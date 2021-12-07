@@ -1,5 +1,5 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 
 const envObj = {
   get (envName) {
@@ -16,7 +16,7 @@ const envObj = {
       port: 8083,
       key: 'server_mobii_202101.key',
       cert: 'mobii_20210112.pem',
-      version: 'web.1.3.5_1207',
+      version: 'web.1.3.6_1221',
       updateTime: '2021-11-25 AM10:31'
     },
     sit: {
@@ -29,7 +29,7 @@ const envObj = {
       port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
       cert: '/etc/pki/eyesmedia/mobii_20210112.pem',
-      version: 'web.1.3.5_1207',
+      version: 'web.1.3.6_1221',
       updateTime: '2021-11-29 AM11:47'
     },
     uat: {
@@ -55,9 +55,23 @@ const envObj = {
       port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
       cert: '/etc/pki/eyesmedia/mobii_20210112.pem',
-      version: 'web.1.3.5_1207',
+      version: 'web.1.3.6_1221',
+      updateTime: '2021-12-06 AM10:38'
+    },
+    prod2: {
+      env: 'prod2',
+      apiPath: 'https://api.mobii.ai/campaign/api/v1',
+      mobii: 'https://mobii.ai',
+      domain: 'https://event.mobii.ai',
+      GA: 'GTM-KBZ2VT8',
+      host: '210.65.10.85',
+      port: 8080,
+      key: '/etc/pki/eyesmedia/server_mobii_202101.key',
+      cert: '/etc/pki/eyesmedia/mobii_20210112.pem',
+      version: 'web.1.3.6_1221',
       updateTime: '2021-12-06 AM10:38'
     }
+
   }
 };
 
@@ -145,7 +159,7 @@ export default {
     ]
   ],
   gtm: {
-    id: 'GTM-MQX7SSB',
+    id: envObj.get(process.env.SIDE_ENV).GA,
     enabled: true,
     pageTracking: true,
     autoInit: true
@@ -182,7 +196,7 @@ export default {
 
   publicRuntimeConfig: {
     gtm: {
-      id: 'GTM-MQX7SSB',
+      id: envObj.get(process.env.SIDE_ENV).GA,
       enabled: true,
       pageTracking: true,
       autoInit: true

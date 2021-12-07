@@ -26,7 +26,7 @@
       </div>
       <!-- 偷偷埋版號 -->
       <div style="display: none;">
-        version: {{ env.version }} | {{ env.updateTime }}
+        version: {{ env.version }} | {{ updateTime }}
       </div>
       <!-- 中間大廣告 -->
       <div class="big-banner">
@@ -188,8 +188,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
 import { directive } from 'vue-awesome-swiper';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Campaign',
@@ -430,7 +430,9 @@ export default {
       /** 是否打開我的服務 */
       isOpenService: false,
       /** 是否啟用繼續閱讀 */
-      isOpenRead: false
+      isOpenRead: false,
+      /** 檔案更新時間 */
+      updateTime: ''
     };
   },
   head () {
@@ -464,6 +466,7 @@ export default {
     if (noticeEl.offsetHeight >= 59) {
       this.isOpenRead = true;
     }
+    this.updateTime = document.lastModified;
   },
   methods: {
     ...mapMutations('campaign', {

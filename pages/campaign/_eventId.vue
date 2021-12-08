@@ -119,9 +119,6 @@
       <section class="channel-section">
         <h6>{{ campainData.waterfallBlockName }}</h6>
         <WaterFall
-          v-infinite-scroll="loadMore"
-          :infinite-scroll-distance="50"
-          :infinite-scroll-throttle-delay="1000"
           :water-fall-list="campainData.waterfallItems"
           :water-fall-type="campainData.waterfallBlockType"
         />
@@ -501,6 +498,14 @@ export default {
       this.isOpenRead = true;
     }
     this.updateTime = document.lastModified;
+    // 偵測瀑布流是否要加載
+    window.addEventListener('scroll', () => {
+      const IS_BOTTOM = document.documentElement.scrollHeight - document.documentElement.scrollTop <= document.documentElement.clientHeight;
+      if (IS_BOTTOM) {
+        this.loadMore();
+        console.log('到底了');
+      }
+    });
   },
   methods: {
     ...mapMutations('campaign', {

@@ -115,8 +115,7 @@ export default {
     { src: '@/plugins/vue-awesome-swiper', mode: 'client' },
     '~/plugins/gtm',
     { src: '~/plugins/vue-lazyload' },
-    { src: '~/plugins/vue-linkify', ssr: false },
-    { src: '~plugins/vue-infinite-scroll.js', ssr: false }
+    { src: '~/plugins/vue-linkify', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

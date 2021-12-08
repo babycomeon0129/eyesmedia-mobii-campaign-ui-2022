@@ -9,7 +9,7 @@ const envObj = {
     dev: {
       env: 'local',
       apiPath: 'https://sit-api.mobii.ai/campaign/api/v1',
-      mobii: 'https://www-uuat.mobii.ai',
+      mobii: 'https://sit.mobii.ai',
       domain: 'https://192.168.58.131:8083',
       GA: 'GTM-N22PP3B',
       host: '0.0.0.0',

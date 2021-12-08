@@ -115,19 +115,6 @@
           />
         </div>
       </section>
-      <!-- 瀑布流 -->
-      <section class="channel-section">
-        <h6>{{ campainData.waterfallBlockName }}</h6>
-        <WaterFall
-          v-infinite-scroll="loadMore"
-          :infinite-scroll-distance="50"
-          :infinite-scroll-throttle-delay="1000"
-          :water-fall-list="campainData.waterfallItems"
-          :water-fall-type="campainData.waterfallBlockType"
-        />
-        <!-- 瀑布流loading -->
-        <i v-if="waterFallRequest.load" class="el-icon-loading" />
-      </section>
       <!-- footer 注意事項 -->
       <footer class="channel-footer">
         <h6>{{ campainData.eventsVm.mktEventOtherTitle }}</h6>
@@ -216,9 +203,9 @@ export default {
     /** 登入idToken */
     let idToken = context.$cookies.get('M_idToken') || null;
     // 如果傳參含M_idToken，整個頁面reflash
-    let isReplace = false;
+    let isRoute = 0;
     if (context.query.M_idToken) {
-      isReplace = true;
+      isRoute = 1;
       // 更新idToken
       idToken = context.query.M_idToken;
       context.$cookies.set('M_idToken', context.query.M_idToken, {
@@ -251,7 +238,7 @@ export default {
           });
         }
         break;
-        // idToken 驗不過
+      // idToken 驗不過
       case '619820001':
         context.store.commit('campaign/setLogin', false);
         context.$cookies.remove('M_idToken', {
@@ -262,9 +249,13 @@ export default {
         });
         dialogVisible = true;
         break;
-        // 未登入
+      // 未登入
       case '619820008':
         context.store.commit('campaign/setLogin', false);
+        break;
+      // 活動無效或過期
+      case '619820002':
+        isRoute = 2;
         break;
     }
     const eventData = JSON.parse(callApi.data.data);
@@ -293,23 +284,12 @@ export default {
       /** 活動資料 */
       campainData: eventData,
       env: context.env.SIDE_ENV,
-      /** 是否需要rePlace */
-      isReplace,
+      /** 是否需要rePlace 1: 頁面replace 2: 導到404 */
+      isRoute,
       /** dialog開關 */
       dialogVisible,
       /** 登入token */
-      idToken,
-      /** 瀑布流request */
-      waterFallRequest: {
-        id: eventData.waterfallBlockId,
-        load: false, // 瀑布流是否正在call api，前端用
-        paginationInfo: {
-          pageIndex: 1,
-          pageSize: 20,
-          totalPages: eventData.paginationInfo.totalPages,
-          totalNumber: eventData.paginationInfo.totalNumber
-        }
-      }
+      idToken
     };
   },
   data () {
@@ -481,8 +461,13 @@ export default {
     ...mapGetters('campaign', ['showVoucherTab', 'showCardTab', 'showProductTab', 'showStoreTab', 'drawerShow'])
   },
   created () {
-    if (this.isReplace) {
-      this.$router.replace({ path: `/campaign/${this.params.eventId}` });
+    switch (this.isRoute) {
+      case 1:
+        this.$router.replace({ path: `/campaign/${this.params.eventId}` });
+        break;
+      case 2:
+        this.$router.push({ path: '/error404' });
+        break;
     }
   },
   mounted () {
@@ -496,26 +481,7 @@ export default {
     ...mapMutations('campaign', {
       setLogin: 'setLogin',
       setDrawerOpen: 'setDrawerOpen'
-    }),
-    loadMore () {
-      this.waterFallRequest.paginationInfo.pageIndex++;
-      console.log(this.waterFallRequest.paginationInfo.pageIndex);
-      if (this.waterFallRequest.paginationInfo.pageIndex <= this.waterFallRequest.paginationInfo.totalPages) {
-        this.waterFallRequest.load = true;
-        this.$axios.post(`${this.env.apiPath}/events/waterfall`, this.waterFallRequest, {
-          headers: {
-            Authorization: `Bearer ${this.idToken}`
-          }
-        }).then((res) => {
-          const data = JSON.parse(res.data.data);
-          this.waterFallRequest.paginationInfo.totalPages = data.paginationInfo.totalPages;
-          for (const items of data.waterfallItems) {
-            this.campainData.waterfallItems.push(items);
-          }
-          this.waterFallRequest.load = false;
-        });
-      }
-    }
+    })
   }
 };
 </script>

@@ -381,9 +381,10 @@ export default {
       top: -55%;
     }
     @media screen and (max-width: 660px) {
-      top: -30%;
+      top: -45%;
     }
     @media screen and (max-width: 480px) {
+      top: -40%;
       width: 30%;
     }
     .logoimg {

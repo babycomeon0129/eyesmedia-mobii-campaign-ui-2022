@@ -513,23 +513,25 @@ export default {
       setDrawerOpen: 'setDrawerOpen'
     }),
     loadMore () {
-      this.waterFallRequest.paginationInfo.pageIndex++;
-      console.log(this.waterFallRequest.paginationInfo.pageIndex);
-      if (this.waterFallRequest.paginationInfo.pageIndex <= this.waterFallRequest.paginationInfo.totalPages) {
-        this.waterFallRequest.load = true;
-        this.$axios.post(`${this.env.apiPath}/events/waterfall`, this.waterFallRequest, {
-          headers: {
-            Authorization: `Bearer ${this.idToken}`
-          }
-        }).then((res) => {
-          const data = JSON.parse(res.data.data);
-          console.log(data);
-          this.waterFallRequest.paginationInfo.totalPages = data.paginationInfo.totalPages;
-          for (const items of data.waterfallItems) {
-            this.campainData.waterfallItems.push(items);
-          }
-          this.waterFallRequest.load = false;
-        });
+      if (!this.waterFallRequest.load) {
+        this.waterFallRequest.paginationInfo.pageIndex++;
+        console.log(this.waterFallRequest.paginationInfo.pageIndex);
+        if (this.waterFallRequest.paginationInfo.pageIndex <= this.waterFallRequest.paginationInfo.totalPages) {
+          this.waterFallRequest.load = true;
+          this.$axios.post(`${this.env.apiPath}/events/waterfall`, this.waterFallRequest, {
+            headers: {
+              Authorization: `Bearer ${this.idToken}`
+            }
+          }).then((res) => {
+            const data = JSON.parse(res.data.data);
+            console.log(data);
+            this.waterFallRequest.paginationInfo.totalPages = data.paginationInfo.totalPages;
+            for (const items of data.waterfallItems) {
+              this.campainData.waterfallItems.push(items);
+            }
+            this.waterFallRequest.load = false;
+          });
+        }
       }
     }
 

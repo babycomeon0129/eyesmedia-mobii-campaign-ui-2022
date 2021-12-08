@@ -515,8 +515,8 @@ export default {
     loadMore () {
       if (!this.waterFallRequest.load) {
         this.waterFallRequest.paginationInfo.pageIndex++;
-        console.log(this.waterFallRequest.paginationInfo.pageIndex);
         if (this.waterFallRequest.paginationInfo.pageIndex <= this.waterFallRequest.paginationInfo.totalPages) {
+          // 目前頁數未超出總頁數時，暫停loadMore，開始call api
           this.waterFallRequest.load = true;
           this.$axios.post(`${this.env.apiPath}/events/waterfall`, this.waterFallRequest, {
             headers: {
@@ -524,11 +524,11 @@ export default {
             }
           }).then((res) => {
             const data = JSON.parse(res.data.data);
-            console.log(data);
             this.waterFallRequest.paginationInfo.totalPages = data.paginationInfo.totalPages;
             for (const items of data.waterfallItems) {
               this.campainData.waterfallItems.push(items);
             }
+            // 資料下載完畢，允許loadMore再次啟動
             this.waterFallRequest.load = false;
           });
         }

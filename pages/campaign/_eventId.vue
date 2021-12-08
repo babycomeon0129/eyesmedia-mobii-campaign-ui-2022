@@ -509,6 +509,7 @@ export default {
     }),
     loadMore () {
       this.waterFallRequest.paginationInfo.pageIndex++;
+      console.log(this.waterFallRequest.paginationInfo.pageIndex);
       if (this.waterFallRequest.paginationInfo.pageIndex <= this.waterFallRequest.paginationInfo.totalPages) {
         this.waterFallRequest.load = true;
         this.$axios.post(`${this.env.apiPath}/events/waterfall`, this.waterFallRequest, {
@@ -517,6 +518,7 @@ export default {
           }
         }).then((res) => {
           const data = JSON.parse(res.data.data);
+          console.log(data);
           this.waterFallRequest.paginationInfo.totalPages = data.paginationInfo.totalPages;
           for (const items of data.waterfallItems) {
             this.campainData.waterfallItems.push(items);

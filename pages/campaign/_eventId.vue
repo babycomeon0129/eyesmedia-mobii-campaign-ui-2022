@@ -1,6 +1,6 @@
 <template>
   <div class="channel-wrap">
-    <CampaignHeader :title-img="campainData.eventsVm.mktEventLogo" :login-url="env.mobii" :redirect-url="env.domain" />
+    <CampaignHeader :title-img="campainData.eventsVm.mktEventLogo" :login-url="env.mobii" :redirect-url="env.domain" :event-id="params.eventId" />
     <main>
       <!-- 首頁大圖輪播 -->
       <div class="top-banner">

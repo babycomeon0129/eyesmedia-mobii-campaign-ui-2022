@@ -40,7 +40,7 @@ const envObj = {
       port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
       cert: '/etc/pki/eyesmedia/mobii_20210112.pem',
-      version: 'web.1.3.5_1207'
+      version: 'web.1.3.6_1221'
     },
     prod: {
       env: 'prod',
@@ -64,8 +64,7 @@ const envObj = {
       port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
       cert: '/etc/pki/eyesmedia/mobii_20210112.pem',
-      version: 'web.1.3.6_1221',
-      updateTime: '2021-12-06 AM10:38'
+      version: 'web.1.3.6_1221'
     }
 
   }

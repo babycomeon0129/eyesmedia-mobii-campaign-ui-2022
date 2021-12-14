@@ -86,7 +86,7 @@
               <span class="impt">*</span>
             </label>
             <div class="forminput">
-              <input v-model="birth_dt" type="text" placeholder="月／日，例：01-29" maxlength="5" minlength="5">
+              <input v-model="birth_dt" type="text" placeholder="月-日，例：01-01" maxlength="5" minlength="5">
             </div>
           </div>
           <div class="col-12 small-warning">

@@ -75,7 +75,7 @@
             </div>
           </div>
           <div class="col-12 small-warning">
-            <span v-if="!verify.idno && verify.idno !== null">字數長度不足10碼</span>
+            <span v-if="!verify.idno && verify.idno !== null">身分證字號輸入不正確</span>
             <span v-if="idnoApplied">此身分證字號已申請過</span>
           </div>
         </div>
@@ -86,8 +86,11 @@
               <span class="impt">*</span>
             </label>
             <div class="forminput">
-              <input v-model="requestData.birth_dt" type="text" placeholder="月／日，例：0129" maxlength="4" minlength="4">
+              <input v-model="birth_dt" type="text" placeholder="月／日，例：01-29" maxlength="5" minlength="5">
             </div>
+          </div>
+          <div class="col-12 small-warning">
+            <span v-if="!verify.birth_dt && verify.birth_dt !== null">日期輸入不正確</span>
           </div>
         </div>
         <div class="row form">
@@ -166,8 +169,8 @@
       <button
         v-if="!isVac"
         class="btn send col-12"
-        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null|| !reCaptcha || onSubmitLoading}"
-        :disabled="!agree || requestData.idno === null || requestData.idtype === null || requestData.birth_dt === null|| !reCaptcha || onSubmitLoading"
+        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || birth_dt === null|| !reCaptcha || onSubmitLoading}"
+        :disabled="!agree || requestData.idno === null || requestData.idtype === null || birth_dt === null|| !reCaptcha || onSubmitLoading"
         @click="onSubmit()"
       >
         <span v-if="onSubmitLoading"><i class="el-icon-loading" /></span>
@@ -382,6 +385,8 @@ export default {
         /** 推薦單位 */
         service_unit: null
       },
+      /** 榮民生日 */
+      birth_dt: null,
       /** 眷屬確認 Api Request */
       pmsRequestData: {
         idno: null,
@@ -531,13 +536,18 @@ export default {
   methods: {
     /** 立即申請（第一次送出資料） */
     onSubmit () {
-      this.onSubmitLoading = true;
+      // this.onSubmitLoading = true;
       // 驗證是否選擇身份別
       this.verify.idtype = this.requestData.idtype !== null;
-      // 驗證身分證字號是否10位
-      this.verify.idno = this.requestData.idno.length === 10;
-      // 驗證是否選擇生日
-      this.verify.birth_dt = this.requestData.birth_dt !== null;
+      // 驗證身分證字號是否正確
+      const regExpID = /^[A-Z]{1}[1-2]{1}[0-9]{8}$/;
+      this.verify.idno = regExpID.test(this.requestData.idno);
+      // 驗證生日格式是否正確
+      const date = new Date(this.birth_dt);
+      this.verify.birth_dt = !isNaN(date.getTime());
+      if (this.verify.birth_dt) {
+        this.requestData.birth_dt = this.birth_dt.replace('-', '');
+      }
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verify).every(e => e === true);
       // TODO:上SIT記得補上機器人驗證
@@ -586,8 +596,10 @@ export default {
       this.pmsSubmitLoading = true;
       // 檢查眷屬資料是否有欄位是空值
       this.verifyPms.idno = this.pmsRequestData.idno !== null;
-      this.verifyPms.pmsidno = this.pmsRequestData.pmsidno.length === 10;
       this.verifyPms.pmsrel = this.pmsRequestData.pmsrel !== null;
+      // 驗證身分證字號是否正確
+      const regExpID = /^[A-Z]{1}[1-2]{1}[0-9]{8}$/;
+      this.verifyPms.pmsidno = regExpID.test(this.pmsRequestData.pmsidno);
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verifyPms).every(e => e === true);
       if (submitOk) {
@@ -727,6 +739,7 @@ $from-txt: #818181;
   width: 100%;
   position: absolute;
   bottom: 0;
+  right: 1.3em;
   color: #dc3545;
   text-align: right;
 }

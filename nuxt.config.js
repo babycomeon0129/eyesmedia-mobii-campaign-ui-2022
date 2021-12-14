@@ -34,7 +34,7 @@ const envObj = {
       env: 'uat',
       apiPath: 'https://uat-api.mobii.ai/campaign/api/v1',
       mobii: 'https://www-uat.mobii.ai',
-      domain: 'https://events-uat.mobii.ai',
+      domain: 'https://uat-events.mobii.ai',
       GA: 'GTM-N22PP3B',
       host: '10.255.1.130',
       port: 8081,

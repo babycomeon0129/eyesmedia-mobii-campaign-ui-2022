@@ -536,7 +536,7 @@ export default {
   methods: {
     /** 立即申請（第一次送出資料） */
     onSubmit () {
-      // this.onSubmitLoading = true;
+      this.onSubmitLoading = true;
       // 驗證是否選擇身份別
       this.verify.idtype = this.requestData.idtype !== null;
       // 驗證身分證字號是否正確
@@ -552,48 +552,48 @@ export default {
       }
       console.log(this.requestData.birth_dt);
       // 檢查verify內的東西是否都是true
-      // const submitOk = Object.values(this.verify).every(e => e === true);
+      const submitOk = Object.values(this.verify).every(e => e === true);
       // TODO:上SIT記得補上機器人驗證
-      // if (submitOk && this.agree && this.reCaptcha) {
-      //   this.$axios.post(`${this.env.apiPath}/events/bind`, this.requestData, {
-      //     headers: {
-      //       Authorization: `Bearer ${this.idToken}`
-      //     }
-      //   }).then((res) => {
-      //     this.onSubmitLoading = false;
-      //     switch (res.data.errorCode) {
-      //       // 驗證成功
-      //       case '996600001':
-      //         this.isVac = true;
-      //         break;
-      //       // 驗證失敗，查無資料_榮民/二類官兵/員工
-      //       case '619820003':
-      //         this.dialogOption.type = 2;
-      //         this.dialogOption.title = '查無資料！';
-      //         this.dialogOption.content = '請確認您所填資料是否正確，並重新輸入。若有問題請洽所屬單位或退輔會24小時服務專線：(02)2725-5700';
-      //         this.dialogOption.show = true;
-      //         break;
-      //       // 驗證失敗，查無眷屬資料
-      //       case '619820004':
-      //         this.dialogOption.type = 3;
-      //         this.dialogOption.title = '查無眷屬資料！';
-      //         this.dialogOption.content = '請確認您所填資料是否正確，或提交以下資料給退輔會做查驗。若有問題請洽所屬單位，或退輔會24小時服務專線：(02)2725-5700';
-      //         this.dialogOption.show = true;
-      //         break;
-      //       // 此身分證字號已申請過
-      //       case '619820009':
-      //         this.idnoApplied = true;
-      //         break;
-      //       // 其他錯誤
-      //       default:
-      //         this.dialogOption.type = 4;
-      //         this.dialogOption.title = '綁定失敗！';
-      //         this.dialogOption.content = '綁定失敗，請洽客服人員';
-      //         this.dialogOption.show = true;
-      //         break;
-      //     }
-      //   });
-      // }
+      if (submitOk && this.agree && this.reCaptcha) {
+        this.$axios.post(`${this.env.apiPath}/events/bind`, this.requestData, {
+          headers: {
+            Authorization: `Bearer ${this.idToken}`
+          }
+        }).then((res) => {
+          this.onSubmitLoading = false;
+          switch (res.data.errorCode) {
+            // 驗證成功
+            case '996600001':
+              this.isVac = true;
+              break;
+            // 驗證失敗，查無資料_榮民/二類官兵/員工
+            case '619820003':
+              this.dialogOption.type = 2;
+              this.dialogOption.title = '查無資料！';
+              this.dialogOption.content = '請確認您所填資料是否正確，並重新輸入。若有問題請洽所屬單位或退輔會24小時服務專線：(02)2725-5700';
+              this.dialogOption.show = true;
+              break;
+            // 驗證失敗，查無眷屬資料
+            case '619820004':
+              this.dialogOption.type = 3;
+              this.dialogOption.title = '查無眷屬資料！';
+              this.dialogOption.content = '請確認您所填資料是否正確，或提交以下資料給退輔會做查驗。若有問題請洽所屬單位，或退輔會24小時服務專線：(02)2725-5700';
+              this.dialogOption.show = true;
+              break;
+            // 此身分證字號已申請過
+            case '619820009':
+              this.idnoApplied = true;
+              break;
+            // 其他錯誤
+            default:
+              this.dialogOption.type = 4;
+              this.dialogOption.title = '綁定失敗！';
+              this.dialogOption.content = '綁定失敗，請洽客服人員';
+              this.dialogOption.show = true;
+              break;
+          }
+        });
+      }
     },
     pmsSubmit () {
       this.pmsSubmitLoading = true;

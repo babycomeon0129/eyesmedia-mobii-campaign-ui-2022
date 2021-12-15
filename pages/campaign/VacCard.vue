@@ -536,7 +536,6 @@ export default {
   methods: {
     /** 立即申請（第一次送出資料） */
     onSubmit () {
-      this.onSubmitLoading = true;
       // 驗證是否選擇身份別
       this.verify.idtype = this.requestData.idtype !== null;
       // 驗證身分證字號是否正確
@@ -555,6 +554,7 @@ export default {
       const submitOk = Object.values(this.verify).every(e => e === true);
       // TODO:上SIT記得補上機器人驗證
       if (submitOk && this.agree && this.reCaptcha) {
+        this.onSubmitLoading = true;
         this.$axios.post(`${this.env.apiPath}/events/bind`, this.requestData, {
           headers: {
             Authorization: `Bearer ${this.idToken}`

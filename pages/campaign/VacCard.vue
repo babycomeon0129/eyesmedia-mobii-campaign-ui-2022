@@ -663,11 +663,7 @@ export default {
         checkSum += c * w;
       }
       // 算出的檢查碼比對身分證最後一個檢查碼
-      if (10 - checkSum % 10 === checkPid) {
-        return true;
-      } else {
-        return false;
-      }
+      return 10 - checkSum % 10 === checkPid;
     }
   }
 };

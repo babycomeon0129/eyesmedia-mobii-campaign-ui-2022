@@ -658,7 +658,7 @@ export default {
       for (let i = 0; i < pid.length; i++) {
         // 檢查碼每一位數（轉數字）
         const c = parseInt(pid[i]);
-        // 相乘的權重碼
+        // 相乘的指定常數
         const w = weights[i];
         checkSum += c * w;
       }

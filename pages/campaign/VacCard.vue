@@ -544,11 +544,7 @@ export default {
       this.requestData.birth_dt = `${this.birth_dt.slice(0, 2)}-${this.birth_dt.slice(2)}`;
       const date = new Date(this.requestData.birth_dt);
       this.verify.birth_dt = !isNaN(date.getTime());
-      if (this.verify.birth_dt) {
-        this.requestData.birth_dt = this.birth_dt.replace('-', '');
-      } else {
-        this.requestData.birth_dt = null;
-      }
+      this.requestData.birth_dt = this.verify.birth_dt ? this.birth_dt.replace('-', '') : null;
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verify).every(e => e === true);
       // TODO:上SIT記得補上機器人驗證

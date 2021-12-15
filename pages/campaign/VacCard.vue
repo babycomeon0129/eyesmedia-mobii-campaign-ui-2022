@@ -86,7 +86,7 @@
               <span class="impt">*</span>
             </label>
             <div class="forminput">
-              <input v-model="birth_dt" type="text" placeholder="月-日，例：01-01" maxlength="5" minlength="5">
+              <input v-model="birth_dt" type="text" placeholder="月/日，例：0101" maxlength="4" minlength="4">
             </div>
           </div>
           <div class="col-12 small-warning">
@@ -540,57 +540,60 @@ export default {
       // 驗證是否選擇身份別
       this.verify.idtype = this.requestData.idtype !== null;
       // 驗證身分證字號是否正確
-      const regExpID = /^[A-Z]{1}[1-2]{1}[0-9]{8}$/;
-      this.verify.idno = regExpID.test(this.requestData.idno);
+      this.verify.idno = this.getTwID(this.requestData.idno);
       // 驗證生日格式是否正確
-      const date = new Date(this.birth_dt);
+      this.requestData.birth_dt = `${this.birth_dt.slice(0, 2)}-${this.birth_dt.slice(2)}`;
+      const date = new Date(this.requestData.birth_dt);
       this.verify.birth_dt = !isNaN(date.getTime());
       if (this.verify.birth_dt) {
         this.requestData.birth_dt = this.birth_dt.replace('-', '');
+      } else {
+        this.requestData.birth_dt = null;
       }
+      console.log(this.requestData.birth_dt);
       // 檢查verify內的東西是否都是true
-      const submitOk = Object.values(this.verify).every(e => e === true);
+      // const submitOk = Object.values(this.verify).every(e => e === true);
       // TODO:上SIT記得補上機器人驗證
-      if (submitOk && this.agree && this.reCaptcha) {
-        this.$axios.post(`${this.env.apiPath}/events/bind`, this.requestData, {
-          headers: {
-            Authorization: `Bearer ${this.idToken}`
-          }
-        }).then((res) => {
-          this.onSubmitLoading = false;
-          switch (res.data.errorCode) {
-            // 驗證成功
-            case '996600001':
-              this.isVac = true;
-              break;
-            // 驗證失敗，查無資料_榮民/二類官兵/員工
-            case '619820003':
-              this.dialogOption.type = 2;
-              this.dialogOption.title = '查無資料！';
-              this.dialogOption.content = '請確認您所填資料是否正確，並重新輸入。若有問題請洽所屬單位或退輔會24小時服務專線：(02)2725-5700';
-              this.dialogOption.show = true;
-              break;
-            // 驗證失敗，查無眷屬資料
-            case '619820004':
-              this.dialogOption.type = 3;
-              this.dialogOption.title = '查無眷屬資料！';
-              this.dialogOption.content = '請確認您所填資料是否正確，或提交以下資料給退輔會做查驗。若有問題請洽所屬單位，或退輔會24小時服務專線：(02)2725-5700';
-              this.dialogOption.show = true;
-              break;
-            // 此身分證字號已申請過
-            case '619820009':
-              this.idnoApplied = true;
-              break;
-            // 其他錯誤
-            default:
-              this.dialogOption.type = 4;
-              this.dialogOption.title = '綁定失敗！';
-              this.dialogOption.content = '綁定失敗，請洽客服人員';
-              this.dialogOption.show = true;
-              break;
-          }
-        });
-      }
+      // if (submitOk && this.agree && this.reCaptcha) {
+      //   this.$axios.post(`${this.env.apiPath}/events/bind`, this.requestData, {
+      //     headers: {
+      //       Authorization: `Bearer ${this.idToken}`
+      //     }
+      //   }).then((res) => {
+      //     this.onSubmitLoading = false;
+      //     switch (res.data.errorCode) {
+      //       // 驗證成功
+      //       case '996600001':
+      //         this.isVac = true;
+      //         break;
+      //       // 驗證失敗，查無資料_榮民/二類官兵/員工
+      //       case '619820003':
+      //         this.dialogOption.type = 2;
+      //         this.dialogOption.title = '查無資料！';
+      //         this.dialogOption.content = '請確認您所填資料是否正確，並重新輸入。若有問題請洽所屬單位或退輔會24小時服務專線：(02)2725-5700';
+      //         this.dialogOption.show = true;
+      //         break;
+      //       // 驗證失敗，查無眷屬資料
+      //       case '619820004':
+      //         this.dialogOption.type = 3;
+      //         this.dialogOption.title = '查無眷屬資料！';
+      //         this.dialogOption.content = '請確認您所填資料是否正確，或提交以下資料給退輔會做查驗。若有問題請洽所屬單位，或退輔會24小時服務專線：(02)2725-5700';
+      //         this.dialogOption.show = true;
+      //         break;
+      //       // 此身分證字號已申請過
+      //       case '619820009':
+      //         this.idnoApplied = true;
+      //         break;
+      //       // 其他錯誤
+      //       default:
+      //         this.dialogOption.type = 4;
+      //         this.dialogOption.title = '綁定失敗！';
+      //         this.dialogOption.content = '綁定失敗，請洽客服人員';
+      //         this.dialogOption.show = true;
+      //         break;
+      //     }
+      //   });
+      // }
     },
     pmsSubmit () {
       this.pmsSubmitLoading = true;
@@ -638,6 +641,33 @@ export default {
     /** 機器人驗證過期？ */
     onExpired () {
       this.reCaptcha = false;
+    },
+    /** 身分證驗證
+     * @param pid 身分證字號
+     */
+    getTwID (pid) {
+      pid = pid.trim();
+      // 身分證首位字母
+      const conver = 'ABCDEFGHJKLMNPQRSTUVXYWZIO';
+      // 指定常數，相乘用
+      const weights = [1, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+      // 身分證字號檢查碼
+      const checkPid = parseInt(pid.slice(-1));
+      // 計算出的檢查碼
+      let checkSum = 0;
+      pid = String(conver.indexOf(pid[0]) + 10) + pid.slice(1, -1);
+      for (let i = 0; i < pid.length; i++) {
+        // p
+        const c = parseInt(pid[i]);
+        const w = weights[i];
+        checkSum += c * w;
+      }
+      // 算出的檢查碼比對身分證最後一個檢查碼
+      if (10 - checkSum % 10 === checkPid) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 };

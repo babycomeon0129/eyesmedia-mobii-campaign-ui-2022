@@ -503,7 +503,6 @@ export default {
       const IS_BOTTOM = document.documentElement.scrollHeight - document.documentElement.scrollTop <= document.documentElement.clientHeight;
       if (IS_BOTTOM) {
         this.loadMore();
-        console.log('到底了');
       }
     });
   },

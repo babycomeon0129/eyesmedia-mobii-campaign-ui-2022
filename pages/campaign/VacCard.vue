@@ -549,7 +549,6 @@ export default {
       } else {
         this.requestData.birth_dt = null;
       }
-      console.log(this.requestData.birth_dt);
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verify).every(e => e === true);
       // TODO:上SIT記得補上機器人驗證

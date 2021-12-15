@@ -654,9 +654,11 @@ export default {
       // 計算出的檢查碼
       let checkSum = 0;
       pid = String(conver.indexOf(pid[0]) + 10) + pid.slice(1, -1);
+      // 計算身分證字號計算公式
       for (let i = 0; i < pid.length; i++) {
-        // p
+        // 檢查碼每一位數（轉數字）
         const c = parseInt(pid[i]);
+        // 相乘的權重碼
         const w = weights[i];
         checkSum += c * w;
       }

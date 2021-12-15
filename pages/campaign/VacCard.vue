@@ -601,8 +601,7 @@ export default {
       this.verifyPms.idno = this.pmsRequestData.idno !== null;
       this.verifyPms.pmsrel = this.pmsRequestData.pmsrel !== null;
       // 驗證身分證字號是否正確
-      const regExpID = /^[A-Z]{1}[1-2]{1}[0-9]{8}$/;
-      this.verifyPms.pmsidno = regExpID.test(this.pmsRequestData.pmsidno);
+      this.verifyPms.pmsidno = this.getTwID(this.pmsRequestData.pmsidno);
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verifyPms).every(e => e === true);
       if (submitOk) {

@@ -235,11 +235,8 @@ export default {
     flex-direction: column;
     align-items: stretch;
     justify-content: space-around;
-    @media screen and (min-width: 768px) and (max-width: 960px) {
-        font-size: .1em;
-    }
     @media screen and (max-width: 465px) {
-      font-size: .1em;
+      font-size: .5em;
     }
     h4 {
       font-size: 1.3em;
@@ -251,27 +248,17 @@ export default {
       text-overflow: ellipsis;
       display: -webkit-box;
       color: #FF9D42;
-      @media screen and (max-width: 960px) {
-        font-size: 1.1em;
-        padding-left: 5px;
-      }
-      @media screen and (min-width: 768px) and (max-width: 960px) {
-        font-size: .5em;
-        padding-top: 5px;
-      }
       @media screen and (max-width: 768px) {
         font-size: 1.3em;
-      }
-      @media screen and (max-width: 465px) {
-        font-size: .5em;
       }
     }
     p {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      @media screen and (max-width: 960px) {
-        padding-left: 5px;
+      padding-left: .7em;
+      @media screen and (max-width: 465px) {
+        padding-left: .5em;
       }
     }
     span {
@@ -284,6 +271,9 @@ export default {
   }
   .voucher-content2 {
     padding: 1em 0 0 0;
+    @media screen and (max-width: 465px) {
+      padding: .5em 0 0 0;
+    }
     .col-4 {
       padding-right: 5px;
       @media screen and (max-width: 320px) {

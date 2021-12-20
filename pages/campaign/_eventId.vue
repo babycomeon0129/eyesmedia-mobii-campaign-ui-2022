@@ -289,6 +289,7 @@ export default {
       typeCode: 'store',
       data: eventData.storeTabs.map(data => data.stores)
     });
+    console.log(eventData.waterfallItems);
     return {
       params: context.params,
       /** 活動資料 */

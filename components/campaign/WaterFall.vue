@@ -39,7 +39,7 @@
             <div class="row voucher-content2">
               <div class="col-8">
                 <div class="row">
-                  <div class="col-4 col-30 voucher-type">
+                  <div class="col-3 col-d4 col-30 voucher-type">
                     <i v-if="inside.type === '購物'" class="material-icons">local_mall</i>
                     <i v-if="inside.type === '美食'" class="material-icons">fastfood</i>
                     <i v-if="inside.type === '景點'" class="material-icons">hiking</i>
@@ -48,7 +48,7 @@
                     <i v-if="inside.type === '住宿'" class="material-icons">local_hotel</i>
                     {{ inside.type }}
                   </div>
-                  <div v-if="inside.mPoint > 0" class="col-8 col-31 mpoint">
+                  <div v-if="inside.mPoint > 0" class="col-9 col-d8 col-31 mpoint">
                     <img src="@/static/images/campaign/icon/mpoint.png"> {{ decimalFormatter(inside.mPoint) }}
                   </div>
                 </div>
@@ -418,7 +418,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 767px) {
   .col-30 {
     width: 40%;
   }

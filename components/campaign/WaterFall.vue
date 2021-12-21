@@ -286,7 +286,7 @@ export default {
     color: #fff;
     font-size: .1em;
     padding: 2px 5px 0 0;
-    text-align: right;
+    text-align: center;
     vertical-align: middle;
     border-radius: 0px 4px 4px 0px;
     @media screen and (max-width: 320px) {
@@ -418,7 +418,13 @@ export default {
   }
 }
 
-@media screen and (max-width: 767px) {
+.btn {
+  @media screen and (max-width: 460px) {
+    padding: 3px 0;
+  }
+}
+
+@media screen and (max-width: 360px) {
   .col-30 {
     width: 40%;
   }

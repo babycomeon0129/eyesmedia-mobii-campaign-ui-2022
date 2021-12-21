@@ -79,7 +79,7 @@
             <span v-if="idnoApplied">此身分證字號已申請過</span>
           </div>
         </div>
-        <div class="row form">
+        <div class="row form" :class="{ 'error': !verify.birth_dt && verify.birth_dt !== null }">
           <div class="col-12 identity">
             <label>
               生日

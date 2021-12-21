@@ -79,7 +79,7 @@
             <span v-if="idnoApplied">此身分證字號已申請過</span>
           </div>
         </div>
-        <div class="row form">
+        <div class="row form" :class="{ 'error': !verify.birth_dt && verify.birth_dt !== null}">
           <div class="col-12 identity">
             <label>
               生日
@@ -542,9 +542,9 @@ export default {
       this.verify.idno = this.getTwID(this.requestData.idno);
       // 驗證生日格式是否正確
       this.requestData.birth_dt = `${this.birth_dt.slice(0, 2)}-${this.birth_dt.slice(2)}`;
-      const date = new Date(this.requestData.birth_dt);
-      this.verify.birth_dt = !isNaN(date.getTime());
-      this.requestData.birth_dt = this.verify.birth_dt ? this.birth_dt.replace('-', '') : null;
+      const date = this.$moment(`2021-${this.requestData.birth_dt}`);
+      this.verify.birth_dt = date.isValid();
+      this.requestData.birth_dt = this.verify.birth_dt ? this.birth_dt.replace('/', '') : null;
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verify).every(e => e === true);
       // TODO:上SIT記得補上機器人驗證

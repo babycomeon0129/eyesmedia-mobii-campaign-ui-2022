@@ -542,7 +542,7 @@ export default {
       this.verify.idno = this.getTwID(this.requestData.idno);
       // 驗證生日格式是否正確
       this.requestData.birth_dt = `${this.birth_dt.slice(0, 2)}-${this.birth_dt.slice(2)}`;
-      const date = this.$moment(`2021-${this.requestData.birth_dt}`);
+      const date = this.$moment(`2020-${this.requestData.birth_dt}`);
       this.verify.birth_dt = date.isValid();
       this.requestData.birth_dt = this.verify.birth_dt ? this.birth_dt.replace('-', '') : null;
       // 檢查verify內的東西是否都是true

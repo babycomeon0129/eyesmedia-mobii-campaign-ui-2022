@@ -229,7 +229,7 @@ export default {
     position: relative;
     color: #717171;
     text-align: left;
-    padding: 1em 0;
+    padding: .5em 0;
     font-size: small;
     display: flex;
     flex-direction: column;
@@ -239,7 +239,7 @@ export default {
       font-size: .5em;
     }
     h4 {
-      font-size: 1.3em;
+      font-size: medium;
       padding: .5em 0 0 .5em;
       margin: 0;
       -webkit-line-clamp: 2;
@@ -270,7 +270,7 @@ export default {
     }
   }
   .voucher-content2 {
-    padding: 1em 0 0 0;
+    padding: .5em 0 0 0;
     @media screen and (max-width: 465px) {
       padding: .5em 0 0 0;
     }
@@ -285,7 +285,7 @@ export default {
     background: #FFBE5B;
     color: #fff;
     font-size: .1em;
-    padding: 2px 5px 0 0;
+    padding: 2px;
     text-align: center;
     vertical-align: middle;
     border-radius: 0px 4px 4px 0px;

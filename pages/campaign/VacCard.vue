@@ -79,11 +79,7 @@
             <span v-if="idnoApplied">此身分證字號已申請過</span>
           </div>
         </div>
-<<<<<<< HEAD
         <div class="row form" :class="{ 'error': !verify.birth_dt && verify.birth_dt !== null}">
-=======
-        <div class="row form" :class="{ 'error': !verify.birth_dt && verify.birth_dt !== null }">
->>>>>>> MOB-4010
           <div class="col-12 identity">
             <label>
               生日
@@ -96,75 +92,75 @@
           <div class="col-12 small-warning">
             <span v-if="!verify.birth_dt && verify.birth_dt !== null">日期輸入不正確</span>
           </div>
-        </div>
-        <div class="row form">
-          <div class="col-12 identity">
-            <label>
-              推薦單位
-            </label>
-            <div class="forminput">
-              <el-select
-                v-model="requestData.service_unit"
-                :popper-class="'popperstyle'"
-                placeholder="請選擇"
-              >
-                <el-option
-                  v-for="(item, idx) in serviceUnitList"
-                  :key="'serviceUnit' + idx"
-                  :label="item"
-                  :value="item"
+          <div class="row form">
+            <div class="col-12 identity">
+              <label>
+                推薦單位
+              </label>
+              <div class="forminput">
+                <el-select
+                  v-model="requestData.service_unit"
+                  :popper-class="'popperstyle'"
+                  placeholder="請選擇"
                 >
-                  <span style="float: right;">{{ item }}</span>
-                </el-option>
-              </el-select>
+                  <el-option
+                    v-for="(item, idx) in serviceUnitList"
+                    :key="'serviceUnit' + idx"
+                    :label="item"
+                    :value="item"
+                  >
+                    <span style="float: right;">{{ item }}</span>
+                  </el-option>
+                </el-select>
+              </div>
+            </div>
+          </div>
+          <div class="row form">
+            <div class="col-12 identity">
+              <label>
+                請勾選
+                <span class="impt">*</span>
+              </label>
+              <div class="forminput">
+                <recaptcha @error="onError" @success="onSuccess" @expired="onExpired" />
+              </div>
             </div>
           </div>
         </div>
-        <div class="row form">
-          <div class="col-12 identity">
-            <label>
-              請勾選
-              <span class="impt">*</span>
-            </label>
-            <div class="forminput">
-              <recaptcha @error="onError" @success="onSuccess" @expired="onExpired" />
-            </div>
+        <!-- 身份驗證欄 -->
+        <div v-if="!isVac" class="channel-section">
+          <div class="col-12 checkagree">
+            <input id="checkOK" v-model="agree" type="checkbox">
+            <label for="checkOK">我同意艾斯移動（Mobii 平台）使用本卡內之會員個人資料及交易資料，以利發放點數回饋及參與 Mobii 平台活動。</label>
+          </div>
+          <div class="col-12 vacinfo">
+            <ul>
+              <li>
+                <i class="material-icons">error_outline</i>申請數位榮福卡，需驗證是否符合以下身分，經退輔會驗證身分無誤後，方能完成數位榮福卡之申請。
+                <ul>
+                  <li>第一類退除役官兵(榮民)</li>
+                  <li>第二類退除役官兵</li>
+                  <li>退除役官兵眷屬</li>
+                  <li>退輔會(含所屬機構)職員工</li>
+                </ul>
+              </li>
+              <li>
+                所輸入之身分證字號，僅供申請數位榮福卡身分驗證使用，不做其他用途。艾斯移動 (Mobii 平台) 不會記錄、保存身分證字號於 Mobii 平台系統中。
+                <br>
+                <br>榮福卡合作優惠終止時，優惠將轉換為一般會員。
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-      <!-- 身份驗證欄 -->
-      <div v-if="!isVac" class="channel-section">
-        <div class="col-12 checkagree">
-          <input id="checkOK" v-model="agree" type="checkbox">
-          <label for="checkOK">我同意艾斯移動（Mobii 平台）使用本卡內之會員個人資料及交易資料，以利發放點數回饋及參與 Mobii 平台活動。</label>
-        </div>
-        <div class="col-12 vacinfo">
-          <ul>
-            <li>
-              <i class="material-icons">error_outline</i>申請數位榮福卡，需驗證是否符合以下身分，經退輔會驗證身分無誤後，方能完成數位榮福卡之申請。
-              <ul>
-                <li>第一類退除役官兵(榮民)</li>
-                <li>第二類退除役官兵</li>
-                <li>退除役官兵眷屬</li>
-                <li>退輔會(含所屬機構)職員工</li>
-              </ul>
-            </li>
-            <li>
-              所輸入之身分證字號，僅供申請數位榮福卡身分驗證使用，不做其他用途。艾斯移動 (Mobii 平台) 不會記錄、保存身分證字號於 Mobii 平台系統中。
-              <br>
-              <br>榮福卡合作優惠終止時，優惠將轉換為一般會員。
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!-- 完成申請 -->
-      <div v-if="isVac" class="channel-section">
-        <div class="col-12 isVac">
-          <h2>已完成申請！</h2>
-          <p>
-            您已完成數位榮福卡申請
-            <br>歡迎您盡情享受Mobii獨家優惠！
-          </p>
+        <!-- 完成申請 -->
+        <div v-if="isVac" class="channel-section">
+          <div class="col-12 isVac">
+            <h2>已完成申請！</h2>
+            <p>
+              您已完成數位榮福卡申請
+              <br>歡迎您盡情享受Mobii獨家優惠！
+            </p>
+          </div>
         </div>
       </div>
     </main>

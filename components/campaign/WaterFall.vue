@@ -27,17 +27,19 @@
     <div v-if="waterFallType === 'VOUCHER'" class="row voucher">
       <div v-for="inside in waterFallList" :key="inside.id" class="col-6 col-m12">
         <div class="row block">
-          <div class="col-4">
+          <div class="col-4 col-30">
             <div v-lazy:background-image="inside.img" class="rwdimg-cover" />
           </div>
-          <div class="col-8 voucher-content">
+          <div class="col-8 col-31 voucher-content">
             <span>{{ inside.storeType }}</span>
-            <p>{{ inside.storeName }}</p>
+            <p class="col-8">
+              {{ inside.storeName }}
+            </p>
             <h4>{{ inside.name }}</h4>
             <div class="row voucher-content2">
               <div class="col-8">
                 <div class="row">
-                  <div class="col-4 voucher-type">
+                  <div class="col-3 col-d4 col-30 voucher-type">
                     <i v-if="inside.type === '購物'" class="material-icons">local_mall</i>
                     <i v-if="inside.type === '美食'" class="material-icons">fastfood</i>
                     <i v-if="inside.type === '景點'" class="material-icons">hiking</i>
@@ -46,12 +48,12 @@
                     <i v-if="inside.type === '住宿'" class="material-icons">local_hotel</i>
                     {{ inside.type }}
                   </div>
-                  <div v-if="inside.mPoint > 0" class="col-8 mpoint">
-                    <img src="@/static/images/campaign/icon/mpoint.png"> {{ inside.mPoint }}
+                  <div v-if="inside.mPoint > 0" class="col-9 col-d8 col-31 mpoint">
+                    <img src="@/static/images/campaign/icon/mpoint.png"> {{ decimalFormatter(inside.mPoint) }}
                   </div>
                 </div>
                 <div class="col-12 date">
-                  {{ inside.starDate }} ~ {{ inside.endDate }}
+                  {{ inside.endDate }}截止
                 </div>
               </div>
               <div class="col-4">
@@ -67,11 +69,11 @@
       <div v-for="inside in waterFallList" :key="inside.id" class="col-3 col-m6">
         <a class="block" :href="inside.url" :target="'_' + inside.target">
           <div class="store-img">
-            <div v-lazy:background-image="inside.img" class="rwdimg-cover h72" />
+            <div v-lazy:background-image="inside.img === null ? defaultbkimg : inside.img" class="rwdimg-cover h72" />
           </div>
           <div class="store-content">
             <div class="store-logo">
-              <div v-lazy:background-image="inside.logo" class="rwdimg-cover logoimg" />
+              <div v-lazy:background-image="inside.logo === null ? defaultlogo : inside.logo " class="rwdimg-cover logoimg" />
             </div>
             <p>{{ inside.name }}</p>
             <div class="storetype">
@@ -87,6 +89,10 @@
 </template>
 
 <script>
+// 商店模板預設背景圖
+import defaultbkimg from '@/static/images/campaign/voucher_defaultbkimg.png';
+// 商店模板預設logo
+import defaultlogo from '@/static/images/campaign/voucher_defaultlogo.png';
 
 export default {
   name: 'WaterFall',
@@ -101,6 +107,12 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      defaultlogo,
+      defaultbkimg
+    };
+  },
   methods: {
     /** 數字轉台幣 */
     formatter (num) {
@@ -108,6 +120,14 @@ export default {
         /** decimal：純數字 currency：貨幣 percent：百分比 unit：單位 */
         style: 'currency',
         currency: 'TWD',
+        minimumFractionDigits: 0
+      });
+      return formatter.format(num);
+    },
+    decimalFormatter (num) {
+      const formatter = new Intl.NumberFormat('zh-Hant-TW', {
+        /** decimal：純數字 currency：貨幣 percent：百分比 unit：單位 */
+        style: 'decimal',
         minimumFractionDigits: 0
       });
       return formatter.format(num);
@@ -209,41 +229,36 @@ export default {
     position: relative;
     color: #717171;
     text-align: left;
-    padding: 1em 0;
+    padding: .5em 0;
     font-size: small;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: space-around;
-    @media screen and (min-width: 768px) and (max-width: 960px) {
-        font-size: .1em;
-    }
     @media screen and (max-width: 465px) {
-      font-size: .1em;
+      font-size: .5em;
     }
     h4 {
-      font-size: 1.3em;
+      font-size: medium;
       padding: .5em 0 0 .5em;
       margin: 0;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
       color: #FF9D42;
-      @media screen and (max-width: 960px) {
-        font-size: 1.1em;
-      }
-      @media screen and (min-width: 768px) and (max-width: 960px) {
-        font-size: .5em;
-        padding-left: 5px;
-      }
       @media screen and (max-width: 768px) {
         font-size: 1.3em;
       }
-      @media screen and (max-width: 465px) {
-        font-size: .5em;
-      }
     }
     p {
-      margin-left: .5em;
-      @media screen and (min-width: 768px) and (max-width: 960px) {
-        padding-left: 5px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      padding-left: .7em;
+      @media screen and (max-width: 465px) {
+        padding-left: .5em;
       }
     }
     span {
@@ -255,19 +270,28 @@ export default {
     }
   }
   .voucher-content2 {
-    padding: 1em 0 0 0;
+    padding: .5em 0 0 0;
+    @media screen and (max-width: 465px) {
+      padding: .5em 0 0 0;
+    }
     .col-4 {
-      padding-right: .5em;
+      padding-right: 5px;
+      @media screen and (max-width: 320px) {
+        padding-right: 0;
+      }
     }
   }
   .voucher-type {
     background: #FFBE5B;
     color: #fff;
-    font-size: .7em;
-    padding: 2px 5px;
-    text-align: right;
+    font-size: .1em;
+    padding: 2px;
+    text-align: center;
     vertical-align: middle;
     border-radius: 0px 4px 4px 0px;
+    @media screen and (max-width: 320px) {
+      text-align: center;
+    }
     i {
       font-size: 8px;
       vertical-align: middle;
@@ -275,12 +299,13 @@ export default {
     }
   }
   .mpoint {
-    padding-left: .5em;
-    @media screen and (max-width: 767px) {
-      padding-left: 4em;
-    }
+    padding-left: 5px;
     img {
       margin-right: 3px;
+      @media screen and (max-width: 360px) {
+        width: 13px;
+        margin-right: 0;
+      }
     }
   }
   .exchange {
@@ -295,7 +320,7 @@ export default {
   }
   .date {
     padding: .5em 0 0 .5em;
-    @media screen and (min-width: 768px) and (max-width: 960px) {
+    @media screen and (max-width: 960px) {
         padding: 3px 0 0 5px;
     }
   }
@@ -390,6 +415,21 @@ export default {
     .logoimg {
       min-height: 0;
     }
+  }
+}
+
+.btn {
+  @media screen and (max-width: 460px) {
+    padding: 3px 0;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .col-30 {
+    width: 40%;
+  }
+  .col-31 {
+    width: 60%;
   }
 }
 </style>

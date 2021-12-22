@@ -79,7 +79,11 @@
             <span v-if="idnoApplied">此身分證字號已申請過</span>
           </div>
         </div>
+<<<<<<< HEAD
         <div class="row form" :class="{ 'error': !verify.birth_dt && verify.birth_dt !== null}">
+=======
+        <div class="row form" :class="{ 'error': !verify.birth_dt && verify.birth_dt !== null }">
+>>>>>>> MOB-4010
           <div class="col-12 identity">
             <label>
               生日

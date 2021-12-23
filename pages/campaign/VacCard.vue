@@ -101,15 +101,17 @@
             <div class="forminput">
               <select
                 v-model="requestData.service_unit"
-                class="'popperstyle'"
-                placeholder="請選擇"
               >
+                <option value="無選擇推薦單位" style="display: none;">
+                  請選擇
+                </option>
                 <option
                   v-for="(item, idx) in serviceUnitList"
                   :key="'serviceUnit' + idx"
-                  :label="item"
                   :value="item"
-                />
+                >
+                  {{ item }}
+                </option>
               </select>
             </div>
           </div>
@@ -382,7 +384,7 @@ export default {
         /** 所屬機構 */
         affiliation: null,
         /** 推薦單位 */
-        service_unit: null
+        service_unit: '無選擇推薦單位'
       },
       /** 榮民生日 */
       birth_dt: null,

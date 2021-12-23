@@ -642,26 +642,32 @@ export default {
      */
     getTwID (pid) {
       pid = pid.trim();
-      // 身分證首位字母
-      const conver = 'ABCDEFGHJKLMNPQRSTUVXYWZIO';
-      // 指定常數，相乘用
-      const weights = [1, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-      // 身分證字號檢查碼
-      const checkPid = parseInt(pid.slice(-1));
-      // 計算出的檢查碼
-      let checkSum = 0;
-      pid = String(conver.indexOf(pid[0]) + 10) + pid.slice(1, -1);
-      // 計算身分證字號計算公式
-      for (let i = 0; i < pid.length; i++) {
+      const regExpID = /^[A-Z]{1}[1-2]{1}[0-9]{8}$/;
+      // 先驗證格式是否正確
+      if (regExpID.test(pid)) {
+        // 身分證首位字母
+        const conver = 'ABCDEFGHJKLMNPQRSTUVXYWZIO';
+        // 指定常數，相乘用
+        const weights = [1, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+        // 身分證字號檢查碼
+        const checkPid = parseInt(pid.slice(-1));
+        // 計算出的檢查碼
+        let checkSum = 0;
+        pid = String(conver.indexOf(pid[0]) + 10) + pid.slice(1, -1);
+        // 計算身分證字號計算公式
+        for (let i = 0; i < pid.length; i++) {
         // 檢查碼每一位數（轉數字）
-        const c = parseInt(pid[i]);
-        // 相乘的指定常數
-        const w = weights[i];
-        checkSum += c * w;
+          const c = parseInt(pid[i]);
+          // 相乘的指定常數
+          const w = weights[i];
+          checkSum += c * w;
+        }
+        // 算出的檢查碼比對身分證最後一個檢查碼
+        // (10 - checkSum % 10) % 10是為了防尾數0，10-0的情況還是10
+        return (10 - checkSum % 10) % 10 === checkPid;
+      } else {
+        return false;
       }
-      // 算出的檢查碼比對身分證最後一個檢查碼
-      // (10 - checkSum % 10) % 10是為了防尾數0，10-0的情況還是10
-      return (10 - checkSum % 10) % 10 === checkPid;
     }
   }
 };

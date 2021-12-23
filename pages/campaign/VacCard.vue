@@ -99,20 +99,18 @@
               推薦單位
             </label>
             <div class="forminput">
-              <el-select
+              <select
                 v-model="requestData.service_unit"
-                :popper-class="'popperstyle'"
+                class="'popperstyle'"
                 placeholder="請選擇"
               >
-                <el-option
+                <option
                   v-for="(item, idx) in serviceUnitList"
                   :key="'serviceUnit' + idx"
                   :label="item"
                   :value="item"
-                >
-                  <span style="float: right;">{{ item }}</span>
-                </el-option>
-              </el-select>
+                />
+              </select>
             </div>
           </div>
         </div>

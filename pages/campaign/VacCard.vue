@@ -153,15 +153,15 @@
             </ul>
           </div>
         </div>
-        <!-- 完成申請 -->
-        <div v-if="isVac" class="channel-section">
-          <div class="col-12 isVac">
-            <h2>已完成申請！</h2>
-            <p>
-              您已完成數位榮福卡申請
-              <br>歡迎您盡情享受Mobii獨家優惠！
-            </p>
-          </div>
+      </div>
+      <!-- 完成申請 -->
+      <div v-if="isVac" class="channel-section">
+        <div class="col-12 isVac">
+          <h2>已完成申請！</h2>
+          <p>
+            您已完成數位榮福卡申請
+            <br>歡迎您盡情享受Mobii獨家優惠！
+          </p>
         </div>
       </div>
     </main>
@@ -540,6 +540,8 @@ export default {
     onSubmit () {
       // 驗證是否選擇身份別
       this.verify.idtype = this.requestData.idtype !== null;
+      // 驗證身分證是否已申請的選項先預設false，待api驗證
+      this.idnoApplied = false;
       // 驗證身分證字號是否正確
       this.verify.idno = this.getTwID(this.requestData.idno);
       // 驗證生日格式是否正確

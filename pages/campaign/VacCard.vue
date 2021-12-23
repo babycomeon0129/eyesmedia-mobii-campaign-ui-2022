@@ -659,7 +659,8 @@ export default {
         checkSum += c * w;
       }
       // 算出的檢查碼比對身分證最後一個檢查碼
-      return 10 - checkSum % 10 === checkPid;
+      // (10 - checkSum % 10) % 10是為了防尾數0，10-0的情況還是10
+      return (10 - checkSum % 10) % 10 === checkPid;
     }
   }
 };

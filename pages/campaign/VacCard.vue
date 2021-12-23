@@ -92,41 +92,42 @@
           <div class="col-12 small-warning">
             <span v-if="!verify.birth_dt && verify.birth_dt !== null">日期輸入不正確</span>
           </div>
-          <div class="row form">
-            <div class="col-12 identity">
-              <label>
-                推薦單位
-              </label>
-              <div class="forminput">
-                <el-select
-                  v-model="requestData.service_unit"
-                  :popper-class="'popperstyle'"
-                  placeholder="請選擇"
+        </div>
+        <div class="row form">
+          <div class="col-12 identity">
+            <label>
+              推薦單位
+            </label>
+            <div class="forminput">
+              <el-select
+                v-model="requestData.service_unit"
+                :popper-class="'popperstyle'"
+                placeholder="請選擇"
+              >
+                <el-option
+                  v-for="(item, idx) in serviceUnitList"
+                  :key="'serviceUnit' + idx"
+                  :label="item"
+                  :value="item"
                 >
-                  <el-option
-                    v-for="(item, idx) in serviceUnitList"
-                    :key="'serviceUnit' + idx"
-                    :label="item"
-                    :value="item"
-                  >
-                    <span style="float: right;">{{ item }}</span>
-                  </el-option>
-                </el-select>
-              </div>
-            </div>
-          </div>
-          <div class="row form">
-            <div class="col-12 identity">
-              <label>
-                請勾選
-                <span class="impt">*</span>
-              </label>
-              <div class="forminput">
-                <recaptcha @error="onError" @success="onSuccess" @expired="onExpired" />
-              </div>
+                  <span style="float: right;">{{ item }}</span>
+                </el-option>
+              </el-select>
             </div>
           </div>
         </div>
+        <div class="row form">
+          <div class="col-12 identity">
+            <label>
+              請勾選
+              <span class="impt">*</span>
+            </label>
+            <div class="forminput">
+              <recaptcha @error="onError" @success="onSuccess" @expired="onExpired" />
+            </div>
+          </div>
+        </div>
+
         <!-- 身份驗證欄 -->
         <div v-if="!isVac" class="channel-section">
           <div class="col-12 checkagree">
@@ -658,6 +659,8 @@ export default {
         const w = weights[i];
         checkSum += c * w;
       }
+      console.log(checkPid);
+      console.log(checkSum);
       // 算出的檢查碼比對身分證最後一個檢查碼
       return 10 - checkSum % 10 === checkPid;
     }

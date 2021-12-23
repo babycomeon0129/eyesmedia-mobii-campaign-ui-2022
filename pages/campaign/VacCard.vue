@@ -36,20 +36,20 @@
               <span class="impt">*</span>
             </label>
             <div class="forminput">
-              <el-select
+              <select
                 v-model="requestData.idtype"
-                :popper-class="'popperstyle'"
-                placeholder="請選擇"
               >
-                <el-option
+                <option :value="null" style="display: none;">
+                  請選擇
+                </option>
+                <option
                   v-for="item in dentityCat"
                   :key="item.value"
-                  :label="item.name"
                   :value="item.value"
                 >
-                  <span style="float: right;">{{ item.name }}</span>
-                </el-option>
-              </el-select>
+                  {{ item.name }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="col-12 small-warning">
@@ -102,7 +102,7 @@
               <select
                 v-model="requestData.service_unit"
               >
-                <option value="無選擇推薦單位" style="display: none;">
+                <option :value="null" style="display: none;">
                   請選擇
                 </option>
                 <option
@@ -203,24 +203,25 @@
           required
           placeholder="請輸入所屬榮民身分證號"
         >
-        <el-select
+        <select
           v-model="pmsRequestData.pmsrel"
-          placeholder="請選擇稱謂，您是榮民的"
-          :popper-class="'popperstyle'"
+          class="pmsrel"
         >
-          <el-option
+          <option :value="null" style="display: none;">
+            請選擇稱謂，您是榮民的
+          </option>
+          <option
             v-for="item in pmsrel"
             :key="item.value"
-            :label="item.name"
             :value="item.value"
           >
-            <span style="float: right; padding-right: 1em; font-size: medium;">{{ item.name }}</span>
-          </el-option>
-        </el-select>
+            {{ item.name }}
+          </option>
+        </select>
         <!-- 身分證錯誤提示 -->
         <div v-if="!verifyPms.pmsidno && verifyPms.pmsidno !== null" class="row pms">
           <div class="col-12 small-warning">
-            身分證字數長度不足10碼
+            身分證字號輸入不正確
           </div>
         </div>
       </div>
@@ -384,7 +385,7 @@ export default {
         /** 所屬機構 */
         affiliation: null,
         /** 推薦單位 */
-        service_unit: '無選擇推薦單位'
+        service_unit: null
       },
       /** 榮民生日 */
       birth_dt: null,
@@ -592,7 +593,6 @@ export default {
       }
     },
     pmsSubmit () {
-      this.pmsSubmitLoading = true;
       // 檢查眷屬資料是否有欄位是空值
       this.verifyPms.idno = this.pmsRequestData.idno !== null;
       this.verifyPms.pmsrel = this.pmsRequestData.pmsrel !== null;
@@ -601,6 +601,7 @@ export default {
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verifyPms).every(e => e === true);
       if (submitOk) {
+        this.pmsSubmitLoading = true;
         this.$axios.post(`${this.env.apiPath}/events/checkIdType`, this.pmsRequestData, {
           headers: {
             Authorization: `Bearer ${this.idToken}`
@@ -763,6 +764,22 @@ $from-txt: #818181;
   }
 }
 
+select {
+  border: 0;
+  text-align: right;
+  color: $from-txt;
+  font-size: 1rem;
+  height: 38px;
+  background: #f8f8f8;
+  outline: none;
+  &.pmsrel {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+  }
+}
+
 .small-warning {
   height: 19px;
   font-size: 80%;
@@ -851,56 +868,6 @@ $from-txt: #818181;
   }
 }
 
-/** 下拉選單 */
-::v-deep .el-select {
-  width: 100%;
-    .el-input__inner {
-    text-align: right;
-    background: none;
-    border: none;
-    font-size: 1rem;
-    &::placeholder {
-      color: #818181;
-      font-size: 1rem;
-    }
-    &:focus {
-      background: none;
-      border: none;
-      font-size: 1rem;
-    }
-  }
-  .el-input.is-focus {
-    .el-input__inner {
-      background: none;
-      border: none;
-      font-size: 1rem;
-    }
-  }
-}
-
-::v-deep .el-select-dropdown__list {
-  .el-select-dropdown__item {
-    text-align: right;
-  }
-}
-
-::v-deep .el-select-dropdown__list {
-  .el-select-dropdown__item {
-    display: flex;
-  }
-}
-
-::v-deep .el-select-dropdown__item.hover,
-.el-select-dropdown__item:hover {
-  background-color: #fffef2;
-}
-
-.popperstyle {
-  .selected {
-    color: #818181;
-    background: #fffef2;
-  }
-}
 .pms {
   position: relative;
   .small-warning {
@@ -946,18 +913,6 @@ $from-txt: #818181;
     &:active,
     &:visited {
       border: 1px solid #fd5f00;
-    }
-  }
-  .el-select {
-    width: 100%;
-    .el-input__inner {
-      border: 1px solid #c4c4c4;
-    }
-    .el-input.is-focus {
-      .el-input__inner {
-        background: none;
-        border: 1px solid #fd5f00;
-      }
     }
   }
 }

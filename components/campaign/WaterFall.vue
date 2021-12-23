@@ -104,7 +104,8 @@ export default {
     },
     waterFallType: {
       type: String,
-      required: true
+      default: 'STORE',
+      required: false
     }
   },
   data () {

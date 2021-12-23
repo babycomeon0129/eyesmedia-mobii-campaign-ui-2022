@@ -14,7 +14,7 @@
         />
       </div>
       <!-- 服務icon -->
-      <div class="channel-icon">
+      <div v-if="campainData.icons.length > 0" class="channel-icon">
         <div class="for-pc">
           <SwiperIcon :icon-option="boxIconPC" :icons="campainData.icons" />
         </div>
@@ -289,6 +289,7 @@ export default {
       typeCode: 'store',
       data: eventData.storeTabs.map(data => data.stores)
     });
+    console.log(eventData);
     return {
       params: context.params,
       /** 活動資料 */
@@ -493,6 +494,7 @@ export default {
     }
   },
   mounted () {
+    // 更多資訊的繼續閱讀功能
     const noticeEl = document.querySelector('.channel-footer .content');
     if (noticeEl.offsetHeight >= 59) {
       this.isOpenRead = true;
@@ -500,6 +502,7 @@ export default {
     this.updateTime = document.lastModified;
     // 偵測瀑布流是否要加載
     window.addEventListener('scroll', () => {
+      // 是否到底部
       const IS_BOTTOM = document.documentElement.scrollHeight - document.documentElement.scrollTop <= document.documentElement.clientHeight;
       if (IS_BOTTOM) {
         this.loadMore();
@@ -511,6 +514,7 @@ export default {
       setLogin: 'setLogin',
       setDrawerOpen: 'setDrawerOpen'
     }),
+    /** 下載更多（瀑布流下載更多資料） */
     loadMore () {
       if (!this.waterFallRequest.load) {
         this.waterFallRequest.paginationInfo.pageIndex++;

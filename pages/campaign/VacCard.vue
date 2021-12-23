@@ -772,6 +772,8 @@ select {
   height: 38px;
   background: #f8f8f8;
   outline: none;
+  -webkit-appearance:none;
+  direction: rtl;
   &.pmsrel {
     width: 100%;
     background: #fff;

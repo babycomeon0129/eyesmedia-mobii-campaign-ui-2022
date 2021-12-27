@@ -107,7 +107,7 @@ export default {
     font-size: small;
   }
 }
-// mene icon
+// menu icon
 .menu-icon {
   display: inline-block;
   cursor: pointer;

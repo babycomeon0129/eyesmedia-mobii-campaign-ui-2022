@@ -13,13 +13,13 @@
         <!-- 登入 -->
         <div v-show="!isLogin" class="channel-header-item">
           <span class="hi-user" style="display: none;">Hi 訪客訪客訪客訪客訪客訪客</span>
-          <a class="btn channel-btn" :href="`${loginUrl}/Login?fromOriginUri=${redirectUrl}/campaign/${eventId}`">
+          <a v-show="eventId !== 'klook'" class="btn channel-btn" :href="`${loginUrl}/Login?fromOriginUri=${redirectUrl}/campaign/${eventId}`">
             登入/註冊
           </a>
         </div>
         <!-- menu -->
         <div v-show="isLogin" class="channel-header-item">
-          <el-dropdown trigger="click" @visible-change="openMenu = $event">
+          <el-dropdown v-show="eventId !== 'klook'" trigger="click" @visible-change="openMenu = $event">
             <div class="menu-icon" :class="{'change': openMenu}">
               <div class="bar1" />
               <div class="bar2" />

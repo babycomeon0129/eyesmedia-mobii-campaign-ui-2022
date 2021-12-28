@@ -28,6 +28,11 @@
       <div style="display: none;">
         version: {{ env.version }} | {{ updateTime }}
       </div>
+      <!-- KLOOK版位l -->
+      <section v-if="params.eventId === 'klook'" class="channel-section">
+        <!-- eslint-disable vue/no-v-html -->
+        <div v-html="klookBlock.serchBlock" />
+      </section>
       <!-- 中間大廣告 -->
       <div class="big-banner">
         <SwiperBanner
@@ -115,6 +120,14 @@
           />
         </div>
       </section>
+      <!-- KLOOK iframe 版位 -->
+      <template v-if="params.eventId === 'klook'">
+        <section v-for="(klook, idx) in klookBlock.iframeBlock" :key="`klook-iframe${idx}`" class="channel-section">
+          <h6>{{ klook.title }}</h6>
+          <!-- eslint-disable vue/no-v-html -->
+          <div v-html="klook.block" />
+        </section>
+      </template>
       <!-- 瀑布流 -->
       <section class="channel-section">
         <h6>{{ campainData.waterfallBlockName }}</h6>
@@ -310,8 +323,30 @@ export default {
           totalPages: eventData.paginationInfo.totalPages,
           totalNumber: eventData.paginationInfo.totalNumber
         }
+      },
+      klookBlock: {
+        serchBlock: '<ins class="klook_aff_search_box" data-wid="27786" data-height="340px" data-adid="575965" data-lang="zh-TW" data-prod="search_vertical" data-currency="TWD"><a href="//www.klook.com/?aid=">Klook.com</a></ins>',
+        iframeBlock: [{
+          title: '最新玩法 雙層巴士',
+          block: '<ins class="klk-aff-widget" data-adid="576053" data-lang="" data-currency="" data-cardH="126" data-padding="92" data-lgH="470" data-edgeValue="655" data-prod="static_widget" data-amount="3"><a href="//www.klook.com/">Klook.com</a></ins>'
+        },
+        {
+          title: '聚餐吃好料',
+          block: '<ins class="klk-aff-widget" data-adid="575957" data-lang="zh-TW" data-currency="TWD" data-cardH="126" data-padding="92" data-lgH="470" data-edgeValue="655" data-cid="19" data-tid="4" data-amount="3" data-prod="dynamic_widget"><a href="//www.klook.com/">Klook.com</a></ins>'
+        },
+        {
+          title: '暖呼呼泡湯',
+          block: '<ins class="klk-aff-widget" data-adid="576039" data-lang="" data-currency="" data-cardH="126" data-padding="92" data-lgH="470" data-edgeValue="655" data-cid="6488" data-tid="3" data-amount="3" data-prod="dynamic_widget"><a href="//www.klook.com/">Klook.com</a></ins>'
+        },
+        {
+          title: '走春出遊去',
+          block: '<ins class="klk-aff-widget" data-adid="576027" data-lang="" data-currency="" data-cardH="126" data-padding="92" data-lgH="470" data-edgeValue="655" data-cid="42" data-tid="1" data-amount="3" data-prod="dynamic_widget"><a href="//www.klook.com/">Klook.com</a></ins>'
+        },
+        {
+          title: '耍廢宅度假',
+          block: '<ins class="klk-aff-widget" data-adid="576035" data-lang="" data-currency="" data-cardH="126" data-padding="92" data-lgH="470" data-edgeValue="655" data-cid="20" data-tid="" data-amount="3" data-prod="hotel_dynamic_widget"><a href="//www.klook.com/">Klook.com</a></ins>'
+        }]
       }
-
     };
   },
   data () {
@@ -507,6 +542,13 @@ export default {
         this.loadMore();
       }
     });
+    // Klook js 嵌入
+    const scriptKlookSerch = document.createElement('script');
+    scriptKlookSerch.innerHTML = "(function(d, sc, u) { var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0]; s.type = 'text/javascript'; s.async = true; s.src = u; p.parentNode.insertBefore(s,p); })(document, 'script', 'https://cdn.klook.com/s/dist_web/klook-affiliate-front/s/dist/desktop/search_vertical_v3.js')";
+    document.body.appendChild(scriptKlookSerch);
+    const scriptKlookIframe = document.createElement('script');
+    scriptKlookIframe.innerHTML = "(function (d, sc, u) { var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0]; s.type = 'text/javascript'; s.async = true; s.src = u; p.parentNode.insertBefore(s, p); })( document, 'script', 'https://affiliate.klook.com/widget/fetch-iframe-init.js') ";
+    document.body.appendChild(scriptKlookIframe);
   },
   methods: {
     ...mapMutations('campaign', {

@@ -14,9 +14,17 @@
               <div class="products-content">
                 <div class="products-img">
                   <div class="img-box">
+                    <!-- 除了商店以外的模板圖片抓大圖 -->
                     <div
-                      v-lazy:background-image="inside.img"
+                      v-if="panesMode !== 'store'"
+                      v-lazy:background-image="inside.img === null ? defaultbkimg : inside.img"
                       class="rwdimg-cover"
+                    />
+                    <!-- 商店模板圖片抓logo -->
+                    <div
+                      v-if="panesMode === 'store'"
+                      v-lazy:background-image="inside.logo === null ? defaultlogo : inside.logo"
+                      class="rwdimg-cover contain"
                     />
                   </div>
                 </div>
@@ -61,7 +69,12 @@
 </template>
 
 <script>
+// 商店模板預設logo
 import { directive } from 'vue-awesome-swiper';
+// 商店模板預設背景圖
+import defaultbkimg from '@/static/images/campaign/voucher_defaultbkimg.png';
+// 商店模板預設logo
+import defaultlogo from '@/static/images/campaign/voucher_defaultlogo.png';
 
 export default {
   name: 'SwiperPanes',
@@ -97,6 +110,12 @@ export default {
       default: true,
       required: false
     }
+  },
+  data () {
+    return {
+      defaultlogo,
+      defaultbkimg
+    };
   },
   methods: {
     /** 數字轉台幣 */

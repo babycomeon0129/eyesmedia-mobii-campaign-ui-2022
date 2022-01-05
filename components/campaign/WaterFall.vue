@@ -73,7 +73,7 @@
           </div>
           <div class="store-content">
             <div class="store-logo">
-              <div v-lazy:background-image="inside.logo === null ? defaultlogo : inside.logo " class="rwdimg-cover logoimg" />
+              <div v-lazy:background-image="inside.logo === null ? defaultlogo : inside.logo " class="rwdimg-cover logoimg contain" />
             </div>
             <p>{{ inside.name }}</p>
             <div class="storetype">

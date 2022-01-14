@@ -947,6 +947,7 @@ select {
     left: auto;
     right: auto;
     text-align: left;
+    height: auto;
   }
 }
 

@@ -181,7 +181,8 @@
         <i class="material-icons">error_outline</i>若有問題請洽退輔會24小時服務專線：(02)2725-5700，或免付費服務電話：0800-212-154、0800-212-510
       </p>
     </div>
-    <!-- 提醒視窗 -->
+
+    <!-- dialog: 提醒視窗 -->
     <el-dialog
       :title="dialogOption.title"
       :visible.sync="dialogOption.show"
@@ -218,13 +219,14 @@
             {{ item.name }}
           </option>
         </select>
-        <!-- 身分證錯誤提示 -->
-        <div v-if="!verifyPms.pmsidno && verifyPms.pmsidno !== null" class="row pms">
-          <div class="col-12 small-warning">
-            身分證字號輸入不正確
-          </div>
-        </div>
+
       </div>
+      <!-- 身分證錯誤提示 -->
+      <div class="col-12 pmsidno-error" v-if="!verifyPms.pmsidno && verifyPms.pmsidno !== null">
+        <div class="col-12 small-warning" v-if="pmsRequestData.pmsidno !== requestData.idno">身分證字號輸入不正確</div>
+        <div class="col-12 small-warning" v-if="pmsRequestData.pmsidno === requestData.idno">依附榮民身分證號與申請人(眷屬)身分證號相同，請重新輸入！</div>
+      </div>
+
       <span slot="footer" class="dialog-footer">
         <!-- 返回專頁 -->
         <nuxt-link
@@ -241,9 +243,8 @@
         <button
           v-show="dialogOption.type === 3"
           type="button"
-          class="btn send col-5"
-          :class="{'unable': pmsRequestData.pmsidno === null || pmsRequestData.pmsrel === null || pmsSubmitLoading}"
-          :disabled="pmsRequestData.pmsidno === null || pmsRequestData.pmsrel === null || pmsSubmitLoading"
+          :class="['btn send col-5', {'unable': !pmsRequestCanClick}]"
+          :disabled="!pmsRequestCanClick"
           @click="pmsSubmit"
         >
           <span v-if="pmsSubmitLoading"><i class="el-icon-loading" /></span>
@@ -524,6 +525,19 @@ export default {
       ]
     };
   },
+  computed: {
+    // 提醒視窗的榮民眷屬資料中送出按鈕是否可以點擊
+    pmsRequestCanClick () {
+      if (
+        !this.getTwID(this.pmsRequestData.pmsidno) ||
+        this.pmsRequestData.pmsrel === null ||
+        this.pmsSubmitLoading
+      ) {
+        return false;
+      }
+      return true;
+    }
+  },
   created () {
     if (this.isReplace) {
       this.$router.replace({ path: '/campaign/VacCard' });
@@ -594,12 +608,18 @@ export default {
         });
       }
     },
+    /** dialog 提醒視窗中送出 */
     pmsSubmit () {
       // 檢查眷屬資料是否有欄位是空值
       this.verifyPms.idno = this.pmsRequestData.idno !== null;
       this.verifyPms.pmsrel = this.pmsRequestData.pmsrel !== null;
       // 驗證身分證字號是否正確
       this.verifyPms.pmsidno = this.getTwID(this.pmsRequestData.pmsidno);
+      // 檢查榮民與眷屬身份證號碼是否相同
+      if (this.pmsRequestData.pmsidno === this.requestData.idno) {
+        this.verifyPms.pmsidno = false;
+        return false;
+      }
       // 檢查verify內的東西是否都是true
       const submitOk = Object.values(this.verifyPms).every(e => e === true);
       if (submitOk) {
@@ -644,6 +664,9 @@ export default {
      * @param pid 身分證字號
      */
     getTwID (pid) {
+      if (!pid) {
+        return false;
+      }
       pid = pid.trim();
       const regExpID = /^[A-Z]{1}[1-2]{1}[0-9]{8}$/;
       // 先驗證格式是否正確
@@ -918,6 +941,12 @@ select {
     &:visited {
       border: 1px solid #fd5f00;
     }
+  }
+  .pmsidno-error .small-warning {
+    position: relative;
+    left: auto;
+    right: auto;
+    text-align: left;
   }
 }
 

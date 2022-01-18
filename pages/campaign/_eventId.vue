@@ -1,5 +1,5 @@
 <template>
-  <div class="channel-wrap">
+  <div class="channel-wrap">???????嘿嘿嘿
     <CampaignHeader :title-img="campainData.eventsVm.mktEventLogo" :login-url="env.mobii" :redirect-url="env.domain" :event-id="params.eventId" />
     <main>
       <!-- 首頁大圖輪播 -->

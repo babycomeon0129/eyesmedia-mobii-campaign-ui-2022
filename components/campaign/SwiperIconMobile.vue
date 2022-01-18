@@ -5,12 +5,11 @@
         <div
           v-for="(icon, idx) in icons"
           :key="icon.id"
-          class="swiper-slide"
-          :class="{'d-none': idx > 8}"
+          :class="['swiper-slide', {'d-none': icons.length > 10 && idx > 8}]"
         >
           <div class="item">
             <!-- if Function_IsActive == 0,  <a> class add 'disable'-->
-            <a :href="icon.url" :target="'_'+ icon.target">
+            <a :href="icon.url" :target="'_' + icon.target">
               <div class="img-box">
                 <img v-lazy="icon.img" :alt="icon.name">
               </div>
@@ -18,7 +17,7 @@
             </a>
           </div>
         </div>
-        <div class="swiper-slide">
+        <div class="swiper-slide" v-if="icons.length > 10">
           <a @click="setDrawerOpen(true)">
             <div class="img-box">
               <img
@@ -55,7 +54,6 @@ export default {
       setDrawerOpen: 'setDrawerOpen'
     })
   }
-
 };
 </script>
 

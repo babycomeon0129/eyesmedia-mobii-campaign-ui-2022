@@ -248,7 +248,7 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      color: #FF9D42;
+      color: $default-color;
       @media screen and (max-width: 768px) {
         font-size: 1.3em;
       }
@@ -283,7 +283,7 @@ export default {
     }
   }
   .voucher-type {
-    background: #FFBE5B;
+    background: $channel-color1;
     color: #fff;
     font-size: .1em;
     padding: 2px;
@@ -310,12 +310,12 @@ export default {
     }
   }
   .exchange {
-    border: 1px solid #FF9D42;
-    color: #FF9D42;
+    border: 1px solid $default-color;
+    color: $default-color;
     font-size: small;
     width: 100%;
     &:hover {
-      background: #FF9D42;
+      background: $default-color;
       color: #fff;
     }
   }
@@ -372,7 +372,7 @@ export default {
       padding: 1.5em 1em 1em 1em;
     }
     p {
-      color: #FF9D42;
+      color: $default-color;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -385,7 +385,7 @@ export default {
     font-size: xx-small;
     padding: .3em 0;
     i {
-      color: #FF9D42;
+      color: $default-color;
       font-size: medium;
       vertical-align: bottom;
       margin-bottom: 1px;

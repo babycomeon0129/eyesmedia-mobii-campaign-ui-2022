@@ -87,14 +87,14 @@ export default {
 /** button */
 .channel-btn {
   background: #fff;
-  border: 1px solid #ff8c05;
-  color: #ff8c05;
+  border: 1px solid $header-color;
+  color: $header-color;
   border-radius: 30px;
   padding: 0.25em 1em;
   box-shadow: 0px 2.75px 9.625px -1.375px rgba(147, 137, 117, 0.2);
   margin: 0 0.5em;
   &:hover {
-    background: #ff8c05;
+    background: $header-color;
     color: #fff;
   }
 }
@@ -112,7 +112,7 @@ export default {
   display: inline-block;
   cursor: pointer;
   &:focus {
-    outline:none;
+    outline: none;
   }
 }
 
@@ -143,7 +143,7 @@ export default {
 
 // menu list
 ::v-deep.el-dropdown-menu {
-  background: #13334C;
+  background: $default-txt;
   border:none;
   .el-dropdown-menu__item {
     transition: .3s;
@@ -167,7 +167,7 @@ export default {
   }
   .popper__arrow {
     &::after {
-      border-bottom-color: #13334C;
+      border-bottom-color: $default-txt;
     }
   }
 }

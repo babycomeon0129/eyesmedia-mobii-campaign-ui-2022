@@ -102,10 +102,7 @@ export default {
 
   // 全域的scss檔
   styleResources: {
-    scss: [
-      // '~/assets/scss/variables.scss',
-      // '~/assets/scss/common.scss',
-    ]
+    scss: ['@/assets/styles/*.scss']
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -130,7 +127,8 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxtjs/google-analytics',
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    '@nuxtjs/style-resources'
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

@@ -182,7 +182,7 @@ export default {
   }
   p {
     font-size: small;
-    color: #182B56;
+    color: $alink-color;
     line-height: 1.5;
     text-align: left;
   }

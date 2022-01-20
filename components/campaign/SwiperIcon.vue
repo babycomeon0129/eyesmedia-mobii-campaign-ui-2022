@@ -58,7 +58,7 @@ export default {
 .icon-box {
   position: relative;
   font-size: medium;
-  background: #ffffff;
+  background: #fff;
   box-shadow: 0px 2px 7px -1px rgba(147, 137, 117, 0.2);
   border-radius: 30px;
   padding: 1em 1.5em;
@@ -67,7 +67,6 @@ export default {
     background-color: #fff;
     border-radius: 10px;
     padding: 0;
-    //border: 1px solid #b0b0b0;
   }
   .swiper-wrapper {
     display: -moz-inline-box;
@@ -98,7 +97,7 @@ export default {
       height: 3.2em;
     }
     a {
-      color: #182b56;
+      color: $alink-color;
       &.disable {
         color: gray;
         img {
@@ -132,7 +131,7 @@ export default {
     letter-spacing: 0;
     text-transform: none;
     font-variant: initial;
-    color: #ff9d42;
+    color: $default-color;
   }
   // mobile
   @media (max-width: 767px) {
@@ -141,8 +140,8 @@ export default {
     margin: 0 1em;
     .img-box {
       img {
-        width: 48px;
-        height: 48px;
+        width: $imgbox-img;
+        height: $imgbox-img;
       }
     }
   }

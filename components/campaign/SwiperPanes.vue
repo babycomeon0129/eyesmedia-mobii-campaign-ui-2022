@@ -198,7 +198,7 @@ export default {
       margin: 0.25em 0.5em;
     }
     p {
-      color: #ffb26b;
+      color: $channel-color2;
       font-size: small;
       font-weight: 700;
     }
@@ -235,7 +235,7 @@ export default {
       height: 1.2em;
     }
     .sellprice {
-      color: #ffb26b;
+      color: $channel-color2;
       font-size: small;
       font-weight: 700;
     }
@@ -246,7 +246,7 @@ export default {
   .channel-content {
     text-align: left;
     p {
-      color: #FF9D42;
+      color: $default-color;
       font-size: small;
       font-weight: 700;
       text-overflow: ellipsis;
@@ -258,7 +258,7 @@ export default {
       font-size: xx-small;
       padding: .3em 0;
       i {
-        color: #FF9D42;
+        color: $default-color;
         font-size: medium;
         vertical-align: bottom;
         margin-bottom: 1px;
@@ -295,10 +295,10 @@ export default {
     width: 1.75em;
     height: 1.75em;
     font-size: medium;
-    color: #ffb26b;
+    color: $channel-color2;
     background-color: white;
     border-radius: 50%;
-    border: 1px solid #ffb26b;
+    border: 1px solid $channel-color2;
     @media (max-width: 767px) {
       font-size: small;
     }
@@ -325,7 +325,7 @@ export default {
     opacity: 1;
     background: #dadada;
     &-active {
-      background-color: #ffb26b;
+      background-color: $channel-color2;
     }
   }
   .rwdimg-cover {

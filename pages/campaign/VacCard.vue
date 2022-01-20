@@ -219,12 +219,15 @@
             {{ item.name }}
           </option>
         </select>
-
       </div>
       <!-- 身分證錯誤提示 -->
-      <div class="col-12 pmsidno-error" v-if="!verifyPms.pmsidno && verifyPms.pmsidno !== null">
-        <div class="col-12 small-warning" v-if="pmsRequestData.pmsidno !== requestData.idno">身分證字號輸入不正確</div>
-        <div class="col-12 small-warning" v-if="pmsRequestData.pmsidno === requestData.idno">依附榮民身分證號與申請人(眷屬)身分證號相同，請重新輸入！</div>
+      <div v-if="!verifyPms.pmsidno && verifyPms.pmsidno !== null" class="col-12 pmsidno-error">
+        <div v-if="pmsRequestData.pmsidno !== requestData.idno" class="col-12 small-warning">
+          身分證字號輸入不正確
+        </div>
+        <div v-if="pmsRequestData.pmsidno === requestData.idno" class="col-12 small-warning">
+          依附榮民身分證號與申請人(眷屬)身分證號相同，請重新輸入！
+        </div>
       </div>
 
       <span slot="footer" class="dialog-footer">
@@ -700,8 +703,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../../assets/styles/_vars";
-$from-txt: #818181;
 
 .channel-header .channel-header-box .channel-header-item {
   white-space: nowrap;
@@ -711,7 +712,7 @@ $from-txt: #818181;
 .channel-header-title {
   flex: 2;
   font-size: x-large;
-  color: #13334c;
+  color: $default-txt;
   height: $header-height;
   line-height: 200%;
 }
@@ -774,14 +775,14 @@ $from-txt: #818181;
     width: 135px;
     display: flex;
     align-items: center;
-    color: #13334c;
+    color: $default-txt;
   }
   input {
     border: none;
     background: none;
     text-align: right;
     &::placeholder {
-      color: #818181;
+      color: $from-txt;
     }
     &:focus {
       outline: none;
@@ -856,13 +857,13 @@ select {
   padding: 1em 0;
   display: flex;
   label {
-    color: #13334c;
+    color: $default-txt;
     text-align: left;
   }
 }
 
 .col-12.isVac {
-  color: #13334c;
+  color: $default-txt;
   padding: 50px;
   h2 {
     margin-bottom: 18px;
@@ -871,7 +872,7 @@ select {
 .foot-btn {
   position: fixed;
   min-width: 320px;
-  max-width: 1093px;
+  max-width: $container-width;
   bottom: 0;
   width: 100%;
   padding: 1em;
@@ -917,7 +918,7 @@ select {
   }
   .el-dialog__body {
     padding: 1em 2em;
-    color: #13334c;
+    color: $default-txt;
     font-size: medium;
     text-align: left;
   }
@@ -939,7 +940,7 @@ select {
     &:focus,
     &:active,
     &:visited {
-      border: 1px solid #fd5f00;
+      border: 1px solid $default-icon;
     }
   }
   .pmsidno-error .small-warning {
@@ -965,7 +966,7 @@ select {
     font-size: 1rem;
     padding-right: 0.75rem;
     &::placeholder {
-      color: #818181;
+      color: $from-txt;
       font-size: 1rem;
     }
     &:focus {

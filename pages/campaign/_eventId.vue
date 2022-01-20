@@ -620,7 +620,7 @@ export default {
     width: 100%;
     text-align: left;
     padding-bottom: 0.5em;
-    color: #13334c;
+    color: $default-txt;
     font-size: 1.2rem;
   }
   .channel-swiper-box {
@@ -655,35 +655,34 @@ export default {
     border-radius: 8px;
     opacity: 1;
     background: #dadada;
-    &-active {
-      background-color: #ffb26b;
+    &.active {
+      background-color: $channel-color2;
     }
   }
 }
 
 /** 頻道樣式 */
-.channel-template1 {
-  background: #ffbe5b;
+.channel-template1,
+.channel-template2,
+.channel-template3,
+.channel-template4 {
   overflow: hidden;
   padding: 0 0.5em;
+}
+.channel-template1 {
+  background: $channel-color1;
 }
 .channel-template2 {
-  background: #ffb26b;
-  overflow: hidden;
-  padding: 0 0.5em;
+  background: $channel-color2;
 }
 .channel-template3 {
-  background: #FE9060;
+  background: $channel-color3;
   background-size: cover;
-  overflow: hidden;
-  padding: 0 0.5em;
 }
 
 .channel-template4 {
-  background: #FE8660;;
+  background: $channel-color4;
   background-size: cover;
-  overflow: hidden;
-  padding: 0 0.5em;
 }
 
 /** 我的服務 */
@@ -695,7 +694,7 @@ export default {
   z-index: 3;
   background: transparent;
   &.open {
-    background: white;
+    background: #fff;
     width: 100vw;
     height: 100vh;
     display: inline-flex;
@@ -716,7 +715,7 @@ export default {
       flex-grow: 1;
       padding: .5em .15em;
       min-width: 10%;
-      color: #818181;
+      color: $from-txt;
       @media (max-width: 767px) {
         min-width: 20%;
         flex-grow: inherit;
@@ -727,14 +726,14 @@ export default {
         padding-top: 6px;
       }
       img {
-        width: 48px;
-        height: 48px;
+        width: $imgbox-img;
+        height: $imgbox-img;
         border-radius: 16px;
       }
     }
   }
   a {
-      color: #182b56;
+      color: $alink-color;
       &.disable {
         color: gray;
         img {
@@ -753,7 +752,7 @@ export default {
   color: #717171;
   text-align: left;
   a {
-    color: #FF9D42;
+    color: $default-color;
   }
   .content{
     height: 4.5em;
@@ -775,41 +774,6 @@ export default {
 
 <!-- element UI modal style -->
 <style lang="scss">
-.modal-style {
-  border-radius: 20px;
-  width: 500 px;
-  @media (max-width: 767px) {
-    width: 95%;
-  }
-  .el-message-box__title {
-    text-align: center;
-    color: #13334c;
-    font-weight: 700;
-    font-size: x-large;
-    line-height: 180%;
-  }
-  .el-message-box__message {
-    padding: 1em;
-    font-size: medium;
-    color: #717171;
-    line-height: 170%;
-  }
-  .el-message-box__content {
-    background: #F9F9F9;
-    max-height: 550px;
-    overflow-y: scroll;
-  }
-  .el-message-box__headerbtn {
-    i {
-      font-size: x-large;
-      color: #13334C;
-      &::before {
-        border: 1px solid #13334C;
-        border-radius: 99em;
-      }
-    }
-  }
-}
 
 /** dialog */
 .el-dialog {
@@ -826,7 +790,7 @@ export default {
   }
   .el-dialog__body {
     padding: 1em 2em;
-    color: #13334c;
+    color: $default-txt;
     font-size: medium;
     text-align: center;
   }
@@ -848,7 +812,7 @@ export default {
     &:focus,
     &:active,
     &:visited {
-      border: 1px solid #fd5f00;
+      border: 1px solid $default-icon;
     }
   }
   .el-select {
@@ -859,7 +823,7 @@ export default {
     .el-input.is-focus {
       .el-input__inner {
         background: none;
-        border: 1px solid #fd5f00;
+        border: 1px solid $default-icon;
       }
     }
   }

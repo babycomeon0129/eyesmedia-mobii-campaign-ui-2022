@@ -187,19 +187,19 @@ export default {
     }
     p {
       font-size: small;
-      color: #717171;
+      color: $tooltip-color;
       font-weight: bold;
       min-height: 32px;
     }
     .spacialprice {
-      color: #c4c4c4;
+      color: $spacialprice-color;
       text-decoration: line-through;
       font-size: 0.7em;
       height: 1.2em;
     }
     .sellprice {
       color: #FF4242;
-      font-size: medium;
+      font-size: $default-txt-size;
       font-weight: 700;
     }
   }
@@ -228,7 +228,7 @@ export default {
   }
   .voucher-content {
     position: relative;
-    color: #717171;
+    color: $tooltip-color;
     text-align: left;
     padding: .5em 0;
     font-size: small;
@@ -240,7 +240,7 @@ export default {
       font-size: .5em;
     }
     h4 {
-      font-size: medium;
+      font-size: $default-txt-size;
       padding: .5em 0 0 .5em;
       margin: 0;
       -webkit-line-clamp: 2;
@@ -381,12 +381,12 @@ export default {
     }
   }
   .storetype {
-    color: #717171;
+    color: $tooltip-color;
     font-size: xx-small;
     padding: .3em 0;
     i {
       color: $default-color;
-      font-size: medium;
+      font-size: $default-txt-size;
       vertical-align: bottom;
       margin-bottom: 1px;
     }

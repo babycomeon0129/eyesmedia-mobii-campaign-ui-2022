@@ -167,6 +167,12 @@
     </main>
     <!-- 申請按鈕 -->
     <div class="foot-btn" :class="{ 'isVac': isVac }">
+      <!-- 測試Dialog按鈕 -->
+      <!--div>
+        <button @click="dialogOption.show = true; dialogOption.type = 3">
+          測試Dialog按鈕
+        </button>
+      </div-->
       <button
         v-if="!isVac"
         class="btn send col-12"
@@ -184,6 +190,7 @@
 
     <!-- dialog: 提醒視窗 -->
     <el-dialog
+      class="campaign"
       :title="dialogOption.title"
       :visible.sync="dialogOption.show"
       :show-close="false"
@@ -741,7 +748,7 @@ export default {
     &.form-title {
       text-align: center;
       color: #005792;
-      border-bottom: #ced4da 1px solid;
+      border-bottom: $border-solid-1;
       padding: 0.3em 0;
     }
   }
@@ -752,7 +759,7 @@ export default {
 }
 
 .form {
-  border-bottom: #ced4da 1px solid;
+  border-bottom: $border-solid-1;
   position: relative;
   padding: 0.5em 0;
   &.error {
@@ -803,8 +810,9 @@ select {
   &.pmsrel {
     width: 100%;
     background: #fff;
-    border: 1px solid #ced4da;
+    border: $border-solid-1;
     border-radius: 8px;
+    padding-right: .75rem;
   }
 }
 
@@ -905,43 +913,8 @@ select {
 
 /** dialog */
 ::v-deep .el-dialog {
-  border-radius: 8px;
-  width: 30%;
-  @media (max-width: 960px) {
-    width: 50%;
-  }
-  @media (max-width: 767px) {
-    width: 70%;
-  }
-  .el-dialog__title {
-    font-weight: bold;
-  }
   .el-dialog__body {
-    padding: 1em 2em;
-    color: $default-txt;
-    font-size: medium;
     text-align: left;
-  }
-  .dialog-footer {
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    .closebtn {
-      text-align: center;
-      position: absolute;
-      bottom: -8em;
-    }
-  }
-  input {
-    margin: 1em 0 0.3em 0;
-    border-radius: 8px;
-    outline: none;
-    text-align: right;
-    &:focus,
-    &:active,
-    &:visited {
-      border: 1px solid $default-icon;
-    }
   }
   .pmsidno-error .small-warning {
     position: relative;

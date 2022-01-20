@@ -203,7 +203,7 @@ export default {
       font-weight: 700;
     }
     small {
-      color: #717171;
+      color: $tooltip-color;
       font-size: smaller;
     }
   }
@@ -224,12 +224,12 @@ export default {
       margin: 0.25em 0.5em;
     }
     p {
-      color: #717171;
+      color: $tooltip-color;
       font-size: small;
       font-weight: 700;
     }
     .spacialprice {
-      color: #c4c4c4;
+      color: $spacialprice-color;
       text-decoration: line-through;
       font-size: 0.7em;
       height: 1.2em;
@@ -254,12 +254,12 @@ export default {
       white-space: nowrap;
     }
     .storetype {
-      color: #717171;
+      color: $tooltip-color;
       font-size: xx-small;
       padding: .3em 0;
       i {
         color: $default-color;
-        font-size: medium;
+        font-size: $default-txt-size;
         vertical-align: bottom;
         margin-bottom: 1px;
       }
@@ -294,9 +294,9 @@ export default {
     padding-top: 4px;
     width: 1.75em;
     height: 1.75em;
-    font-size: medium;
+    font-size: $default-txt-size;
     color: $channel-color2;
-    background-color: white;
+    background-color: #fff;
     border-radius: 50%;
     border: 1px solid $channel-color2;
     @media (max-width: 767px) {

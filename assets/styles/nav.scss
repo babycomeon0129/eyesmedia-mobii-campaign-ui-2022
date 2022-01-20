@@ -139,7 +139,7 @@ ul.nav {
       border-bottom: none;
     }
     li {
-      font-size: medium;
+      font-size: $default-txt-size;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

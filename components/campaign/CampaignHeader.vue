@@ -102,7 +102,7 @@ export default {
 /** share style */
 .channel-header-item,
 .channel-btn {
-  font-size: medium;
+  font-size: $default-txt-size;
   @media (max-width: 767px) {
     font-size: small;
   }

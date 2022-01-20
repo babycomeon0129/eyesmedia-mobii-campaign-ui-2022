@@ -57,7 +57,7 @@ export default {
 <style lang="scss" scoped>
 .icon-box {
   position: relative;
-  font-size: medium;
+  font-size: $default-txt-size;
   background: #fff;
   box-shadow: 0px 2px 7px -1px rgba(147, 137, 117, 0.2);
   border-radius: 30px;

@@ -148,9 +148,10 @@
         <a v-if="isOpenRead" @click="isOpenRead = false">〈繼續閱讀〉</a>
       </footer>
       <br>
+      <!-- 測試Dialog按鈕 -->
       <!--div class="block">
-        <button type="button" class="submit-button icon-ic_send">
-          測試GTM
+        <button type="button" class="submit-button icon-ic_send" @click="dialogVisible = true">
+          測試Dialog按鈕
         </button>
       </div-->
     </main>
@@ -191,6 +192,7 @@
       title="請重新登入"
       :visible.sync="dialogVisible"
       :show-close="false"
+      class="campaign"
     >
       <div class="col-12">
         登入失敗
@@ -749,7 +751,7 @@ export default {
   padding: 1em 2em;
   margin-bottom: 12em;
   font-size: small;
-  color: #717171;
+  color: $tooltip-color;
   text-align: left;
   a {
     color: $default-color;
@@ -767,65 +769,6 @@ export default {
     height: auto;
     -webkit-line-clamp:unset;
   }
-  }
-}
-
-</style>
-
-<!-- element UI modal style -->
-<style lang="scss">
-
-/** dialog */
-.el-dialog {
-  border-radius: 8px;
-  width: 30%;
-  @media (max-width: 960px) {
-    width: 50%;
-  }
-  @media (max-width: 767px) {
-    width: 70%;
-  }
-  .el-dialog__title {
-    font-weight: bold;
-  }
-  .el-dialog__body {
-    padding: 1em 2em;
-    color: $default-txt;
-    font-size: medium;
-    text-align: center;
-  }
-  .dialog-footer {
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    .closebtn {
-      text-align: center;
-      position: absolute;
-      bottom: -8em;
-    }
-  }
-  input {
-    margin: 1em 0 0.3em 0;
-    border-radius: 8px;
-    outline: none;
-    text-align: right;
-    &:focus,
-    &:active,
-    &:visited {
-      border: 1px solid $default-icon;
-    }
-  }
-  .el-select {
-    width: 100%;
-    .el-input__inner {
-      border: 1px solid #c4c4c4;
-    }
-    .el-input.is-focus {
-      .el-input__inner {
-        background: none;
-        border: 1px solid $default-icon;
-      }
-    }
   }
 }
 

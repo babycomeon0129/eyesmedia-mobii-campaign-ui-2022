@@ -10,34 +10,49 @@
         <div class="channel-header-title">
           <img v-lazy="titleImg">
         </div>
-        <!-- 登入 -->
-        <div v-show="!isLogin" class="channel-header-item">
-          <span class="hi-user" style="display: none;">Hi 訪客訪客訪客訪客訪客訪客</span>
-          <a v-show="eventId !== 'klook'" class="btn channel-btn" :href="`${loginUrl}/Login?fromOriginUri=${redirectUrl}/campaign/${eventId}`">
-            登入/註冊
-          </a>
-        </div>
-        <!-- menu -->
-        <div v-show="isLogin" class="channel-header-item">
-          <el-dropdown v-show="eventId !== 'klook'" trigger="click" @visible-change="openMenu = $event">
-            <div class="menu-icon" :class="{'change': openMenu}">
-              <div class="bar1" />
-              <div class="bar2" />
-              <div class="bar3" />
-            </div>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item><a :href="`${loginUrl}/Member`" target="_blank"><img src="@/static/images/campaign/icon/icon-menber.png" class="rwdimgmax" alt="我的會員頁">我的會員頁</a></el-dropdown-item>
-                <el-dropdown-item><a :href="`${loginUrl}/MemberFunction/MemberCard?showBack=true`" target="_blank"><img src="@/static/images/campaign/icon/icon-card.png" class="rwdimgmax" alt="我的卡片">我的卡片</a></el-dropdown-item>
-                <!-- 榮福專案專有選項 -->
-                <el-dropdown-item v-if="isVac">
-                  <nuxt-link to="/campaign/VacCard">
-                    <img src="@/static/images/campaign/icon/icon-addcard.png" class="rwdimgmax" alt="申請榮福卡">申請榮福卡
-                  </nuxt-link>
-                </el-dropdown-item>
-              </el-dropdown-menu>
+        <div class="channel-header-item">
+          <template v-if="mktEventLoginDisplay === 'Y'">
+            <!-- 未登入 -->
+            <template v-if="!isLogin">
+              <span class="hi-user" style="display: none;">Hi 訪客訪客訪客訪客訪客訪客</span>
+              <a class="btn channel-btn" :href="`${loginUrl}/Login?fromOriginUri=${redirectUrl}/campaign/${eventId}`">
+                登入/註冊
+              </a>
             </template>
-          </el-dropdown>
+            <!-- 已登入 -->
+            <template v-else>
+              <el-dropdown trigger="click" @visible-change="openMenu = $event">
+                <div class="menu-icon" :class="{'change': openMenu}">
+                  <div class="bar1" />
+                  <div class="bar2" />
+                  <div class="bar3" />
+                </div>
+                <!-- menu -->
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item>
+                      <a :href="`${loginUrl}/Member`" target="_blank">
+                        <img src="@/static/images/campaign/icon/icon-menber.png" class="rwdimgmax" alt="我的會員頁">
+                        我的會員頁
+                      </a>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                      <a :href="`${loginUrl}/MemberFunction/MemberCard?showBack=true`" target="_blank">
+                        <img src="@/static/images/campaign/icon/icon-card.png" class="rwdimgmax" alt="我的卡片">
+                        我的卡片
+                      </a>
+                    </el-dropdown-item>
+                    <!-- 榮福專案專有選項 -->
+                    <el-dropdown-item v-if="isVac">
+                      <nuxt-link to="/campaign/VacCard">
+                        <img src="@/static/images/campaign/icon/icon-addcard.png" class="rwdimgmax" alt="申請榮福卡">申請榮福卡
+                      </nuxt-link>
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
+            </template>
+          </template>
         </div>
       </div>
     </div>
@@ -59,6 +74,10 @@ export default {
       type: String,
       default: '',
       required: true
+    },
+    mktEventLoginDisplay: {
+      type: String,
+      default: 'Y'
     },
     redirectUrl: {
       type: String,

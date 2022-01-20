@@ -1,6 +1,12 @@
 <template>
   <div class="channel-wrap">
-    <CampaignHeader :title-img="campainData.eventsVm.mktEventLogo" :login-url="env.mobii" :redirect-url="env.domain" :event-id="params.eventId" />
+    <CampaignHeader
+      :title-img="campainData.eventsVm.mktEventLogo"
+      :login-url="env.mobii"
+      :redirect-url="env.domain"
+      :event-id="params.eventId"
+      :mktEventLoginDisplay="campainData.eventsVm.mktEventLoginDisplay"
+    />
     <main>
       <!-- 首頁大圖輪播 -->
       <div class="top-banner">
@@ -246,6 +252,7 @@ export default {
         Authorization: `Bearer ${idToken}`
       }
     });
+
     // 判斷是否登入成功
     switch (callApi.data.errorCode) {
       // 登入成功
@@ -370,7 +377,7 @@ export default {
           el: '.swiper-pagination',
           clickable: true
         },
-        slidesPerView: 1,
+        slidesPerView: 1.2,
         spaceBetween: 10,
         autoplay: {
           delay: 3000,

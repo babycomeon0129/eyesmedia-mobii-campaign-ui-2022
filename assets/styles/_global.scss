@@ -278,7 +278,7 @@ input {
 /** main */
 main {
   margin-top: $header-height;
-  height: calc(100vh - 56px);
+  height: calc(100vh - #{$header-height});
   width: 100%;
 }
 

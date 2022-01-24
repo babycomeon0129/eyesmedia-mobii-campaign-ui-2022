@@ -5,7 +5,7 @@
       :login-url="env.mobii"
       :redirect-url="env.domain"
       :event-id="params.eventId"
-      :mktEventLoginDisplay="campainData.eventsVm.mktEventLoginDisplay"
+      :mkt-event-login-display="campainData.eventsVm.mktEventLoginDisplay"
     />
     <main>
       <!-- 首頁大圖輪播 -->

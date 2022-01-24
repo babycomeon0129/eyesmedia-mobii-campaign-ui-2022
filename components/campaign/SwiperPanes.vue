@@ -135,17 +135,9 @@ export default {
 <style lang="scss" scoped>
 .tab-content {
   padding-top: 0.75em;
-  // min-height: 165px;
   @media (max-width: 767px) {
-    // min-height: 230px;
     padding-top: 0.25em;
   }
-  // @media (max-width: 480px) {
-  //   min-height: -webkit-fill-available;
-  // }
-  // @media (min-width: 768px) {
-  //   min-height: 230px;
-  // }
 }
 
 /** 專屬新聞 */

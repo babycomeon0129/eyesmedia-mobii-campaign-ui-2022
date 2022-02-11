@@ -289,7 +289,7 @@
 export default {
   name: 'VacCard',
   middleware (context) {
-    context.$gtm.push({ event: 'sit網站瀏覽' });
+    context.$gtm.push({ event: `${context.env.SIDE_ENV.env}一頁式活動頁-榮福卡申請` });
   },
   async asyncData (context) {
     /** 提示dialog Option */
@@ -320,10 +320,14 @@ export default {
       }
     });
     let isVac = false;
+    /** User ID */
+    const userID = vacData.data.user_id;
+    /// GTM增加user id
+    context.$gtm.push({ user_id: userID });
     const responseData = JSON.parse(vacData.data.data);
     // 判斷是否登入成功
     switch (vacData.data.errorCode) {
-      // 登入成功
+      // 登入成功對
       case '996600001':
         isVac = responseData.isBind;
         // 如果idtoken跟cookie token不同，就更新cookie token
@@ -550,12 +554,13 @@ export default {
     if (this.isReplace) {
       this.$router.replace({ path: '/campaign/VacCard' });
     }
+    this.$gtm.push({ user_id: 'create' });
   },
   updated () {
     this.pmsRequestData.idno = this.requestData.idno;
   },
   mounted () {
-    // ...
+    this.$gtm.push({ user_id: 'mounted' });
   },
   methods: {
     /** 立即申請（第一次送出資料） */

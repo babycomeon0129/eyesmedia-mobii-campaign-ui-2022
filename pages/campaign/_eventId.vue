@@ -291,6 +291,10 @@ export default {
         break;
     }
     const eventData = JSON.parse(callApi.data.data);
+    /** User ID */
+    const userID = callApi.data.user_id;
+    // GTM增加user id
+    context.$gtm.push({ user_id: userID });
     context.store.commit({
       type: 'campaign/setNewTab',
       typeCode: 'card',
@@ -355,7 +359,8 @@ export default {
           title: '耍廢宅度假',
           block: '<ins class="klk-aff-widget" data-adid="576035" data-lang="" data-currency="" data-cardH="126" data-padding="92" data-lgH="470" data-edgeValue="655" data-cid="20" data-tid="" data-amount="3" data-prod="hotel_dynamic_widget"><a href="//www.klook.com/">Klook.com</a></ins>'
         }]
-      }
+      },
+      userID
     };
   },
   data () {
@@ -535,6 +540,7 @@ export default {
         this.$router.push({ path: '/error404' });
         break;
     }
+    this.$gtm.push({ user_id: this.userID });
   },
   mounted () {
     // 更多資訊的繼續閱讀功能
@@ -558,6 +564,9 @@ export default {
     const scriptKlookIframe = document.createElement('script');
     scriptKlookIframe.innerHTML = "(function (d, sc, u) { var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0]; s.type = 'text/javascript'; s.async = true; s.src = u; p.parentNode.insertBefore(s, p); })( document, 'script', 'https://affiliate.klook.com/widget/fetch-iframe-init.js') ";
     document.body.appendChild(scriptKlookIframe);
+    // gtm user id
+    // this.$gtm.push({ set: { user_id: this.userID } });
+    this.$gtm.push({ user_id: this.userID });
   },
   methods: {
     ...mapMutations('campaign', {

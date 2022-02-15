@@ -724,7 +724,7 @@ export default {
     },
     /** 生日格式過濾特殊符號 */
     birthdayCheck () {
-      this.birth_dt = this.birth_dt.replace(/[<>&'"/:-@{}$!%^*]/g, '');
+      this.birth_dt = this.birth_dt.replace(/[<>&'"/:-]/g, '');
     }
   }
 };

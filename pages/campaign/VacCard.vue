@@ -26,7 +26,7 @@
       <div v-if="!isVac" class="channel-section">
         <div class="row">
           <div class="col-12 form-title">
-            驗證資料--
+            驗證資料
           </div>
         </div>
         <div class="row form" :class="{ 'error': !verify.idtype && verify.idtype !== null }">

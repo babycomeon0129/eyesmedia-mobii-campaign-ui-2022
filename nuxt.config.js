@@ -24,7 +24,7 @@ const envObj = {
       mobii: 'https://sit.mobii.ai',
       domain: 'https://sit-events.mobii.ai',
       GA: 'GTM-N22PP3B',
-      host: '172.31.15.223',
+      host: '172.31.15.220',
       port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',
       cert: '/etc/pki/eyesmedia/mobii_20210112.pem',

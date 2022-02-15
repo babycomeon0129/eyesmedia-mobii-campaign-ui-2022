@@ -36,9 +36,7 @@
               <span class="impt">*</span>
             </label>
             <div class="forminput">
-              <select
-                v-model="requestData.idtype"
-              >
+              <select v-model="requestData.idtype">
                 <option :value="null" style="display: none;">
                   請選擇
                 </option>
@@ -56,7 +54,10 @@
             <span v-if="!verify.idtype && verify.idtype !== null">請選擇身份別</span>
           </div>
         </div>
-        <div class="row form" :class="{ 'error': (!verify.idno && verify.idno !== null) || idnoApplied }">
+        <div
+          class="row form"
+          :class="{ 'error': (!verify.idno && verify.idno !== null) || idnoApplied }"
+        >
           <div class="col-12 identity">
             <label>
               身分證字號
@@ -79,14 +80,21 @@
             <span v-if="idnoApplied">此身分證字號已申請過</span>
           </div>
         </div>
-        <div class="row form" :class="{ 'error': !verify.birth_dt && verify.birth_dt !== null}">
+        <div class="row form" :class="{ 'error': !verify.birth_dt && verify.birth_dt !== null }">
           <div class="col-12 identity">
             <label>
               生日
               <span class="impt">*</span>
             </label>
             <div class="forminput">
-              <input v-model="birth_dt" type="text" placeholder="月/日，例：0101" maxlength="4" minlength="4">
+              <input
+                v-model="birth_dt"
+                type="text"
+                placeholder="月/日，例：0101"
+                maxlength="4"
+                minlength="4"
+                @keyup="birthdayCheck()"
+              >
             </div>
           </div>
           <div class="col-12 small-warning">
@@ -95,13 +103,9 @@
         </div>
         <div class="row form">
           <div class="col-12 identity">
-            <label>
-              推薦單位
-            </label>
+            <label>推薦單位</label>
             <div class="forminput">
-              <select
-                v-model="requestData.service_unit"
-              >
+              <select v-model="requestData.service_unit">
                 <option :value="null" style="display: none;">
                   請選擇
                 </option>
@@ -176,11 +180,13 @@
       <button
         v-if="!isVac"
         class="btn send col-12"
-        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || birth_dt === null|| !reCaptcha || onSubmitLoading}"
-        :disabled="!agree || requestData.idno === null || requestData.idtype === null || birth_dt === null|| !reCaptcha || onSubmitLoading"
+        :class="{ 'unable': !agree || requestData.idno === null || requestData.idtype === null || birth_dt === null || !reCaptcha || onSubmitLoading }"
+        :disabled="!agree || requestData.idno === null || requestData.idtype === null || birth_dt === null || !reCaptcha || onSubmitLoading"
         @click="onSubmit()"
       >
-        <span v-if="onSubmitLoading"><i class="el-icon-loading" /></span>
+        <span v-if="onSubmitLoading">
+          <i class="el-icon-loading" />
+        </span>
         <span v-if="!onSubmitLoading">立即申請</span>
       </button>
       <p v-if="isVac">
@@ -210,28 +216,27 @@
           required
           placeholder="請輸入所屬榮民身分證號"
         >
-        <select
-          v-model="pmsRequestData.pmsrel"
-          class="pmsrel"
-        >
+        <select v-model="pmsRequestData.pmsrel" class="pmsrel">
           <option :value="null" style="display: none;">
             請選擇稱謂，您是榮民的
           </option>
-          <option
-            v-for="item in pmsrel"
-            :key="item.value"
-            :value="item.value"
-          >
+          <option v-for="item in pmsrel" :key="item.value" :value="item.value">
             {{ item.name }}
           </option>
         </select>
       </div>
       <!-- 身分證錯誤提示 -->
       <div v-if="!verifyPms.pmsidno && verifyPms.pmsidno !== null" class="col-12 pmsidno-error">
-        <div v-if="pmsRequestData.pmsidno !== requestData.idno" class="col-12 small-warning">
+        <div
+          v-if="pmsRequestData.pmsidno !== requestData.idno"
+          class="col-12 small-warning"
+        >
           身分證字號輸入不正確
         </div>
-        <div v-if="pmsRequestData.pmsidno === requestData.idno" class="col-12 small-warning">
+        <div
+          v-if="pmsRequestData.pmsidno === requestData.idno"
+          class="col-12 small-warning"
+        >
           依附榮民身分證號與申請人(眷屬)身分證號相同，請重新輸入！
         </div>
       </div>
@@ -242,20 +247,26 @@
           to="/campaign/VAC"
           type="button"
           class="btn col-5"
-          :class="{'goBack': dialogOption.type === 1 || dialogOption.type === 3, 'send': dialogOption.type === 5}"
-        >
-          返回專頁</nuxt-link>
+          :class="{ 'goBack': dialogOption.type === 1 || dialogOption.type === 3, 'send': dialogOption.type === 5 }"
+        >返回專頁</nuxt-link>
         <!-- 前往登入註冊 -->
-        <a v-show="dialogOption.type === 1" :href="`${env.mobii}/Login?fromOriginUri=${env.domain}/campaign/VAC`" type="button" class="btn send col-5">登入註冊</a>
+        <a
+          v-show="dialogOption.type === 1"
+          :href="`${env.mobii}/Login?fromOriginUri=${env.domain}/campaign/VAC`"
+          type="button"
+          class="btn send col-5"
+        >登入註冊</a>
         <!-- 送出榮民眷屬資料 -->
         <button
           v-show="dialogOption.type === 3"
           type="button"
-          :class="['btn send col-5', {'unable': !pmsRequestCanClick}]"
+          :class="['btn send col-5', { 'unable': !pmsRequestCanClick }]"
           :disabled="!pmsRequestCanClick"
           @click="pmsSubmit"
         >
-          <span v-if="pmsSubmitLoading"><i class="el-icon-loading" /></span>
+          <span v-if="pmsSubmitLoading">
+            <i class="el-icon-loading" />
+          </span>
           <span v-if="!pmsSubmitLoading">送出</span>
         </button>
         <!-- 重新輸入 -->
@@ -266,7 +277,12 @@
           @click="dialogOption.show = false"
         >重新輸入</button>
         <div class="col-12 closebtn">
-          <button v-show="dialogOption.type !== 1 && dialogOption.type !== 6" type="button" class="btn close" @click="dialogOption.show = false">
+          <button
+            v-show="dialogOption.type !== 1 && dialogOption.type !== 6"
+            type="button"
+            class="btn close"
+            @click="dialogOption.show = false"
+          >
             <img src="@/static/images/campaign/icon/icon-close.png">
           </button>
         </div>
@@ -276,9 +292,7 @@
           type="button"
           class="btn send col-12"
           to="/campaign/VAC"
-        >
-          我知道了
-        </nuxt-link>
+        >我知道了</nuxt-link>
       </span>
     </el-dialog>
   </div>
@@ -538,7 +552,7 @@ export default {
     };
   },
   computed: {
-    // 提醒視窗的榮民眷屬資料中送出按鈕是否可以點擊
+    /** 提醒視窗的榮民眷屬資料中送出按鈕是否可以點擊 */
     pmsRequestCanClick () {
       if (
         !this.getTwID(this.pmsRequestData.pmsidno) ||
@@ -695,7 +709,7 @@ export default {
         pid = String(conver.indexOf(pid[0]) + 10) + pid.slice(1, -1);
         // 計算身分證字號計算公式
         for (let i = 0; i < pid.length; i++) {
-        // 檢查碼每一位數（轉數字）
+          // 檢查碼每一位數（轉數字）
           const c = parseInt(pid[i]);
           // 相乘的指定常數
           const w = weights[i];
@@ -707,13 +721,16 @@ export default {
       } else {
         return false;
       }
+    },
+    /** 生日格式過濾特殊符號 */
+    birthdayCheck () {
+      this.birth_dt = this.birth_dt.replace(/[<>&'"/:-@{}$!%^*]/g, '');
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-
 .channel-header .channel-header-box .channel-header-item {
   white-space: nowrap;
   width: auto;
@@ -808,14 +825,14 @@ select {
   height: 38px;
   background: #f8f8f8;
   outline: none;
-  -webkit-appearance:none;
+  -webkit-appearance: none;
   direction: rtl;
   &.pmsrel {
     width: 100%;
     background: #fff;
     border: $border-solid-1;
     border-radius: 8px;
-    padding-right: .75rem;
+    padding-right: 0.75rem;
   }
 }
 

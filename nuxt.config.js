@@ -23,7 +23,7 @@ const envObj = {
       apiPath: 'https://sit-api.mobii.ai/campaign/api/v1',
       mobii: 'https://sit.mobii.ai',
       domain: 'https://sit-events.mobii.ai',
-      GA: 'GTM-N22PP3B',
+      GA: '222222',
       host: '172.31.15.223',
       port: 8080,
       key: '/etc/pki/eyesmedia/server_mobii_202101.key',

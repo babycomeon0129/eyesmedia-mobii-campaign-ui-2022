@@ -394,7 +394,9 @@ export default {
       /** 提示dialog Option */
       dialogOption,
       /** 是否需要rePlace */
-      isReplace
+      isReplace,
+      /** 使用者ID */
+      userID
     };
   },
   data () {
@@ -574,7 +576,7 @@ export default {
     this.pmsRequestData.idno = this.requestData.idno;
   },
   mounted () {
-    this.$gtm.push({ user_id: 'mounted' });
+    this.$gtm.push({ user_id: this.userID });
   },
   methods: {
     /** 立即申請（第一次送出資料） */

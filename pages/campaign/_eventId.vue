@@ -337,6 +337,8 @@ export default {
           totalNumber: eventData.paginationInfo.totalNumber
         }
       },
+      /** 使用者ID */
+      userID,
       klookBlock: {
         serchBlock: '<ins class="klook_aff_search_box" data-wid="27786" data-height="340px" data-adid="575965" data-lang="zh-TW" data-prod="search_vertical" data-currency="TWD"><a href="//www.klook.com/?aid=">Klook.com</a></ins>',
         iframeBlock: [{
@@ -562,6 +564,8 @@ export default {
     const scriptKlookIframe = document.createElement('script');
     scriptKlookIframe.innerHTML = "(function (d, sc, u) { var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0]; s.type = 'text/javascript'; s.async = true; s.src = u; p.parentNode.insertBefore(s, p); })( document, 'script', 'https://affiliate.klook.com/widget/fetch-iframe-init.js') ";
     document.body.appendChild(scriptKlookIframe);
+    // client side gtm
+    this.$gtm.push({ user_id: this.userID });
   },
   methods: {
     ...mapMutations('campaign', {

@@ -570,7 +570,6 @@ export default {
     if (this.isReplace) {
       this.$router.replace({ path: '/campaign/VacCard' });
     }
-    this.$gtm.push({ user_id: 'create' });
   },
   updated () {
     this.pmsRequestData.idno = this.requestData.idno;

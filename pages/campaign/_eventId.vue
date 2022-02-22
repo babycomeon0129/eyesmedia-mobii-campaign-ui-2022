@@ -482,18 +482,22 @@ export default {
           prevEl: '.swiper-button-prev'
         },
         slidesPerView: 3,
+        slidesPerGroup: 3,
         spaceBetween: 10,
         breakpoints: {
           570: {
             slidesPerView: 3,
+            slidesPerGroup: 3,
             spaceBetween: 10
           },
           768: {
             slidesPerView: 4,
+            slidesPerGroup: 4,
             spaceBetween: 10
           },
           1024: {
             slidesPerView: 5,
+            slidesPerGroup: 5,
             spaceBetween: 10
           }
         },

@@ -32,7 +32,7 @@
       </div>
       <!-- 偷偷埋版號 -->
       <div style="display: none;">
-        version: {{ env.version }} | {{ updateTime }} -d1
+        version: {{ env.version }} | {{ updateTime }}
       </div>
       <!-- KLOOK版位l -->
       <section v-if="params.eventId === 'klook'" class="channel-section">

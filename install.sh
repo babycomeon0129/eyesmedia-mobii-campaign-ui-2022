@@ -18,8 +18,8 @@ cd /usr/services/eyesmedia/apps/eyesmedia-mobii-campaign-ui
 
 nvm use v14.17.5
 #npm install 12.18.2 &&
-npm install npm@8.3.1 &&
-npm run build-sit
+#npm install npm@8.3.1 &&
+#npm run build-sit
 npm run start-sit
 #123mb nb mb j n kj hgj bh 
 #lknlknklnlkblbbkj
